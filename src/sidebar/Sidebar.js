@@ -1,6 +1,5 @@
 import './Sidebar.css'; 
 import home from '../images/1946488.png'
-import explore from '../images/magnifying-glass.svg';
 import tranding from '../images/hot_fire_flame_trend_creative_trending_icon_212616.png'
 import music from '../images/music.png'
 import sports from '../images/sport.png'
