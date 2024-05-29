@@ -1,6 +1,44 @@
-.my-nav {
-    position: relative;
-    float: right;
-    background-color: black;
-    font-size: 90px;
+
+a {
+    color: black;
+    font-size: 20px;
+}
+
+.d-flex .container-fluid{
+    display: flex !important;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.me-2 {
+    border-radius: 8px;
+    width: 400px;
+    border-color: grey;
+    border-width: 1px;
+}
+
+.btn {
+    border-radius: 8px;
+    border-color: grey;
+    border-width: 1px;
+    color: transparent;
+    align-items: center;
+    text-align: center;
+}
+.img {
+    width: 18px;
+    height: 18px;
+}
+.logo {
+    width: 29px;
+    height: 29px;
+    justify-items: center;
+    align-items: center;
+}
+
+.btn:hover {
+    background-color: rgb(193, 190, 190);
+}
+.navbar-brand {
+    font-weight: 700;
 }
