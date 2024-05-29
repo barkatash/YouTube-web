@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "image":"eyal.png",
+    "title": "Introduction to JavaScript",
+    "uploader": "BarKatash",
+    "duration": "45:00",
+    "visits": "15K",
+    "uploadDate": "2 months ago"
+  },
+  {
+    "id": 2,
+    "image":"eyal.png",
+    "title": "Justin Bieber - Baby",
+    "uploader": "JustinBieber",
+    "duration": "3:02",
+    "visits": "3B",
+    "uploadDate": "12 years ago"
+  },
+  {
+    "id": 3,
+    "image":"eyal.png",
+    "title": "אייל גולן - עם ישראל חי",
+    "uploader": "EyalGolan",
+    "duration": "3:34",
+    "visits": "21M",
+    "uploadDate": "7 months ago"
+  }
+
+]

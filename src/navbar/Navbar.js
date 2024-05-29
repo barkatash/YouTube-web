@@ -1,7 +1,15 @@
+import { useEffect, useState } from 'react';
 import img1 from '../images/magnifying-glass.svg';
 import watch from '../images/youtubelogo.svg';
 
-function Navbar() {
+function Navbar( videoList, setVideoList) {
+    const [searchedVideo, setSearchedVideo] = useState('');
+    const onSearchVideo = (event) => {
+        setSearchedVideo(event.target.value);
+    }
+    useEffect(() => {
+        //setVideoList(videoList.filter);
+    },[searchedVideo])
     return (
         <div>
             <nav className="navbar navbar-expand bg-body-tertiary">
@@ -11,7 +19,7 @@ function Navbar() {
                     <span className="navbar-toggler-icon"></span>
                     </button>
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search"></input>
+                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={onSearchVideo}></input>
                         <button className="btn" type="submit">
                         <img className="img" src={img1}></img>
                         </button>
