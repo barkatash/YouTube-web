@@ -1,8 +1,12 @@
 .video-image {
-    width: 200px;
-    height: 200px;
+    width: 340px;
+    height: 210px;
 }
 
 .card {
-    
+    border: 0;
+}
+
+.card-text {
+    font-size: 14px;
 }

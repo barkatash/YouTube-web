@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "image":"eyal.png",
+    "image":"js.png",
     "title": "Introduction to JavaScript",
     "uploader": "BarKatash",
     "duration": "45:00",
@@ -10,7 +10,7 @@
   },
   {
     "id": 2,
-    "image":"eyal.png",
+    "image":"baby.png",
     "title": "Justin Bieber - Baby",
     "uploader": "JustinBieber",
     "duration": "3:02",
@@ -25,6 +25,87 @@
     "duration": "3:34",
     "visits": "21M",
     "uploadDate": "7 months ago"
+  },
+  {
+    "id": 4,
+    "image":"diamonds.png",
+    "title": "Rihanna - Diamonds",
+    "uploader": "Rihanna",
+    "duration": "4:42",
+    "visits": "2.3B",
+    "uploadDate": "11 years ago"
+  },
+  {
+    "id": 5,
+    "image":"ed.png",
+    "title": "Ed Sheeran - Perfect (Official Music Video)",
+    "uploader": "Ed Sheeran",
+    "duration": "4:39",
+    "visits": "3.7B",
+    "uploadDate": "6 years ago"
+  },
+  {
+    "id": 6,
+    "image":"hurricane.png",
+    "title": "Eden Golan - Hurricane | Israel 🇮🇱 | Official Music Video | Eurovision 2024",
+    "uploader": "Eurovision Song Contest",
+    "duration": "3:06",
+    "visits": "7.9M",
+    "uploadDate": "2 months ago"
+  },
+  {
+    "id": 7,
+    "image":"images.png",
+    "title": "Americans Try Israeli Snacks",
+    "uploader": "BuzzFeedVideo",
+    "duration": "3:01",
+    "visits": "5.8M",
+    "uploadDate": "9 years ago"
+  },
+  {
+    "id": 8,
+    "image":"adir.png",
+    "title": "אדיר מילר מאלתר במוקד מכבי - מאושרת, מאושרת, מאושרת",
+    "uploader": "MaccabiHealthcare",
+    "duration": "2:28",
+    "visits": "1.9M",
+    "uploadDate": "8 years ago"
+  },
+  {
+    "id": 9,
+    "image":"14.png",
+    "title": "הפטריוטים עם ינון מגל | 14.04.2024 | התכנית המלאה",
+    "uploader": "עכשיו 14",
+    "duration": "1:24:34",
+    "visits": "28K",
+    "uploadDate": "1 month ago"
+  },
+  {
+    "id": 10,
+    "image":"nba.png",
+    "title": "Top 100 NBA Plays of 2021",
+    "uploader": "NBA",
+    "duration": "32:20",
+    "visits": "7.4M",
+    "uploadDate": "12 years ago"
+  },
+  {
+    "id": 11,
+    "image":"maxresdefault.png",
+    "title": "Stephen Curry's Top 35 Career Plays",
+    "uploader": "NBA",
+    "duration": "13:01",
+    "visits": "5.5M",
+    "uploadDate": "1 year ago"
+  },
+  {
+    "id": 12,
+    "image":"osher.png",
+    "title": "אושר כהן - אהבה",
+    "uploader": "Osher Cohen Music",
+    "duration": "3:27",
+    "visits": "28M",
+    "uploadDate": "11 months ago"
   }
 
 ]
