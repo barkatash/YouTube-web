@@ -42,3 +42,7 @@ a {
 .navbar-brand {
     font-weight: 700;
 }
+.serach {
+    width: 100% !important;
+    border-radius: 15px;
+}

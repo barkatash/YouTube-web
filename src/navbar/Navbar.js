@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import img1 from '../images/magnifying-glass.svg';
 import watch from '../images/youtubelogo.svg';
+import './Navbar.css'; 
 
 function Navbar( videoList, setVideoList) {
     const [searchedVideo, setSearchedVideo] = useState('');
@@ -19,7 +20,7 @@ function Navbar( videoList, setVideoList) {
                     <span className="navbar-toggler-icon"></span>
                     </button>
                     <form className="d-flex" role="search">
-                        <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" onChange={onSearchVideo}></input>
+                        <input className="form-control me-2 serach" type="search" placeholder="Search" aria-label="Search" onChange={onSearchVideo}></input>
                         <button className="btn" type="submit">
                         <img className="img" src={img1}></img>
                         </button>
