@@ -27,19 +27,18 @@ function App() {
             <VideoList matchedVideos={matchedVideos}/></div>
         </div>
       </div> */}
-      <div className="container-fluid text-center">
-        <div className="row">
-          <div className="col-7 video-page">
-            <WatchVideo {...videos[1]}/>
-            <AddComment />
-            <CommentsList />
-          </div>
-          <div className="col-5 vh-100">
-            <VideoListSidebar />
-          </div>
+      <div className="container-fluid">
+      <div className="row video-page">
+        <div className="col-md-8">
+          <WatchVideo {...videos[1]} />
+          <AddComment />
+          <CommentsList />
+        </div>
+        <div className="col-md-4">
+          <VideoListSidebar />
         </div>
       </div>
-      
+    </div>
     </div>
   );
 }
