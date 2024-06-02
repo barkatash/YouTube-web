@@ -9,13 +9,28 @@
 
 .card-text {
     text-align: left !important;
+    font-size: 14px;
 }
 .btn-group {
-    justify-content: right;
     margin-right: 0px;
     width: 15%;
 }
+
 .share {
     font-size: 15px !important;
     font-weight: 500;
+}
+.btn-secondary {
+    font-weight: 500;
+    align-items: right;
+    display: flex;
+    
+}
+.uploader {
+    font-size: 15px;
+    font-weight: 400 !important;
+}
+
+.flex-container {
+
 }

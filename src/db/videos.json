@@ -9,6 +9,8 @@
     "visits": "15K",
     "uploadDate": "2 months ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 5
   },
   {
@@ -21,6 +23,8 @@
     "visits": "3B",
     "uploadDate": "12 years ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 2
   },
   {
@@ -33,6 +37,8 @@
     "visits": "21M",
     "uploadDate": "7 months ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 2
   },
   {
@@ -45,6 +51,8 @@
     "visits": "2.3B",
     "uploadDate": "11 years ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 2
   },
   {
@@ -56,6 +64,8 @@
     "visits": "3.7B",
     "uploadDate": "6 years ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 2
   },
   {
@@ -68,6 +78,8 @@
     "visits": "7.9M",
     "uploadDate": "2 months ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 2
   },
   {
@@ -80,6 +92,8 @@
     "visits": "5.8M",
     "uploadDate": "9 years ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 1
   },
   {
@@ -92,6 +106,8 @@
     "visits": "1.9M",
     "uploadDate": "8 years ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 1
   },
   {
@@ -104,6 +120,8 @@
     "visits": "28K",
     "uploadDate": "1 month ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 3
   },
   {
@@ -116,6 +134,8 @@
     "visits": "7.4M",
     "uploadDate": "12 years ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 4
   },
   {
@@ -128,6 +148,8 @@
     "visits": "5.5M",
     "uploadDate": "1 year ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 4
   },
   {
@@ -140,6 +162,8 @@
     "visits": "28M",
     "uploadDate": "11 months ago",
     "decription": "",
+    "likes": 20,
+    "dislikes": 2,
     "categoryId": 2
   }
 

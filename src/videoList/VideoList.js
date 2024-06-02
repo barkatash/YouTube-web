@@ -1,6 +1,5 @@
 
 import Video from '../video/Video';
-import './VideoList.css'
 
 
 function VideoList( {matchedVideos} ) {
