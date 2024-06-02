@@ -43,6 +43,6 @@ a {
     font-weight: 700;
 }
 .serach {
-    width: 510px !important;
-    border-radius: 15px;
+    width: 75vh !important;
+    border-radius: 20px;
 }

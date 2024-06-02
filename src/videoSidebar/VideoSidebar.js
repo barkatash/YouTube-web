@@ -6,7 +6,7 @@ function VideoSidebar( { image, title, uploader, visits, duration, uploadDate } 
                 <img src={image} className="img-fluid" alt="Image Description" style={{ maxWidth: '30%' }} />
                 <div className="ml-3">
                 <p className="card-title mb-0">{title}</p>
-                <p className="card-text mb-0">{uploader}</p>
+                <p className="card-text text-muted">{uploader}</p>
                 <p className="card-text">
                     <small className="text-muted">
                     {visits} • {uploadDate}
