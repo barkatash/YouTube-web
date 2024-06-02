@@ -6,7 +6,8 @@
     "uploader": "BarKatash",
     "duration": "45:00",
     "visits": "15K",
-    "uploadDate": "2 months ago"
+    "uploadDate": "2 months ago",
+    "categoryId": 5
   },
   {
     "id": 2,
@@ -15,7 +16,8 @@
     "uploader": "JustinBieber",
     "duration": "3:02",
     "visits": "3B",
-    "uploadDate": "12 years ago"
+    "uploadDate": "12 years ago",
+    "categoryId": 2
   },
   {
     "id": 3,
@@ -24,7 +26,8 @@
     "uploader": "EyalGolan",
     "duration": "3:34",
     "visits": "21M",
-    "uploadDate": "7 months ago"
+    "uploadDate": "7 months ago",
+    "categoryId": 2
   },
   {
     "id": 4,
@@ -33,7 +36,8 @@
     "uploader": "Rihanna",
     "duration": "4:42",
     "visits": "2.3B",
-    "uploadDate": "11 years ago"
+    "uploadDate": "11 years ago",
+    "categoryId": 2
   },
   {
     "id": 5,
@@ -42,7 +46,8 @@
     "uploader": "Ed Sheeran",
     "duration": "4:39",
     "visits": "3.7B",
-    "uploadDate": "6 years ago"
+    "uploadDate": "6 years ago",
+    "categoryId": 2
   },
   {
     "id": 6,
@@ -51,7 +56,8 @@
     "uploader": "Eurovision Song Contest",
     "duration": "3:06",
     "visits": "7.9M",
-    "uploadDate": "2 months ago"
+    "uploadDate": "2 months ago",
+    "categoryId": 2
   },
   {
     "id": 7,
@@ -60,7 +66,8 @@
     "uploader": "BuzzFeedVideo",
     "duration": "3:01",
     "visits": "5.8M",
-    "uploadDate": "9 years ago"
+    "uploadDate": "9 years ago",
+    "categoryId": 1
   },
   {
     "id": 8,
@@ -69,16 +76,18 @@
     "uploader": "MaccabiHealthcare",
     "duration": "2:28",
     "visits": "1.9M",
-    "uploadDate": "8 years ago"
+    "uploadDate": "8 years ago",
+    "categoryId": 1
   },
   {
     "id": 9,
     "image":"14.png",
     "title": "הפטריוטים עם ינון מגל | 14.04.2024 | התכנית המלאה",
-    "uploader": "עכשיו 14",
+    "uploader": "Now 14",
     "duration": "1:24:34",
     "visits": "28K",
-    "uploadDate": "1 month ago"
+    "uploadDate": "1 month ago",
+    "categoryId": 3
   },
   {
     "id": 10,
@@ -87,7 +96,8 @@
     "uploader": "NBA",
     "duration": "32:20",
     "visits": "7.4M",
-    "uploadDate": "12 years ago"
+    "uploadDate": "12 years ago",
+    "categoryId": 4
   },
   {
     "id": 11,
@@ -96,7 +106,8 @@
     "uploader": "NBA",
     "duration": "13:01",
     "visits": "5.5M",
-    "uploadDate": "1 year ago"
+    "uploadDate": "1 year ago",
+    "categoryId": 4
   },
   {
     "id": 12,
@@ -105,7 +116,8 @@
     "uploader": "Osher Cohen Music",
     "duration": "3:27",
     "visits": "28M",
-    "uploadDate": "11 months ago"
+    "uploadDate": "11 months ago",
+    "categoryId": 2
   }
 
 ]

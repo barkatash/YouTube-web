@@ -12,48 +12,48 @@ import videos from '../images/video.png'
 function Sidebar() {
   return (
       <ul className="list-group">
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={home}></img>Home
           <span className="badge text-bg-primary rounded-pill">14</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         Explore
           <span className="badge text-bg-primary rounded-pill">2</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={tranding}></img>Trending
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={music}></img>Music
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={news}></img>News
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={sports}></img>Sports
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
         <hr></hr>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
           You   {'>'}
           <span className="badge text-bg-primary rounded-pill">14</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={channel}></img>Your channel
           <span className="badge text-bg-primary rounded-pill">2</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={history}></img>History
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={videos}></img>Your videos
           <span className="badge text-bg-primary rounded-pill">14</span>
         </li>
-        <li className="list-group-item d-flex justify-content-between align-items-center">
+        <li className="list-group-item d-flex justify-content-between align-items-center bg-light">
         <img className="small-logo" src={like}></img>Liked videos
           <span className="badge text-bg-primary rounded-pill">2</span>
         </li>

@@ -1,0 +1,26 @@
+[
+    {
+        "categoryId": 0,
+        "categoryName": "All"
+    },
+    {
+        "categoryId": 1,
+        "categoryName": "Entertainment"
+    },
+    {
+        "categoryId": 2,
+        "categoryName": "Music"
+    },
+    {
+        "categoryId": 3,
+        "categoryName": "Sports"
+    },
+    {
+        "categoryId": 4,
+        "categoryName": "News"
+    },
+    {
+        "categoryId": 5,
+        "categoryName": "Learning"
+    }
+]

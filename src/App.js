@@ -5,22 +5,22 @@ import Sidebar from './sidebar/Sidebar.js';
 import VideoList from './videoList/VideoList.js';
 import { useState } from 'react';
 import videos from './db/videos.json';
+import CategoryNavbar from './category/CategoryNavbar.js';
+import categories from "./db/categories.json"
 
 function App() {
 
   const [ matchedVideos, setmatchedVideos ] = useState(videos);
 
   return (
-    <div className="App">
+    <div className="App bg-light">
       <Navbar matchedVideos={matchedVideos} setmatchedVideos={setmatchedVideos}/>
       <div className="container-fluid text-center">
         <div className="row">
-          <div className="col-2" vh-100>
-            <Sidebar />
-          </div>
+          <div className="col-2 vh-100 bg-light"><Sidebar /></div>
           <div className="col-10">
-            <VideoList matchedVideos={matchedVideos}/>
-          </div>
+            <CategoryNavbar categories={categories}/>
+            <VideoList matchedVideos={matchedVideos}/></div>
         </div>
       </div>
     </div>
