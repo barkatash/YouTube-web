@@ -8,7 +8,7 @@ function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDat
     }
     return (
       <div className="container mt-3">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-start">
           <img
             src={image}
             className="img-fluid"
@@ -16,11 +16,10 @@ function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDat
             style={{ maxWidth: "30%" }}
             onClick={changeWatchedVideo}
           />
-          <div className="ml-3">
-            <p className="card-title mb-0">{title}</p>
-            <p className="card-text text-muted">{duration}</p>
-            <p className="card-text text-muted">{uploader}</p>
-            <p className="card-text">
+          <div className="ml-3 ml-3-video-side-bar">
+            <p className="card-title-sidebar mb-0">{title}</p>
+            <p className="card-text-sidebar text-muted">{uploader}</p>
+            <p className="card-text-sidebar">
               <small className="text-muted">
                 {visits} • {uploadDate}
               </small>

@@ -12,8 +12,8 @@ function WatchVideo({video, title, uploader, visits, decription, uploadDate, lik
           <source src={video} type="video/mp4"></source>
         </video>
         <div className="card-body">
-          <h5 className="card-title title-video-watch">{title}</h5>
-          <h5 className="card-title uploader">{uploader}</h5>
+          <h5 className="card-title title-video-watch watch-video-title">{title}</h5>
+          <h5 className="card-title uploader title-video-watch">{uploader}</h5>
           <div className="flex-container d-flex justify-content-end">
             <div className="btn-group" role="group" aria-label="Basic example">
               <button type="button" className="btn btn-secondary">
@@ -28,8 +28,8 @@ function WatchVideo({video, title, uploader, visits, decription, uploadDate, lik
               &nbsp;&nbsp;Share
             </button>
           </div>
-          <p className="card-text">{decription}</p>
-          <p className="card-text">
+          <p className="card-text title-video-watch">{decription}</p>
+          <p className="card-text title-video-watch">
             {visits} views &nbsp; {uploadDate}
           </p>
         </div>

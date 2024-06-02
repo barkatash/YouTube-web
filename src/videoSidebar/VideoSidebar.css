@@ -3,9 +3,10 @@
     height: 200px;
 }
 
-.card-title,
-.card-text {
+.card-text-sidebar {
     margin-bottom: 0.5rem;
+    font-size: 13px;
+
 }
 
 .img-fluid {
@@ -15,15 +16,17 @@
     display: block;
 }
 
-.ml-3 {
-    margin-left: 1rem;
-    padding: 0;
-}
 
 .container {
     padding: 0;
 }
 
-.card-title {
+.card-title-sidebar {
     font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+.ml-3-video-side-bar {
+    margin-left: 1rem;
+    padding: 0;
+    text-align: start;
 }

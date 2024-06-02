@@ -4,7 +4,7 @@ a {
     font-size: 20px;
 }
 
-.d-flex .container-fluid{
+.d-flex .container-fluid-navbar{
     display: flex !important;
     flex-direction: column;
     justify-content: space-between;
