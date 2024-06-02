@@ -3,21 +3,27 @@
     height: 200px;
 }
 
-.card-title, .card-text {
+.card-title,
+.card-text {
     margin-bottom: 0.5rem;
-  }
-  .img-fluid {
-    max-width: 100%; 
+}
+
+.img-fluid {
+    max-width: 100%;
     height: auto;
     padding: 0;
-  }
-  .ml-3 {
-    margin-left: 1rem; 
+    display: block;
+}
+
+.ml-3 {
+    margin-left: 1rem;
     padding: 0;
-  }
-  .container {
+}
+
+.container {
     padding: 0;
-  }
-  .card-title {
+}
+
+.card-title {
     font-weight: 500;
-  }
+}

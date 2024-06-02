@@ -1,7 +1,6 @@
-import comments from "../db/comments.json"
 import Comment from "../comment/Comment.js"
 
-function CommentsList() {
+function CommentsList( { comments }) {
     return ( 
         <div>
         { comments.map((comment, id) => (

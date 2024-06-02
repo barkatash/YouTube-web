@@ -11,10 +11,14 @@ import WatchVideo from './watchVideo/WatchVideo.js';
 import AddComment from './comment/AddComment.js';
 import CommentsList from './commentsList/CommentsList.js';
 import VideoListSidebar from './videoSidebar/VideoListSidebar.js';
+import comments from "./db/comments.json"
 
 function App() {
 
   const [ matchedVideos, setmatchedVideos ] = useState(videos);
+  const [ video, setWatchedVideo ] = useState(videos[2]);
+  const [key, setKey] = useState(0);
+
 
   return (
     <div className="App">
@@ -30,12 +34,12 @@ function App() {
       <div className="container-fluid">
       <div className="row video-page">
         <div className="col-md-8">
-          <WatchVideo {...videos[1]} />
+          <WatchVideo {...video} key={key}/>
           <AddComment />
-          <CommentsList />
+          <CommentsList comments={comments}/>
         </div>
         <div className="col-md-4">
-          <VideoListSidebar />
+          <VideoListSidebar setWatchedVideo={setWatchedVideo} setKey={setKey} />
         </div>
       </div>
     </div>
