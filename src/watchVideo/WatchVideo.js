@@ -1,38 +1,36 @@
 import './WatchVideo.css'; 
 import like from '../images/black-like.png';
 import unlike from '../images/unlike.png';
+import share from '../images/share.png';
 
-function WatchVideo({video, title, uploader, duration, visits, uploadDate}) {
+function WatchVideo({video, title, uploader, visits, decription, uploadDate, likes, dislikes}) {
   return (
     <div>
-        <br></br>
+      <br></br>
       <div className="card mb-3 bg-light">
         <video controls className="video">
-          <source src="/videos/video1.mp4" type="video/mp4"></source>
+          <source src={video} type="video/mp4"></source>
         </video>
         <div className="card-body">
-          <h5 className="card-title">Card title</h5>
-          <div className="flex-container">
-            <h5 className="card-title">uploader</h5>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+          <h5 className="card-title">{title}</h5>
+          <h5 className="card-title uploader">{uploader}</h5>
+          <div className="flex-container d-flex justify-content-end">
             <div className="btn-group" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-secondary"><img className="img" src={like}></img></button>
-                <button type="button" className="btn btn-secondary"><img className="img" src={unlike}></img></button>
+              <button type="button" className="btn btn-secondary">
+                <img className="img" src={like}></img>&nbsp;&nbsp;{likes}
+              </button>
+              <button type="button" className="btn btn-secondary">
+                <img className="img" src={unlike}></img>&nbsp;&nbsp;{dislikes}
+              </button>
             </div>
-            &nbsp;&nbsp;
-            <button type="button" className="btn btn-secondary share">Share</button>
+            <button type="button" className="btn btn-secondary share">
+              <img className="img" src={share}></img>
+              &nbsp;&nbsp;Share
+            </button>
           </div>
-          <br></br>
+          <p className="card-text">{decription}</p>
           <p className="card-text">
-            This is a wider card with supporting text below as a natural lead-in
-            to additional content. This content is a little bit longer.
-          </p>
-          <p className="card-text">
-            <small className="text-muted">Last updated 3 mins ago</small>
+            {visits} views &nbsp; {uploadDate}
           </p>
         </div>
       </div>

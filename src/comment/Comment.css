@@ -1,0 +1,13 @@
+.mb-1 {
+    text-align: left;
+}
+.comment-btn {
+    font-size: 13px;
+    border-color: transparent;
+    justify-self: left;
+    display: flex;
+}
+.flex-box {
+    display: flex;
+    flex-direction: row;
+}
