@@ -33,7 +33,7 @@ function Navbar( videoList, setVideoList) {
                         <a className="nav-link" href="#">Sign up</a>
                         </li>
                         <li className="nav-item">
-                        <a className="nav-link disabled" aria-disabled="true">Disabled</a>
+                        <a className="nav-link disabled" aria-disabled="true">Dark Mode</a>
                         </li>
                     </ul>
                     
