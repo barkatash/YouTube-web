@@ -20,3 +20,7 @@
 .card-title {
     font-weight: 700;
 }
+.card-video {
+    flex-direction: row !important;
+    text-align: start;
+}

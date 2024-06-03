@@ -3,7 +3,7 @@ import './Video.css'
 
 function Video({ image, title, uploader, duration, visits, uploadDate }) {
     return (
-      <div className="card bg-light">
+      <div className="card card-video">
         <div className="card-body">
           <img className="video-image" src={image} alt=''></img>
           <br></br> <br></br>

@@ -22,8 +22,8 @@ function App() {
   return (
     <div className="App">
       <Navbar matchedVideos={matchedVideos} setmatchedVideos={setmatchedVideos}/>
-      {/* <Homepage matchedVideos={matchedVideos} /> */}
-      <div className="container-fluid">
+      <Homepage matchedVideos={matchedVideos} />
+      {/* <div className="container-fluid">
       <div className="row video-page">
         <div className="col-md-8">
           <WatchVideo {...video} key={key}/>
@@ -34,7 +34,7 @@ function App() {
           <VideoListSidebar setWatchedVideo={setWatchedVideo} setKey={setKey} />
         </div>
       </div>
-    </div>
+    </div> */}
     </div>
   );
 }

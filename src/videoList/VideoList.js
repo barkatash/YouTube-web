@@ -5,7 +5,7 @@ import Video from '../video/Video';
 function VideoList( {matchedVideos} ) {
 
     return (
-      <div className='videos'>
+      <div className="videos">
         { matchedVideos.map((video, id) => (
           <Video key={id} {...video}/>
         )) }
