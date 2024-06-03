@@ -23,4 +23,6 @@
 .card-video {
     flex-direction: row !important;
     text-align: start;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr) !important;
 }
