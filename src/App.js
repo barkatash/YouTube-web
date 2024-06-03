@@ -14,8 +14,8 @@ function App() {
   return (
     <div className="App">
       <Navbar matchedVideos={matchedVideos} setmatchedVideos={setmatchedVideos}/>
-      <Homepage matchedVideos={matchedVideos} />
-       {/* <VideoPage /> */}
+      {/* <Homepage matchedVideos={matchedVideos} /> */}
+       <VideoPage />
     </div>
   );
 }
