@@ -13,7 +13,7 @@ function Sidebar() {
   return (
       <ul className="list-group">
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={home}></img>Home
+        <img className="small-logo" src={home} alt=''></img>Home
           <span className="badge text-bg-primary rounded-pill">14</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
@@ -21,19 +21,19 @@ function Sidebar() {
           <span className="badge text-bg-primary rounded-pill">2</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={tranding}></img>Trending
+        <img className="small-logo" src={tranding} alt=''></img>Trending
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={music}></img>Music
+        <img className="small-logo" src={music} alt=''></img>Music
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={news}></img>News
+        <img className="small-logo" src={news} alt=''></img>News
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={sports}></img>Sports
+        <img className="small-logo" src={sports} alt=''></img>Sports
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
         <hr></hr>
@@ -42,19 +42,19 @@ function Sidebar() {
           <span className="badge text-bg-primary rounded-pill">14</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={channel}></img>Your channel
+        <img className="small-logo" src={channel} alt=''></img>Your channel
           <span className="badge text-bg-primary rounded-pill">2</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={history}></img>History
+        <img className="small-logo" src={history} alt=''></img>History
           <span className="badge text-bg-primary rounded-pill">1</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={videos}></img>Your videos
+        <img className="small-logo" src={videos} alt=''></img>Your videos
           <span className="badge text-bg-primary rounded-pill">14</span>
         </li>
         <li className="list-group-item d-flex justify-content-between align-items-center">
-        <img className="small-logo" src={like}></img>Liked videos
+        <img className="small-logo" src={like} alt=''></img>Liked videos
           <span className="badge text-bg-primary rounded-pill">2</span>
         </li>
         <hr></hr>
