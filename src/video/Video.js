@@ -6,9 +6,13 @@ function Video({ image, title, uploader, duration, visits, uploadDate }) {
       <div className="card card-video">
         <div className="card-body">
           <img className="video-image" src={image} alt=''></img>
-          <br></br> <br></br>
-          <h6 className="card-title">{title}</h6>
-          <p className="card-text">{uploader} • {duration} • {visits} • {uploadDate}</p>
+          <div className='card-body-video'>
+            <h6 className="card-title card-title-video">{title}</h6>
+            <div className='card-text-video'>
+              <p className="card-text">{uploader}</p>
+              <p className="card-text">{visits} • {uploadDate}</p>
+            </div>
+          </div>
         </div>
       </div>
     );

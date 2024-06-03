@@ -1,4 +1,4 @@
-
+import "./VideoList.css"
 import Video from '../video/Video';
 
 
