@@ -12,11 +12,13 @@ function AddComment() {
           placeholder="Add a comment..."></input>
       </div>
       <div className="flex-container flex-container-buttons">
-      <button type="submit" className="btn mb-2">
-          Cancel
-        </button>
+        <div className='cancel'>
         <button type="submit" className="btn mb-2">
-          Comment
+          <p>Cancel</p>
+        </button>
+        </div>
+        <button type="submit" className="btn mb-2">
+          <p>Comment</p>
         </button>
       </div>
     </form>

@@ -21,7 +21,7 @@ function App() {
         isDarkMode={isDarkMode}
       />
       <Homepage matchedVideos={matchedVideos} isDarkMode={isDarkMode}/>
-      {/* <VideoPage /> */}
+      {/* <VideoPage isDarkMode={isDarkMode}/> */}
     </div>
   );
 }
