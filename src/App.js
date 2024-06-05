@@ -15,8 +15,8 @@ function App() {
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Navbar
-        matchedVideos={matchedVideos}
-        setmatchedVideos={setmatchedVideos}
+        videoList={videos}
+        setMatchedVideos={setmatchedVideos}
         setIsDarkMode={setIsDarkMode}
         isDarkMode={isDarkMode}
       />

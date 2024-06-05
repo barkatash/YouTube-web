@@ -2,18 +2,26 @@ import { useEffect, useState } from "react";
 import watch from "../images/youtubelogo.svg";
 import "./Navbar.css";
 
-function Navbar({ videoList, setVideoList, setIsDarkMode, isDarkMode }) {
+function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
+
   const [searchedVideo, setSearchedVideo] = useState("");
-  const onSearchVideo = (event) => {
-    setSearchedVideo(event.target.value);
+  const[input, setInput] = useState("");
+  const onkeyboardInput = (event) => {
+    setInput(event.target.value);
+  }
+  const onSearchVideo = () => {
+    setSearchedVideo(input);
   };
+
   useEffect(() => {
-    //setVideoList(videoList.filter);
+    const pattern = new RegExp(`^${searchedVideo}`, 'i');
+    setMatchedVideos(videoList.filter((video) => pattern.test(video.title)));
   }, [searchedVideo]);
 
   const changeMode = () => {
     setIsDarkMode(!isDarkMode);
   };
+
   return (
     <div>
       <nav className="navbar navbar-expand">
@@ -30,19 +38,19 @@ function Navbar({ videoList, setVideoList, setIsDarkMode, isDarkMode }) {
           <form className="d-flex" role="search">
             <input
               className="form-control me-2 serach"
+              onChange={onkeyboardInput}
               type="search"
               placeholder="Search"
               aria-label="Search"
-              onChange={onSearchVideo}
             ></input>
 
-            <button className="btn" type="submit">
+            <button className="btn btn-search" onClick={onSearchVideo} type="submit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
                 height="18"
                 fill="currentColor"
-                class="bi bi-search"
+                className="bi bi-search"
                 viewBox="0 0 16 16"
               >
                 <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
