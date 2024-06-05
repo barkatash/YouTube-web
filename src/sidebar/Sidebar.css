@@ -1,9 +1,37 @@
 .list-group-item {
     border: 0px;
-    font-weight: 400;
+    font-weight: 100;
   }
 
   .small-logo {
     width: 20px;
     height: 20px;
   }
+
+  .light-mode {
+    --background-color: #ffffff;
+    --color: #000000;
+  }
+  
+  .dark-mode {
+    --background-color: #222222;
+    --color: #ffffff;
+  }
+  
+  .side-bar {
+    background-color: var(--background-color);
+    color: var(--color);
+
+  }
+  .list-group-item {
+      background-color: var(--background-color);
+      color: var(--color);
+  }
+
+.navbar-brand-side-bar {
+  font-size: 15px;
+  font-weight: 500;
+}
+.title {
+  font-size: 16px;
+}

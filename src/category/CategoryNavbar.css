@@ -1,4 +1,17 @@
-.buttons-navbar {
-    margin-right: 200px !important;
+
+.light-mode {
+    --color: #000000;
+    --background-color: rgb(222, 216, 216);
+  }
+  
+  .dark-mode {
+    --color: #ffffff;
+    --background-color: #222222;
+  }
+  .buttons-navbar {
+    margin-right: 200px;
     margin-left: 200px;
+    color: var(--color);
+    background-color: var(--background-color);
 }
+  

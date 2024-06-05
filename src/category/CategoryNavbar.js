@@ -2,12 +2,12 @@ import ButtonCategory from "../buttonCategory/ButtonCategory";
 import './CategoryNavbar.css';
 
 
-function CategoryNavbar({ categories }) {
+function CategoryNavbar({ categories, isDarkMode}) {
     return (
-      <nav className="navbar bg-body-tertiary">
+      <nav className="navbar">
         <form className="container-fluid justify-content-space-between buttons-navbar">
             { categories.map((category, id) => (
-              <ButtonCategory key={id} {...category}/>
+              <ButtonCategory className={`${isDarkMode ? "dark-mode" : "light-mode"}`} key={id} {...category}/>
             )) }
           
         </form>

@@ -9,13 +9,19 @@ import VideoPage from './VideoPage.js';
 function App() {
 
   const [ matchedVideos, setmatchedVideos ] = useState(videos);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
 
   return (
-    <div className="App">
-      <Navbar matchedVideos={matchedVideos} setmatchedVideos={setmatchedVideos}/>
-      {/* <Homepage matchedVideos={matchedVideos} /> */}
-       <VideoPage />
+    <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
+      <Navbar
+        matchedVideos={matchedVideos}
+        setmatchedVideos={setmatchedVideos}
+        setIsDarkMode={setIsDarkMode}
+        isDarkMode={isDarkMode}
+      />
+      <Homepage matchedVideos={matchedVideos} isDarkMode={isDarkMode}/>
+      {/* <VideoPage /> */}
     </div>
   );
 }
