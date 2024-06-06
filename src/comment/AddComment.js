@@ -18,7 +18,7 @@ function AddComment({comments, setVideoComments, videoId}) {
     }]);
   }
   return (
-    <form>
+    <form role="search" onSubmit={(e) => { e.preventDefault(); onSubmitComment(); }}>
       <div className="flex-container">
         <label>userName</label>
         <input
@@ -34,7 +34,7 @@ function AddComment({comments, setVideoComments, videoId}) {
           <p>Cancel</p>
         </button>
         </div>
-        <button type="submit" className="btn mb-2" onClick={onSubmitComment}>
+        <button type="submit" className="btn mb-2">
           <p>Comment</p>
         </button>
       </div>
