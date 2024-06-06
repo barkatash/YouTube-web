@@ -4,18 +4,18 @@ import VideoList from './videoList/VideoList.js';
 import CategoryNavbar from './category/CategoryNavbar.js';
 import './Homepage.css'
 
-function Homepage({matchedVideos}) {
+function Homepage({matchedVideos, isDarkMode}) {
     return (
       <div>
         <div className="row">
           <div className="col-md-2">
-            <Sidebar />
+            <Sidebar isDarkMode={isDarkMode}/>
           </div>
           <div className="col-md-10">
             <div className="row">
-              <CategoryNavbar categories={categories} />
+              <CategoryNavbar categories={categories} isDarkMode={isDarkMode}/>
             </div>
-            <VideoList matchedVideos={matchedVideos} />
+            <VideoList matchedVideos={matchedVideos} isDarkMode={isDarkMode}/>
           </div>
         </div>
       </div>

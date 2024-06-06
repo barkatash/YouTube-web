@@ -3,7 +3,7 @@
 }
 
 .sidebar {
-    flex: 0 0 200px; /* Adjust the width as needed */
+    flex: 0 0 200px;
 }
 
 .main-content {
@@ -15,4 +15,19 @@
 .video-list {
     display: flex;
     flex-direction: column;
+}
+
+.light-mode {
+    --background-color: #ffffff !important;
+    --color: #000000 !important;
+}
+
+.dark-mode {
+    --background-color: #222222 !important;
+    --color: #ffffff !important;
+}
+
+.home {
+    background-color: var(--background-color);
+    color: var(--color);
 }
