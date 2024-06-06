@@ -20,8 +20,8 @@ function App() {
         setIsDarkMode={setIsDarkMode}
         isDarkMode={isDarkMode}
       />
-      <Homepage matchedVideos={matchedVideos} isDarkMode={isDarkMode}/>
-      {/* <VideoPage isDarkMode={isDarkMode}/> */}
+      {/* <Homepage matchedVideos={matchedVideos} isDarkMode={isDarkMode}/> */}
+      <VideoPage isDarkMode={isDarkMode}/>
     </div>
   );
 }

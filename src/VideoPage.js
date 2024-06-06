@@ -17,7 +17,8 @@ function VideoPage({isDarkMode}) {
         <div className="row video-page">
           <div className="col-md-8">
             <WatchVideo {...video} key={key} isDarkMode={isDarkMode}/>
-            <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={video.id}/>
+            <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={video.id} isDarkMode={isDarkMode}/>
+            <br></br>
             <CommentsList comments={videoComments} videoId={video.id}/>
           </div>
           <div className="col-md-4">
