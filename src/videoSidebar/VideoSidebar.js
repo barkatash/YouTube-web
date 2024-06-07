@@ -10,7 +10,7 @@ function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDat
       <div className="container mt-3">
         <div className="d-flex align-items-start">
           <img
-            src={image}
+            src={`${process.env.PUBLIC_URL}/${image}`}
             className="img-fluid"
             alt="Image Description"
             style={{ maxWidth: "30%" }}

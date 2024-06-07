@@ -15,7 +15,7 @@ function Homepage({matchedVideos, isDarkMode}) {
             <div className="row">
               <CategoryNavbar categories={categories} isDarkMode={isDarkMode}/>
             </div>
-            <VideoList matchedVideos={matchedVideos} isDarkMode={isDarkMode}/>
+            <VideoList matchedVideos={matchedVideos}/>
           </div>
         </div>
       </div>

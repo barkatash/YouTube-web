@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import watch from "../images/youtubelogo.svg";
 import "./Navbar.css";
+import { Link } from "react-router-dom";
 
 function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
   const [searchedVideo, setSearchedVideo] = useState("");
@@ -27,14 +28,14 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
     <div>
       <nav className="navbar navbar-expand">
         <div className="container-fluid container-fluid-navbar navbar-expand">
-          <a
+          <Link
             className={`navbar-brand ${
               isDarkMode ? "dark-mode" : "light-mode"
             }`}
-            href="#"
+            to="/"
           >
             <img className="logo" src={watch}></img> YouTube
-          </a>
+          </Link>
 
           <form className="d-flex" role="search" onSubmit={(e) => { e.preventDefault(); onSearchVideo(); }}>
             <input

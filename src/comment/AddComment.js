@@ -25,7 +25,7 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
         videoId: videoId,
         userName: "?",
         decription: comment,
-        uploadDate: "",
+        uploadDate: "now",
         likes: 0,
         dislikes: 0,
       },
@@ -45,7 +45,7 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
       onSubmit={onSubmitComment}
     >
       <div className="flex-container">
-        <label>userName</label>
+        <img className="username-image"></img>
         <input
           onChange={onCommentInput}
           onFocus={onFocus}

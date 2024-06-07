@@ -53,3 +53,9 @@
     background-color: transparent !important;
     color: var(--color);
 }
+.username-image {
+    border-radius: 20px;
+    width: 2.5vw;
+    height: 5vh;
+    background-color: aquamarine;
+}

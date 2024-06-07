@@ -1,15 +1,16 @@
 import "./WatchVideo.css";
 
+
 function WatchVideo(
-  { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode },
-  { key }
+  { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode }
 ) {
+
   return (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        <video key={key} controls className="video">
-          <source src={video} type="video/mp4"></source>
+        <video controls className="video">
+          <source src={`${process.env.PUBLIC_URL}/${video}`} type="video/mp4"></source>
         </video>
         <div className={`card-body ${isDarkMode ? "dark-mode" : "light-mode"}`}>
           <h5 className="card-title title-video-watch watch-video-title">
