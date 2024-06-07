@@ -17,6 +17,8 @@
 .uploader {
     font-size: 15px;
     font-weight: 400 !important;
+    margin-left: 10px;
+    margin-top: 10px;
 }
 
 .title-video-watch {
@@ -60,5 +62,10 @@
     display: flex;
     text-align: start;
     height: 3.2vh;
+}
+.user-upload {
+    align-items: start;
+    display: flex;
+    margin-top: 8px;
 }
 

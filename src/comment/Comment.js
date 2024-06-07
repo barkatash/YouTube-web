@@ -11,7 +11,7 @@ function Comment({ userName, decription, uploadDate, likes, dislikes }) {
             <img className="username-image"></img>
           </div>
           <div class="col-11">
-            <div className="d-flex align-items-spacse-between">
+            <div className="d-flex">
               <h6>@{userName}</h6>
               &nbsp;
               <small>{uploadDate}</small>
