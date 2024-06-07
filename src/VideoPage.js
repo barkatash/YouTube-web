@@ -11,18 +11,19 @@ import { useParams } from "react-router-dom";
 function VideoPage({isDarkMode}) {
     const { id } = useParams();
     const[videoComments, setVideoComments] = useState(comments);
+    const [key, setKey] = useState(0);
     
     return (
       <div className={`container-fluid video-page ${isDarkMode ? "dark-mode" : "light-mode"}`}>
         <div className="row video-page">
           <div className="col-md-8">
-            <WatchVideo {...videos[id-1]}  isDarkMode={isDarkMode}/>
-            <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={id} isDarkMode={isDarkMode}/>
+            <WatchVideo {...videos[Number(id)-1]} key={key} isDarkMode={isDarkMode}/>
+            <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} isDarkMode={isDarkMode}/>
             <br></br>
             <CommentsList comments={videoComments} videoId={Number(id)}/>
           </div>
           <div className="col-md-4">
-            <VideoListSidebar/>
+            <VideoListSidebar setKey={setKey}/>
           </div>
         </div>
       </div>

@@ -10,7 +10,7 @@
     "uploadDate": "4 years ago",
     "decription": "",
     "likes": "59k",
-    "categoryId": 5
+    "categoryId": [0, 5]
   },
   {
     "id": 2,
@@ -23,7 +23,7 @@
     "uploadDate": "14 years ago",
     "decription": "",
     "likes": "25M",
-    "categoryId": 2
+    "categoryId": [0, 2]
   },
   {
     "id": 3,
@@ -36,7 +36,7 @@
     "uploadDate": "7 months ago",
     "decription": "",
     "likes": "114K",
-    "categoryId": 2
+    "categoryId": [0, 2]
   },
   {
     "id": 4,
@@ -49,7 +49,7 @@
     "uploadDate": "11 years ago",
     "decription": "",
     "likes": 20,
-    "categoryId": 2
+    "categoryId": [0, 2]
   },
   {
     "id": 5,
@@ -62,7 +62,7 @@
     "uploadDate": "6 years ago",
     "decription": "The official music video for Ed Sheeran - Perfect ",
     "likes": "21M",
-    "categoryId": 2
+    "categoryId": [0, 2]
   },
   {
     "id": 6,
@@ -75,7 +75,7 @@
     "uploadDate": "2 months ago",
     "decription": "Eden Golan will represent Israel in the Eurovision Song Contest with her song Hurricane",
     "likes": "183K",
-    "categoryId": 2
+    "categoryId": [0, 2]
   },
   {
     "id": 7,
@@ -88,7 +88,7 @@
     "uploadDate": "9 years ago",
     "decription": "",
     "likes": "20",
-    "categoryId": 1
+    "categoryId": [0, 1]
   },
   {
     "id": 8,
@@ -101,7 +101,7 @@
     "uploadDate": "8 years ago",
     "decription": "",
     "likes": "11K",
-    "categoryId": 1
+    "categoryId": [0, 1]
   },
   {
     "id": 9,
@@ -114,7 +114,7 @@
     "uploadDate": "10 years ago",
     "decription": "Listen to Eyal Golan's song Yamim Yagidu from his album - Yamim Yagidu",
     "likes": "68K",
-    "categoryId": 2
+    "categoryId": [0, 2]
   },
   {
     "id": 10,
@@ -127,7 +127,7 @@
     "uploadDate": "9 months ago",
     "decription": "NBA Rare Moments ,Stephen Curry",
     "likes": "16K",
-    "categoryId": 4
+    "categoryId": [0, 3, 4]
   },
   {
     "id": 11,
@@ -140,7 +140,7 @@
     "uploadDate": "1 year ago",
     "decription": "",
     "likes": "108",
-    "categoryId": 4
+    "categoryId": [0, 3, 4]
   },
   {
     "id": 12,
@@ -153,7 +153,7 @@
     "uploadDate": "11 months ago",
     "decription": "",
     "likes": "54k",
-    "categoryId": 2
+    "categoryId": [0, 2]
   }
 
 ]

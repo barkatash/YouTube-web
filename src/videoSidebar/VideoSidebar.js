@@ -1,10 +1,12 @@
 import './VideoSidebar.css'
-import videos from '../db/videos.json'
+import { useNavigate } from 'react-router-dom';
 
-function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDate, setWatchedVideo, setKey } ) {
+function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDate, setKey} ) {
+
+  const navigate = useNavigate();
     const changeWatchedVideo = () => {
-        setWatchedVideo((videos.filter((video) => video.id === id)[0]));
-        setKey(id)
+        navigate(`/watch/${id}`);
+        setKey(id);
     }
     return (
       <div className="container mt-3">

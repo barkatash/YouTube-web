@@ -1,7 +1,11 @@
 import "./Comment.css";
+import { useState } from "react";
 
 function Comment({ userName, decription, uploadDate, likes, dislikes }) {
   // const [like, setLike] = useState(false);
+  // const onLike = () => {
+  //   setLike(true);
+  // }
 
   return (
     <div className="list-group-item flex-column ">

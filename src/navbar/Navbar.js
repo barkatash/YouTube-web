@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
   const [searchedVideo, setSearchedVideo] = useState("");
   const [input, setInput] = useState("");
-  
+  const [isSubmit, setIsSubmit] = useState(false);
+
   const onKeyboardInput = (event) => {
     setInput(event.target.value);
   };
@@ -18,7 +19,8 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
   useEffect(() => {
     const pattern = new RegExp(`^${searchedVideo}`, "i");
     setMatchedVideos(videoList.filter((video) => pattern.test(video.title)));
-  }, [searchedVideo]);
+    setIsSubmit(false);
+  }, [isSubmit]);
 
   const changeMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -37,19 +39,24 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
             <img className="logo" src={watch}></img> YouTube
           </Link>
 
-          <form className="d-flex" role="search" onSubmit={(e) => { e.preventDefault(); onSearchVideo(); }}>
+          <form
+            className="d-flex"
+            role="search"
+            onSubmit={(e) => {
+              e.preventDefault();
+              setIsSubmit(true);
+              onSearchVideo();
+            }}
+          >
             <input
-              className="form-control me-2 serach"
+              className="form-control me-2 search"
               onChange={onKeyboardInput}
               type="search"
               placeholder="Search"
               aria-label="Search"
             ></input>
 
-            <button
-              className="btn btn-search"
-              type="submit"
-            >
+            <button className="btn-search" type="submit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"

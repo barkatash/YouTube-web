@@ -21,7 +21,7 @@ function App() {
           isDarkMode={isDarkMode}
         />
         <Routes>
-          <Route path="/" element={<Homepage matchedVideos={matchedVideos} isDarkMode={isDarkMode} />} />
+          <Route path="/" element={<Homepage matchedVideos={matchedVideos} setmatchedVideos={setmatchedVideos} isDarkMode={isDarkMode} />} />
           <Route path="/watch/:id" element={<VideoPage isDarkMode={isDarkMode}/>} />
         </Routes>
       </div>

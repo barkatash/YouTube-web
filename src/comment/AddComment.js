@@ -20,7 +20,6 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
   const onSubmitComment = (e) => {
     e.preventDefault();
     setVideoComments([
-      ...comments,
       {
         videoId: videoId,
         userName: "?",
@@ -28,7 +27,7 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
         uploadDate: "now",
         likes: 0,
         dislikes: 0,
-      },
+      }, ...comments
     ]);
     setComment("");
     setIsFocused(false);

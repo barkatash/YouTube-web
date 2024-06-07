@@ -2,14 +2,15 @@ import "./WatchVideo.css";
 
 
 function WatchVideo(
-  { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode }
+  { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode },
+  { key }
 ) {
 
   return (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        <video controls className="video">
+        <video key={key} controls className="video">
           <source
             src={`${process.env.PUBLIC_URL}/${video}`}
             type="video/mp4"
