@@ -15,43 +15,21 @@ import UploadForm from './uploadVideo/UploadForm.js';
 
 function App() {
   const [ matchedVideos, setmatchedVideos ] = useState(videos);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
 
   return (
- <div className="App">
-  <h1>YouTube Video Uploader</h1>
-  <UploadForm />
-</div>
-  )
+    <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
+      <Navbar
+        videoList={videos}
+        setMatchedVideos={setmatchedVideos}
+        setIsDarkMode={setIsDarkMode}
+        isDarkMode={isDarkMode}
+      />
+      <Homepage matchedVideos={matchedVideos} isDarkMode={isDarkMode}/>
+      {/* <VideoPage isDarkMode={isDarkMode}/> */}
+    </div>
+  );
 }
-
-  // const [ matchedVideos, setmatchedVideos ] = useState(videos);
-
-  // return (
-  //   <div className="App">
-  //     <Navbar matchedVideos={matchedVideos} setmatchedVideos={setmatchedVideos}/>
-  //     {/* <div className="container-fluid text-center">
-  //       <div className="row">
-  //         <div className="col-2 vh-100 bg-light"><Sidebar /></div>
-  //         <div className="col-10">
-  //           <CategoryNavbar categories={categories}/>
-  //           <VideoList matchedVideos={matchedVideos}/></div>
-  //       </div>
-  //     </div> */}
-  //     <div className="container-fluid">
-  //     <div className="row video-page">
-  //       <div className="col-md-8">
-  //         <WatchVideo {...videos[1]} />
-  //         <AddComment />
-  //         <CommentsList />
-  //       </div>
-  //       <div className="col-md-4">
-  //         <VideoListSidebar />
-  //       </div>
-  //     </div>
-  //   </div>
-  //   </div>
-  // );
-// }
 
 export default App;

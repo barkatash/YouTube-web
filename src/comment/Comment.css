@@ -6,6 +6,7 @@
     border-color: transparent;
     justify-self: left;
     display: flex;
+    text-justify: distribute;
 }
 .flex-box {
     display: flex;

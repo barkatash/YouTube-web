@@ -16,6 +16,7 @@
     background-color: transparent;
     border-radius: 20px;
     font-size: 13px;
+    height: 5vh;
 }
 .custom-input {
     background-color: transparent;
@@ -29,4 +30,7 @@
 
 .custom-input::placeholder {
     color: #999; 
+}
+.cancel {
+    height: 2vh;
 }

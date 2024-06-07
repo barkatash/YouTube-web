@@ -1,4 +1,17 @@
+
+.light-mode {
+    --color: #000000;
+    --background: rgb(202, 198, 198);
+  }
+  
+.dark-mode {
+    --color: #ffffff;
+    --background: #444141;
+}
 .category-btn {
-    color: black !important;
-    font-weight: 500;
+    border-radius: 10px;
+    border-color: transparent;
+    font-weight: 400;
+    color: var(--color);
+    background-color: var(--background);
 }

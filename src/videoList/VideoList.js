@@ -2,7 +2,7 @@ import "./VideoList.css"
 import Video from '../video/Video';
 
 
-function VideoList( {matchedVideos} ) {
+function VideoList( {matchedVideos, isDarkMode} ) {
 
     return (
       <div className="videos">
