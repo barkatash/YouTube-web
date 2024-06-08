@@ -10,11 +10,11 @@ function Comment({ userName, decription, uploadDate, likes, dislikes }) {
   return (
     <div className="list-group-item flex-column ">
       <div>
-        <div class="row">
-          <div class="col-1 align-self-start">
+        <div className="row">
+          <div className="col-1 align-self-start">
             <img className="username-image"></img>
           </div>
-          <div class="col-11">
+          <div className="col-11">
             <div className="d-flex">
               <h6>@{userName}</h6>
               &nbsp;
@@ -26,7 +26,7 @@ function Comment({ userName, decription, uploadDate, likes, dislikes }) {
       </div>
 
       <div className="flex-box">
-        <button type="button" className="btn btn-secondary comment-btn">
+        <button type="button" className="btn comment-btn">
           <div className="like-p">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@ function Comment({ userName, decription, uploadDate, likes, dislikes }) {
             &nbsp;&nbsp;<p>{likes}</p>
           </div>
         </button>
-        <button type="button" className="btn btn-secondary comment-btn">
+        <button type="button" className="btn comment-btn">
           <div className="like-p">
           <svg
             xmlns="http://www.w3.org/2000/svg"

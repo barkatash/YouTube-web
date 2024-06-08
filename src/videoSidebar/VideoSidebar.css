@@ -1,6 +1,7 @@
 .video-img {
     width: 300px;
     height: 200px;
+    transition: filter 0.3s ease;
 }
 
 .card-text-sidebar {
@@ -15,6 +16,12 @@
     width: 150px;
     height: 100px;
 }
+.img-fluid:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    opacity: 0.9;
+}
+
 
 
 .container {

@@ -1,7 +1,6 @@
 import Comment from "../comment/Comment.js";
 
 function CommentsList({ comments, videoId }) {
-  console.log(comments, videoId);
   return (
     <div>
       {comments

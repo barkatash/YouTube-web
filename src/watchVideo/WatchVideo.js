@@ -1,11 +1,19 @@
 import "./WatchVideo.css";
-
+import Share from "./Share.js"
+import { useState } from "react";
 
 function WatchVideo(
   { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode },
   { key }
 ) {
+  const [showShare, setShowShare] = useState(false);
+  const handleOpenShare = () => {
+    setShowShare(true);
+};
 
+const handleCloseShare = () => {
+    setShowShare(false);
+};
   return (
     <div>
       <br></br>
@@ -28,7 +36,7 @@ function WatchVideo(
           </div>
           <div className="flex-container d-flex justify-content-end">
             <div className="btn-group" role="group" aria-label="Basic example">
-              <button type="button" className="btn btn-secondary">
+              <button type="button" className="btn">
                 <div className="like-p">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +51,7 @@ function WatchVideo(
                   &nbsp;&nbsp;<p>{likes}</p>
                 </div>
               </button>
-              <button type="button" className="btn btn-secondary">
+              <button type="button" className="btn">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="16"
@@ -56,7 +64,7 @@ function WatchVideo(
                 </svg>
               </button>
             </div>
-            <button type="button" className="btn btn-secondary share">
+            <button type="button" className="btn share" onClick={handleOpenShare}>
               <div className="share-p">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -72,6 +80,7 @@ function WatchVideo(
                 <p>Share</p>
               </div>
             </button>
+            <Share show={showShare} handleClose={handleCloseShare}/>
           </div>
           <p className="card-text title-video-watch">{decription}</p>
           <p className="card-text title-video-watch">
