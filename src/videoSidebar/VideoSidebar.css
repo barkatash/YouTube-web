@@ -10,10 +10,10 @@
 }
 
 .img-fluid {
-    max-width: 100%;
-    height: auto;
     padding: 0;
     display: block;
+    width: 150px;
+    height: 100px;
 }
 
 

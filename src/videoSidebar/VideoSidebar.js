@@ -15,7 +15,6 @@ function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDat
             src={`${process.env.PUBLIC_URL}/${image}`}
             className="img-fluid"
             alt="Image Description"
-            style={{ maxWidth: "30%" }}
             onClick={changeWatchedVideo}
           />
           <div className="ml-3 ml-3-video-side-bar">
