@@ -42,7 +42,7 @@ function App() {
       </div>s
   </div>*/}
       <div>
-        <SignInWindow />
+        <LogInWindow />
       </div>
     </div>
   );
