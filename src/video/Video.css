@@ -3,6 +3,7 @@
     height: 210px;
     border-radius: 8px;
     transition: filter 0.3s ease;
+    margin-bottom: 10px;
 }
 .video-image:hover {
     transform: scale(1.01);
@@ -13,10 +14,22 @@
 .card {
     border: 0;
 }
-
 .card-text {
-    font-size: 13px;
+    margin-bottom: 0;
+}
+.card-title-video {
+    font-size: 16px;
+}
+.card-text-video {
+    font-size: 14px;
+    text-align: left;
+    margin-bottom: 0;
 }
 .card-title {
     font-weight: 700;
+    margin-bottom: 0;
+    text-align: left;
+}
+.card-body-video {
+    margin-left: 20px;
 }

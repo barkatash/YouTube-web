@@ -1,3 +1,11 @@
+import "./App.css";
+import "./navbar/Navbar.js";
+import Navbar from "./navbar/Navbar.js";
+import { useState } from "react";
+import videos from "./db/videos.json";
+import Homepage from "./Homepage.js";
+import { Route, Routes } from "react-router-dom";
+import VideoPage from "./VideoPage.js";
 import './App.css';
 import './navbar/Navbar.js';
 import LogInWindow from './logInWindow/LogInWindow.js';
@@ -15,8 +23,8 @@ import CommentsList from './commentsList/CommentsList.js';
 import VideoListSidebar from './videoSidebar/VideoListSidebar.js';
 
 function App() {
-
-  const [ matchedVideos, setmatchedVideos ] = useState(videos);
+  const [matchedVideos, setmatchedVideos] = useState(videos);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   return (
     <div className="App">

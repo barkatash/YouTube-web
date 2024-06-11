@@ -1,16 +1,9 @@
 .video {
     border-radius: 10px;
-    width: 850px;
-    height: 450px;
-}
-.card-title {
-    text-align: left !important;
+    width: 60vw;
+    height: 70vh;
 }
 
-.card-text {
-    text-align: left !important;
-    font-size: 14px;
-}
 .btn-group {
     margin-right: 0px;
     width: 15%;
@@ -20,17 +13,69 @@
     font-size: 15px !important;
     font-weight: 500;
 }
+
+.uploader {
+    font-size: 15px;
+    font-weight: 400 !important;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.title-video-watch {
+    font-weight: 500;
+    text-align: left !important;
+    font-size: 14px;
+}
+
+.watch-video-title {
+    font-size: 18px !important;
+}
+
+.light-mode {
+    --background-color: #ffffff;
+    --color: #000000;
+}
+
+.dark-mode {
+    --background-color: #222222;
+    --color: #ffffff;
+}
+
+.card-body {
+    background-color: var(--background-color);
+    color: var(--color);
+}
 .btn-secondary {
     font-weight: 500;
     align-items: right;
     display: flex;
-    
+    background-color: var(--background-color);
+    color: var(--color);
+    text-align:center;
+    height: 5vh;
 }
-.uploader {
-    font-size: 15px;
-    font-weight: 400 !important;
+.btn {
+    font-weight: 500;
+    align-items: right;
+    display: flex;
+    background-color: var(--background-color);
+    color: var(--color);
+    text-align:center;
+    height: 5vh;
+    border-color: #000000;
+}
+.mb-3 {
+    background-color: var(--background-color);
+    color: var(--color);
+}
+.share-p, .like-p {
+    display: flex;
+    text-align: start;
+    height: 3.2vh;
+}
+.user-upload {
+    align-items: start;
+    display: flex;
+    margin-top: 8px;
 }
 
-.flex-container {
-
-}

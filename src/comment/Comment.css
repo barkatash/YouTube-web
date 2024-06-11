@@ -3,9 +3,10 @@
 }
 .comment-btn {
     font-size: 13px;
-    border-color: transparent;
+    border-color: transparent !important;
     justify-self: left;
     display: flex;
+    text-justify: distribute;
 }
 .flex-box {
     display: flex;
