@@ -6,6 +6,8 @@ import { BrowserRouter } from 'react-router-dom';
 
 
 
+import './sidebar/Sidebar.css'
+import './navbar/Navbar.css'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
