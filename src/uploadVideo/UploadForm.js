@@ -13,7 +13,8 @@ function UploadForm({ allVideos, setAllVideos }) {
   const handleTabClick = (tab) => {
     setActiveTab(tab);
   };
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [formData, setFormData] = useState({
     video: null,
     title: "",
@@ -29,14 +30,18 @@ function UploadForm({ allVideos, setAllVideos }) {
     categoryId: [0],
   });
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  const handleVideoChange = (event) => {
+    const video = event.target.files[0];
     setFormData((prevState) => ({
       ...prevState,
-      videoFile: file,
+      videoFile: video,
     }));
-    setSelectedFile(file);
+    setSelectedVideo(video);
   };
+  const handleImageChange = (event) => {
+    const img = event.target.files[0];
+    setSelectedImage(img);
+  }
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -53,7 +58,7 @@ function UploadForm({ allVideos, setAllVideos }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     if (formData.videoFile) {
-      const videoUrl = URL.createObjectURL(formData.videoFile); // Create URL for the selected video file
+      const videoUrl = URL.createObjectURL(formData.videoFile);
     }
     onMoveToHomepage();
   };
@@ -111,7 +116,7 @@ function UploadForm({ allVideos, setAllVideos }) {
                   type="file"
                   id="fileInput"
                   accept="video/*"
-                  onChange={handleFileChange}
+                  onChange={handleVideoChange}
                   style={{ display: "none" }}
                 />
 
@@ -124,28 +129,48 @@ function UploadForm({ allVideos, setAllVideos }) {
                     cursor: "pointer",
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="60"
-                    height="60"
-                    className="bi bi-upload upload"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
-                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
-                  </svg>
-                  &nbsp;&nbsp; Select video to upload
+                  {selectedVideo === null && (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        className="bi bi-upload upload"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                      </svg>
+                      &nbsp; &nbsp; Select video to upload{" "}
+                    </div>
+                  )}
+                  {selectedVideo && (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        fill="currentColor"
+                        class="bi bi-check-circle"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                      </svg>
+                      &nbsp; &nbsp; Change video file{" "}
+                    </div>
+                  )}
                 </label>
                 <input
                   type="file"
-                  id="fileInput"
+                  id="fileInput2"
                   accept="image/*"
-                  onChange={handleFileChange}
+                  onChange={handleImageChange}
                   style={{ display: "none" }}
                 />
 
                 <label
-                  htmlFor="fileInput"
+                  htmlFor="fileInput2"
                   style={{
                     lineHeight: "1.2",
                     padding: "15px",
@@ -153,17 +178,37 @@ function UploadForm({ allVideos, setAllVideos }) {
                     cursor: "pointer",
                   }}
                 >
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="60"
-                    height="60"
-                    className="bi bi-upload upload"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
-                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
-                  </svg>
-                  &nbsp;&nbsp; Select image to upload
+                  {selectedImage === null && (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        className="bi bi-upload upload"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                      </svg>
+                      &nbsp;&nbsp; Select image to upload
+                    </div>
+                  )}
+                  {selectedImage && (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        fill="currentColor"
+                        class="bi bi-check-circle"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14m0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16" />
+                        <path d="m10.97 4.97-.02.022-3.473 4.425-2.093-2.094a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-1.071-1.05" />
+                      </svg>
+                      &nbsp;&nbsp; Change image
+                    </div>
+                  )}
                 </label>
 
                 <div className="mb-3 d-inline-block mx-auto w-75">
@@ -232,7 +277,8 @@ function UploadForm({ allVideos, setAllVideos }) {
                     Next
                   </button>
                 </div>
-                <br></br><br></br>
+                <br></br>
+                <br></br>
                 <p className="small">
                   By submitting your videos to YouTube, you acknowledge that you
                   agree to YouTube's Terms of Service and Community Guidelines.

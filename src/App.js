@@ -23,7 +23,7 @@ function App() {
           element={
             <div>
               <Navbar
-                videoList={videos}
+                videoList={allVideos}
                 setMatchedVideos={setmatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
@@ -41,7 +41,7 @@ function App() {
           element={
             <div>
               <Navbar
-                videoList={videos}
+                videoList={allVideos}
                 setMatchedVideos={setmatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
