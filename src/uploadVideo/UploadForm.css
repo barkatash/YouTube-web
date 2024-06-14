@@ -113,3 +113,7 @@
     margin: 5px 0;
     color: #555;
 }
+.file-preview {
+    width: 250px;
+    height: 150px;
+}

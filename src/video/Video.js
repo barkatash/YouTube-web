@@ -7,6 +7,7 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
   const onMoveToVideo = () => {
     navigate(`/watch/${id}`);
   }
+  console.log(image);
     return (
       <div className="card card-video">
         <div className="card-body">

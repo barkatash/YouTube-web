@@ -1,5 +1,8 @@
 import './VideoSidebar.css'
 import { useNavigate } from 'react-router-dom';
+import videos from "../db/videos.json";
+
+const isFromDb = (id) => videos.find(videoDb => videoDb.id === id) !== undefined
 
 function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDate, setKey} ) {
 
@@ -12,7 +15,7 @@ function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDat
       <div className="container mt-3">
         <div className="d-flex align-items-start">
           <img
-            src={`${process.env.PUBLIC_URL}/${image}`}
+            src={isFromDb(id) ? `${process.env.PUBLIC_URL}/${image}` : image}
             className="img-fluid"
             alt="Image Description"
             onClick={changeWatchedVideo}

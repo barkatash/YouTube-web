@@ -1,4 +1,4 @@
-import videos from './db/videos.json';
+
 import WatchVideo from './watchVideo/WatchVideo.js';
 import AddComment from './comment/AddComment.js';
 import CommentsList from './commentsList/CommentsList.js';
@@ -8,7 +8,7 @@ import { useState } from 'react';
 import './VideoPage.css';
 import { useParams } from "react-router-dom";
 
-function VideoPage({isDarkMode}) {
+function VideoPage({isDarkMode, videos}) {
     const { id } = useParams();
     const[videoComments, setVideoComments] = useState(comments);
     const [key, setKey] = useState(0);
@@ -23,7 +23,7 @@ function VideoPage({isDarkMode}) {
             <CommentsList comments={videoComments} videoId={Number(id)}/>
           </div>
           <div className="col-md-4">
-            <VideoListSidebar setKey={setKey}/>
+            <VideoListSidebar setKey={setKey} videos={videos}/>
           </div>
         </div>
       </div>
