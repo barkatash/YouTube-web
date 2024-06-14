@@ -1,7 +1,119 @@
 .btn-upload {
+    background: #0450d5;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
+    border: 2px solid #0450d5;
+    width: fit-content;
     align-self: flex-end;
 }
+.btn-upload:hover {
+    background-color: #023184;
+}
+
 .add-video-form {
     margin-left: 25%;
     margin-top: 20%;
+}
+
+.upload-title {
+    margin-top: 10px;
+}
+
+.input-with-label {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-with-label .form-label {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    pointer-events: none;
+}
+
+.input-with-label .form-control {
+    padding: 25px 10px 10px;
+    height: auto;
+}
+
+.form-control-file {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    background-color: #f8f9fa;
+}
+
+.upload {
+    background-color: rgb(195, 195, 195);
+    padding: 20px;
+    border-radius: 30px;
+}
+
+.small {
+    font-size: 0.8rem;
+    color: #666;
+}
+.upload-logo {
+    width: 40px;
+    height: 40px;
+}
+.card-upload {
+    border: 2px solid rgb(157, 152, 152);
+    border-radius: 15px;
+    padding: 30px;
+    width: fit-content;
+    margin: auto;
+}
+
+.container-upload {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    padding: 20px;
+}
+
+/* .p {
+    margin-bottom: 10px;
+    line-height: 1.6;
+} */
+.link {
+    color: #007bff;
+    text-decoration: none;
+}
+.link:hover {
+    text-decoration: underline;
+}
+.section-title {
+    font-weight: bold;
+    margin-top: 20px;
+}
+.tab-content {
+    width: 100%;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-top: none;
+    width: 800px;
+
+}
+
+.visibility-option {
+    margin: 15px 0;
+    display: flex;
+    align-items: center;
+}
+
+.visibility-option input {
+    margin-right: 10px;
+}
+
+.visibility-option h4 {
+    margin: 0;
+    font-size: 18px;
+}
+
+.visibility-option {
+    margin: 5px 0;
+    color: #555;
 }

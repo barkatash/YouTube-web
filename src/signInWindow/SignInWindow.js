@@ -41,7 +41,7 @@ function SignInWindow() {
         <div>
             <div id="back">
                 <div id="part1">
-                    <img src={img1} width="150" height="150" alt="YouTube Logo" />
+                    <img src={img1} alt="YouTube Logo" />
                     <div id="logIn">
                         sign in
                     </div>

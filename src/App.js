@@ -6,7 +6,8 @@ import videos from "./db/videos.json";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
-
+import UploadForm from "./uploadVideo/UploadForm.js"
+import LogInWindow from "./logInWindow/LogInWindow.js"
 
 function App() {
   const [matchedVideos, setmatchedVideos] = useState(videos);
@@ -53,6 +54,12 @@ function App() {
           path="/addVideo"
           element={
             <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />
+          }
+        />
+        <Route
+          path="/login"
+          element={
+            <LogInWindow />
           }
         />
       </Routes>

@@ -31,6 +31,9 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
   const onMoveToAddVideo = () => {
     navigate("/addVideo");
   }
+  const onMoveToLogin = () => {
+    navigate("login");
+  }
   return (
     <div>
       <nav className="navbar navbar-expand">
@@ -84,7 +87,7 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
                     width="22"
                     height="22"
                     fill="currentColor"
-                    class="bi bi-camera-reels"
+                    className="bi bi-camera-reels"
                     viewBox="0 0 16 16"
                   >
                     <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0M1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0" />
@@ -104,6 +107,7 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
                     isDarkMode ? "dark-mode" : "light-mode"
                   }`}
                   aria-current="page"
+                  onClick={onMoveToLogin}
                   href="#"
                 >
                   &nbsp;
