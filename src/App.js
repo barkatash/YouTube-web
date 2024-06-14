@@ -10,7 +10,7 @@ import UploadForm from "./uploadVideo/UploadForm.js"
 import LogInWindow from "./logInWindow/LogInWindow.js"
 
 function App() {
-  const [matchedVideos, setmatchedVideos] = useState(videos);
+  const [matchedVideos, setmatchedVideos] = useState(allVideos);
   const [allVideos, setAllVideos] = useState(videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
 

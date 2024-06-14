@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./UploadForm.css";
 import { useNavigate } from "react-router-dom";
 import watch from "../images/youtubelogo.svg";
@@ -19,27 +19,30 @@ function UploadForm({ allVideos, setAllVideos }) {
     video: null,
     title: "",
     description: "",
-    id: 5,
+    id: allVideos.length + 1,
     image: "",
     uploader: "",
     duration: "",
     visits: "0",
-    uploadDate: "4 years ago",
-    decription: "",
+    uploadDate: "now",
     likes: "0",
     categoryId: [0],
   });
 
   const handleVideoChange = (event) => {
-    const video = event.target.files[0];
+    const video = event.target.files[0].name;
     setFormData((prevState) => ({
       ...prevState,
-      videoFile: video,
+      video: `videos/${video}`,
     }));
     setSelectedVideo(video);
   };
   const handleImageChange = (event) => {
-    const img = event.target.files[0];
+    const img = event.target.files[0].name;
+    setFormData((prevState) => ({
+      ...prevState,
+      image: img,
+    }));
     setSelectedImage(img);
   }
 
@@ -51,15 +54,10 @@ function UploadForm({ allVideos, setAllVideos }) {
     }));
   };
 
-  useEffect(() => {
-    setAllVideos([...allVideos, formData]);
-  }, [formData]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formData.videoFile) {
-      const videoUrl = URL.createObjectURL(formData.videoFile);
-    }
+    setAllVideos([...allVideos, formData]);
     onMoveToHomepage();
   };
 

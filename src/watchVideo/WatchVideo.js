@@ -3,7 +3,7 @@ import Share from "./Share.js";
 import { useState } from "react";
 
 function WatchVideo(
-  { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode },
+  { video, title, uploader, visits, description, uploadDate, likes, isDarkMode },
   { key }
 ) {
   const [like, setLike] = useState(false);
@@ -92,7 +92,7 @@ function WatchVideo(
             </button>
             <Share show={showShare} handleClose={handleCloseShare} />
           </div>
-          <p className="card-text title-video-watch">{decription}</p>
+          <p className="card-text title-video-watch">{description}</p>
           <p className="card-text title-video-watch">
             {visits} views &nbsp; {uploadDate}
           </p>

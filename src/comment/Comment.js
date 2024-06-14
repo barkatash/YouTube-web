@@ -1,7 +1,7 @@
 import "./Comment.css";
 import { useState } from "react";
 
-function Comment({ userName, decription, uploadDate, likes }) {
+function Comment({ userName, description, uploadDate, likes }) {
   const [commentLike, setCommentlike] = useState(false);
   const [commentUnlike, setCommentunlike] = useState(false);
 
@@ -18,7 +18,7 @@ function Comment({ userName, decription, uploadDate, likes }) {
               &nbsp;
               <small>{uploadDate}</small>
             </div>
-            <p className="mb-1">{decription}</p>
+            <p className="mb-1">{description}</p>
           </div>
         </div>
       </div>

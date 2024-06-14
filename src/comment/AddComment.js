@@ -23,7 +23,7 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
       {
         videoId: videoId,
         userName: "?",
-        decription: comment,
+        description: comment,
         uploadDate: "now",
         likes: 0,
         dislikes: 0,
