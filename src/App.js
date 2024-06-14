@@ -6,13 +6,15 @@ import videos from "./db/videos.json";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
-import UploadForm from "./uploadVideo/UploadForm.js"
-import LogInWindow from "./logInWindow/LogInWindow.js"
+import UploadForm from "./uploadVideo/UploadForm.js";
+import LogInWindow from "./logInWindow/LogInWindow.js";
+import comments from "./db/comments.json";
 
 function App() {
   const [allVideos, setAllVideos] = useState(videos);
   const [matchedVideos, setmatchedVideos] = useState(allVideos ?? videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const[videoComments, setVideoComments] = useState(comments);
 
   return (
 
@@ -46,7 +48,7 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
               />
-              <VideoPage isDarkMode={isDarkMode} videos={allVideos}/>
+              <VideoPage isDarkMode={isDarkMode} videos={allVideos} videoComments={videoComments} setVideoComments={setVideoComments}/>
             </div>
           }
         />

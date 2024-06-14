@@ -8,9 +8,9 @@ import { useState } from 'react';
 import './VideoPage.css';
 import { useParams } from "react-router-dom";
 
-function VideoPage({isDarkMode, videos}) {
+function VideoPage({isDarkMode, videos, videoComments, setVideoComments}) {
     const { id } = useParams();
-    const[videoComments, setVideoComments] = useState(comments);
+    
     const [key, setKey] = useState(0);
     
     return (
