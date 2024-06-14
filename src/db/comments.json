@@ -1,5 +1,6 @@
 [
     {
+        "commentId": 1,
         "videoId": 2,
         "userName": "BarKatash",
         "description": "love this song",
@@ -8,6 +9,7 @@
         "dislikes": 0
     },
     {
+        "commentId": 2,
         "videoId": 3,
         "userName": "OmerRabin",
         "description": "best song",
@@ -16,6 +18,7 @@
         "dislikes": 6
     },
     {
+        "commentId": 3,
         "videoId": 1,
         "userName": "eyal111",
         "description": "wow great video!",

@@ -9,10 +9,6 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
     setIsFocused(true);
   };
 
-  const onBlur = () => {
-    setIsFocused(false);
-  };
-
   const onCommentInput = (event) => {
     setComment(event.target.value);
   };
@@ -21,6 +17,7 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
     e.preventDefault();
     setVideoComments([
       {
+        commentId: comments.length + 1,
         videoId: videoId,
         userName: "?",
         description: comment,
