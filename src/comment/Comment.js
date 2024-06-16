@@ -16,7 +16,6 @@ function Comment({
   const [newDescription, setNewDescription] = useState(description);
 
   const onDeleteComment = () => {
-    console.log(videoComments);
     setVideoComments(
       videoComments.filter((comment) => comment.commentId !== commentId)
     );
