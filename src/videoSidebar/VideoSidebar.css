@@ -16,6 +16,7 @@
     display: block;
     width: 150px;
     height: 100px;
+    position: relative;
 }
 .img-fluid:hover {
     transform: scale(1.03);
@@ -36,14 +37,14 @@
     padding: 0;
     text-align: start;
 }
-.duration {
-    bottom: 5px;
+.duration-side-video {
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
     padding: 2px 6px;
     font-size: 10px;
     border-radius: 3px;
-    z-index: 1;
+    position: absolute;
     right: inherit;
+    bottom: 5px;
     margin-left: 115px;
 }
