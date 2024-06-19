@@ -22,7 +22,7 @@ function UploadForm({ allVideos, setAllVideos }) {
     video: null,
     title: "",
     description: "",
-    id: allVideos.length + 1,
+    id: allVideos.length + 2,
     image: "",
     uploader: "",
     duration: "",

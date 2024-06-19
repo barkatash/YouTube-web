@@ -1,10 +1,10 @@
 import "./ButtonCategory.css";
 import videos from "../db/videos.json";
 
-function ButtonCategory({categoryId, categoryName, matchedVideos, setmatchedVideos}) {
+function ButtonCategory({categoryId, categoryName, matchedVideos, setMatchedVideos}) {
   const onSelectCategory = () =>
     {
-        setmatchedVideos(
+        setMatchedVideos(
         videos.filter(video => video.categoryId.includes(categoryId))
     );}
 

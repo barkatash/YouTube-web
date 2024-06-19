@@ -10,15 +10,27 @@ import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
 import comments from "./db/comments.json";
 
-
 function App() {
   const [allVideos, setAllVideos] = useState(videos);
-  const [matchedVideos, setmatchedVideos] = useState(allVideos ?? videos);
+  const [matchedVideos, setMatchedVideos] = useState(allVideos ?? videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const[videoComments, setVideoComments] = useState(comments);
+  const [videoComments, setVideoComments] = useState(comments);
+
+  const handleDeleteVideo = (id) => {
+    const updatedVideos = allVideos.filter((video) => video.id !== id);
+    setAllVideos(updatedVideos);
+    setMatchedVideos(updatedVideos);
+  };
+
+  const handleEditVideo = (id, updatedVideo) => {
+    const updatedVideos = allVideos.map((video) =>
+      video.id === id ? updatedVideo : video
+    );
+    setAllVideos(updatedVideos);
+    setMatchedVideos(updatedVideos);
+  };
 
   return (
-
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
         <Route
@@ -27,14 +39,16 @@ function App() {
             <div>
               <Navbar
                 videoList={allVideos}
-                setMatchedVideos={setmatchedVideos}
+                setMatchedVideos={setMatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
               />
               <Homepage
                 matchedVideos={matchedVideos}
-                setmatchedVideos={setmatchedVideos}
+                setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
+                handleDeleteVideo={handleDeleteVideo}
+                handleEditVideo={handleEditVideo}
               />
             </div>
           }
@@ -45,21 +59,26 @@ function App() {
             <div>
               <Navbar
                 videoList={allVideos}
-                setMatchedVideos={setmatchedVideos}
+                setMatchedVideos={setMatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
               />
-              <VideoPage isDarkMode={isDarkMode} videos={allVideos} videoComments={videoComments} setVideoComments={setVideoComments}/>
+              <VideoPage
+                isDarkMode={isDarkMode}
+                videos={allVideos}
+                videoComments={videoComments}
+                setVideoComments={setVideoComments}
+                handleDeleteVideo={handleDeleteVideo}
+                handleEditVideo={handleEditVideo}
+              />
             </div>
           }
         />
         <Route
           path="/addVideo"
-          element={
-            <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />
-          }
+          element={<UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />}
         />
-        <Route path="/login" element={<MainComponent />} /> {/* Add the SignInWindow route */}
+        <Route path="/login" element={<MainComponent />} />
       </Routes>
     </div>
   );

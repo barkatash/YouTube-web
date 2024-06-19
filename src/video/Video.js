@@ -1,7 +1,17 @@
 import { useNavigate } from "react-router-dom";
 import "./Video.css";
 
-function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
+function Video({
+  id,
+  image,
+  title,
+  uploader,
+  duration,
+  visits,
+  uploadDate,
+  handleDeleteVideo,
+  handleEditVideo
+}) {
   const navigate = useNavigate();
 
   const onMoveToVideo = () => {
@@ -9,7 +19,12 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
   };
 
   const onDeleteVideo = () => {
-    // Implement deletion logic here if needed
+    handleDeleteVideo(id);
+  };
+
+  const onEditVideo = () => {
+    const updatedVideo = { id, image, title: 'New Title', uploader, duration, visits, uploadDate };
+    handleEditVideo(id, updatedVideo);
   };
 
   return (
@@ -26,10 +41,10 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
         </div>
         <div className="card-body-video">
           <h6 className="card-title card-title-video">{title}</h6>
-          <div class="dropstart video-menu">
+          <div className="dropstart video-menu">
             <button
               type="button"
-              class="video-menu"
+              className="video-menu"
               data-bs-toggle="dropdown"
               aria-expanded="false"
             >
@@ -44,7 +59,7 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
                 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
               </svg>
             </button>
-            <ul class="dropdown-menu">
+            <ul className="dropdown-menu">
               <li>
                 <button
                   className="dropdown-item"
@@ -55,7 +70,9 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
                 </button>
               </li>
               <li>
-                <button className="dropdown-item">Edit</button>
+                <button className="dropdown-item" type="button" onClick={onEditVideo}>
+                  Edit
+                </button>
               </li>
             </ul>
           </div>
