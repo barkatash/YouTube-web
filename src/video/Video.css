@@ -36,7 +36,6 @@
 }
 .delete-video {
     border-color: transparent;
-    margin-right: 30px;
 }
   
 .duration {
@@ -48,4 +47,10 @@
     padding: 2px 6px;
     font-size: 12px;
     border-radius: 3px;
+}
+.video-menu {
+    border-color: transparent;
+    text-align: end;
+    margin-right: 15px;
+    padding: 0;
 }
