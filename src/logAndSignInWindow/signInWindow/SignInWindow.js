@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
 
+
 function SignInWindow({ addUser, navigateToLogIn}) {
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     displayName: "",
