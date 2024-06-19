@@ -27,6 +27,10 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
     setIsDarkMode(!isDarkMode);
   };
 
+  const handleSignInClick = () => {
+    navigate('/login');
+  };
+
   const navigate = useNavigate();
   const onMoveToAddVideo = () => {
     navigate("/addVideo");
@@ -103,6 +107,7 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
                   className={`sign-in navbar-brand ${
                     isDarkMode ? "dark-mode" : "light-mode"
                   }`}
+                  onClick={handleSignInClick}
                   aria-current="page"
                   href="#"
                 >
