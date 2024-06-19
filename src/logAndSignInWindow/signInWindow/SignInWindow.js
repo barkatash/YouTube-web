@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import img1 from '../logInWindow/youtubeLogo.png';
-import './SignInWindow.css';
+import React, { useState } from "react";
+import { useLocation } from 'react-router-dom';
+import img1 from "../logInWindow/youtubeLogo.png";
+import "./SignInWindow.css";
 
-function SignInWindow() {
+function SignInWindow({ addUser, navigateToLogIn}) {
   const [userInfo, setUserInfo] = useState({
-    username: '',
-    displayName: '',
-    password: '',
-    verifyPassword: '',
-    image: '',
+    username: "",
+    displayName: "",
+    password: "",
+    verifyPassword: "",
+    image: "",
   });
 
   const handleChange = (e) => {
@@ -19,16 +20,18 @@ function SignInWindow() {
     });
   };
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Here, you can process the user information, such as sending it to an API
-    console.log('User Information:', userInfo);
+    addUser(userInfo);
+    alert('User signed up successfully!');
+    navigateToLogIn();
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;
 
   return (
-    <body id= "signInWindow">
+    <body id="signInWindow">
       <div id="signInWindow_background">
         <div id="signInWindow_part1">
           <img src={img1} width="150" height="150" alt="YouTube Logo" />
@@ -36,9 +39,7 @@ function SignInWindow() {
           <div id="signInWindow_toContinue">to continue to YouTube</div>
         </div>
         <div id="signInWindow_part2">
-          <form 
-            className="row g-3"
-            onSubmit={handleSubmit}>
+          <form className="row g-3" onSubmit={handleSubmit}>
             <div id="signInWindow_textInputRow">
               <div className="col-md-4 signInWindow_textInputs">
                 <input
@@ -75,9 +76,10 @@ function SignInWindow() {
                   required
                 />
                 <small
-                    id="passwordHelpBlock"
-                    className="form-text text-muted signInWindow_passwordRestriction">  
-                    Your password must be 8-20 characters long.
+                  id="passwordHelpBlock"
+                  className="form-text text-muted signInWindow_passwordRestriction"
+                >
+                  Your password must be 8-20 characters long.
                 </small>
               </div>
               <div className="col-md-4 signInWindow_textInputs">
@@ -93,25 +95,29 @@ function SignInWindow() {
               </div>
             </div>
             <div className="mb-3 col-md-4">
-                <input
+              <input
                 type="file"
                 name="image"
                 id="signInWindow_uploadPhotoButton"
                 class="form-control"
                 placeholder="image"
                 value={image}
-                onChange={handleChange}/>
-                <label for="formFile"
-                id = "signInWindow_uploadPhotoText" 
-                class="form-label">
-                  please upload your photo
-                </label>
+                onChange={handleChange}
+              />
+              <label
+                for="formFile"
+                id="signInWindow_uploadPhotoText"
+                class="form-label"
+              >
+                please upload your photo
+              </label>
             </div>
             <div className="col-12">
               <button
                 id="signInWindow_signInButton"
                 className="btn btn-primary"
-                type="submit">
+                type="submit"
+              >
                 sign in
               </button>
             </div>
