@@ -6,8 +6,9 @@ import videos from "./db/videos.json";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
-import UploadForm from "./uploadVideo/UploadForm.js"; // Import the UploadForm component
+import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
+import comments from "./db/comments.json";
 
 
 function App() {
