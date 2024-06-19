@@ -26,7 +26,6 @@ function SignInWindow() {
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;
-
   return (
     <body id= "signInWindow">
       <div id="signInWindow_background">

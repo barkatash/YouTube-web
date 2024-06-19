@@ -8,13 +8,16 @@ import LogInWindow from "./logInWindow/LogInWindow.js"; // Import SignInWindow
 import SignInWindow from "./signInWindow/SignInWindow.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
-import UploadForm from "./uploadVideo/UploadForm.js"; // Import the UploadForm component
+import UploadForm from "./uploadVideo/UploadForm.js";
+import LogInWindow from "./logInWindow/LogInWindow.js";
+import comments from "./db/comments.json";
 
 
 function App() {
-  const [matchedVideos, setmatchedVideos] = useState(videos);
   const [allVideos, setAllVideos] = useState(videos);
+  const [matchedVideos, setmatchedVideos] = useState(allVideos ?? videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const[videoComments, setVideoComments] = useState(comments);
 
   return (
 
@@ -25,7 +28,7 @@ function App() {
           element={
             <div>
               <Navbar
-                videoList={videos}
+                videoList={allVideos}
                 setMatchedVideos={setmatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
@@ -43,12 +46,12 @@ function App() {
           element={
             <div>
               <Navbar
-                videoList={videos}
+                videoList={allVideos}
                 setMatchedVideos={setmatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
               />
-              <VideoPage isDarkMode={isDarkMode} />
+              <VideoPage isDarkMode={isDarkMode} videos={allVideos} videoComments={videoComments} setVideoComments={setVideoComments}/>
             </div>
           }
         />
@@ -58,8 +61,12 @@ function App() {
             <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />
           }
         />
-        <Route path="/login" element={<LogInWindow />} /> {/* Add the SignInWindow route */}
-        <Route path="/signin" element={<SignInWindow />} />
+        <Route
+          path="/login"
+          element={
+            <LogInWindow />
+          }
+        />
       </Routes>
     </div>
   );

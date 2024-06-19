@@ -1,9 +1,11 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
 import { useState } from "react";
+import videos from "../db/videos.json";
 
-function WatchVideo(
-  { video, title, uploader, visits, decription, uploadDate, likes, isDarkMode },
+const isFromDb = (videoUrl) => videos.find(videoDb => videoDb.video === videoUrl) !== undefined
+
+function WatchVideo({ video, title, uploader, visits, description, uploadDate, likes, isDarkMode },
   { key }
 ) {
   const [like, setLike] = useState(false);
@@ -16,13 +18,14 @@ function WatchVideo(
   const handleCloseShare = () => {
     setShowShare(false);
   };
+  
   return (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
         <video key={key} controls className="video">
           <source
-            src={`${process.env.PUBLIC_URL}/${video}`}
+            src={isFromDb(video) ? `${process.env.PUBLIC_URL}/${video}` : video}
             type="video/mp4"
           ></source>
         </video>
@@ -92,7 +95,7 @@ function WatchVideo(
             </button>
             <Share show={showShare} handleClose={handleCloseShare} />
           </div>
-          <p className="card-text title-video-watch">{decription}</p>
+          <p className="card-text title-video-watch">{description}</p>
           <p className="card-text title-video-watch">
             {visits} views &nbsp; {uploadDate}
           </p>

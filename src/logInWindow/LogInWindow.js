@@ -28,7 +28,6 @@ function LogInWindow() {
         },
         body: JSON.stringify(user),
       });
-
       if (response.ok) {
         alert("Logged in successfully!");
       } else {
