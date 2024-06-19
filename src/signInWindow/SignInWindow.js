@@ -8,6 +8,7 @@ function SignInWindow() {
     displayName: '',
     password: '',
     verifyPassword: '',
+    image: '',
   });
 
   const handleChange = (e) => {
@@ -24,22 +25,22 @@ function SignInWindow() {
     console.log('User Information:', userInfo);
   };
 
-  const { username, displayName, password, verifyPassword } = userInfo;
+  const { username, displayName, password, verifyPassword, image } = userInfo;
 
   return (
-    <div>
-      <div id="back">
-        <div id="part1">
+    <body id= "signInWindow">
+      <div id="signInWindow_background">
+        <div id="signInWindow_part1">
           <img src={img1} width="150" height="150" alt="YouTube Logo" />
-          <div id="logIn">sign in</div>
-          <div id="toContinue">to continue to YouTube</div>
+          <div id="signInWindow_signIn">sign in</div>
+          <div id="signInWindow_toContinue">to continue to YouTube</div>
         </div>
-        <div id="part2">
+        <div id="signInWindow_part2">
           <form 
             className="row g-3"
             onSubmit={handleSubmit}>
-            <div id="part2_1">
-              <div className="col-md-4 allPart2">
+            <div id="signInWindow_textInputRow">
+              <div className="col-md-4 signInWindow_textInputs">
                 <input
                   type="text"
                   className="form-control"
@@ -50,7 +51,7 @@ function SignInWindow() {
                   required
                 />
               </div>
-              <div className="col-md-4 allPart2">
+              <div className="col-md-4 signInWindow_textInputs">
                 <input
                   type="text"
                   className="form-control"
@@ -62,8 +63,8 @@ function SignInWindow() {
                 />
               </div>
             </div>
-            <div id="part2_1">
-              <div className="col-md-4 allPart2">
+            <div id="signInWindow_textInputRow">
+              <div className="col-md-4 signInWindow_textInputs">
                 <input
                   type="password"
                   className="form-control"
@@ -75,11 +76,11 @@ function SignInWindow() {
                 />
                 <small
                     id="passwordHelpBlock"
-                    className="form-text text-muted downText">  
+                    className="form-text text-muted signInWindow_passwordRestriction">  
                     Your password must be 8-20 characters long.
                 </small>
               </div>
-              <div className="col-md-4 allPart2">
+              <div className="col-md-4 signInWindow_textInputs">
                 <input
                   type="password"
                   className="form-control"
@@ -91,9 +92,24 @@ function SignInWindow() {
                 />
               </div>
             </div>
+            <div className="mb-3 col-md-4">
+                <input
+                type="file"
+                name="image"
+                id="signInWindow_uploadPhotoButton"
+                class="form-control"
+                placeholder="image"
+                value={image}
+                onChange={handleChange}/>
+                <label for="formFile"
+                id = "signInWindow_uploadPhotoText" 
+                class="form-label">
+                  please upload your photo
+                </label>
+            </div>
             <div className="col-12">
               <button
-                id="signInButton"
+                id="signInWindow_signInButton"
                 className="btn btn-primary"
                 type="submit">
                 sign in
@@ -102,7 +118,7 @@ function SignInWindow() {
           </form>
         </div>
       </div>
-    </div>
+    </body>
   );
 }
 

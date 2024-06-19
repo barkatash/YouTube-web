@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useEffect, useState } from "react";
+import { useNavigate } from 'react-router-dom';
 import './LogInWindow.css';
 import img1 from './youtubeLogo.png';
 import SignInWindow from '../signInWindow/SignInWindow.js';
@@ -8,8 +9,10 @@ function LogInWindow() {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSignInButtonClick = () => {
-        setShowSignIn(true);
+    const navigate = useNavigate();
+
+    const handleSignInClick = () => {
+        navigate('/signin');
     };
 
     const handleLogIn = async (event) => {
@@ -38,21 +41,22 @@ function LogInWindow() {
     };
 
     return (
-        <div>
+        <body id="logInWindow">
             {showSignIn ? (
                 <SignInWindow />
             ) : (
-                <div id="back">
-                    <div id="part1">
-                        <img src={img1} width="150" height="150" alt="YouTube Logo" />
-                        <div id="logIn">log in</div>
-                        <div id="toContinue">to continue to YouTube</div>
+                <div id="logInWindow_background">
+                    <div id="logInWindow_part1">
+                        <img id="#logInWindow_youTubeLogo" src={img1} width="150" height="150" alt="YouTube Logo" />
+                        <div id="logInWindow_logIn">log in</div>
+                        <div id="logInWindow_toContinue">to continue to YouTube</div>
                     </div>
-                    <div id="part2">
+                    <div id="logInWindow_part2">
                         <form className="row g-3" onSubmit={handleLogIn}>
-                            <div id="part2_1">
-                                <div className="col-md-4">
+                            <div>
+                                <div>
                                     <input
+                                        id= "logInWindow_textInput"
                                         type="text"
                                         className="form-control"
                                         placeholder="user name"
@@ -61,10 +65,12 @@ function LogInWindow() {
                                         required
                                     />
                                 </div>
-                                <div className="col-md-4">
+                                <div>
                                     <input
+                                        id= "logInWindow_textInput"
                                         type="password"
                                         className="form-control"
+                                        name="password"
                                         placeholder="password"
                                         value={password}
                                         onChange={(e) => setPassword(e.target.value)}
@@ -72,23 +78,26 @@ function LogInWindow() {
                                     />
                                 </div>
                             </div>
-                            <div id="buttons">
-                                <div>
-                                    <button type="button" id="signInButton" className="btn btn-primary" onClick={handleSignInButtonClick}>
-                                        sign in
-                                    </button>
-                                </div>
-                                <div className="col-md-4">
-                                    <button id="signInButton" className="btn btn-primary" type="submit">
-                                        log in
-                                    </button>
-                                </div>
+                            <div>
+                                <button
+                                type="button"
+                                id="logInWindow_signInButton"
+                                className="btn btn-primary"
+                                onClick={handleSignInClick}>
+                                    sign in
+                                </button>
+                                <button
+                                type="submit"
+                                id="logInWindow_logInButton"
+                                className="btn btn-primary">
+                                    log in
+                                </button>
                             </div>
                         </form>
                     </div>
                 </div>
             )}
-        </div>
+        </body>
     );
 }
 
