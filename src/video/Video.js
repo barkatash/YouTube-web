@@ -26,12 +26,11 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
         </div>
         <div className="card-body-video">
           <h6 className="card-title card-title-video">{title}</h6>
-          <div className="dropleft video-menu">
+          <div class="dropstart video-menu">
             <button
               type="button"
-              className="video-menu"
-              data-toggle="dropdown"
-              aria-haspopup="true"
+              class="video-menu"
+              data-bs-toggle="dropdown"
               aria-expanded="false"
             >
               <svg
@@ -45,10 +44,20 @@ function Video({ id, image, title, uploader, duration, visits, uploadDate }) {
                 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
               </svg>
             </button>
-            <div className="dropdown-menu">
-              <button className="dropdown-item" type="button" onClick={onDeleteVideo}>Delete</button>
-              <button className="dropdown-item">Edit</button>
-            </div>
+            <ul class="dropdown-menu">
+              <li>
+                <button
+                  className="dropdown-item"
+                  type="button"
+                  onClick={onDeleteVideo}
+                >
+                  Delete
+                </button>
+              </li>
+              <li>
+                <button className="dropdown-item">Edit</button>
+              </li>
+            </ul>
           </div>
           <div className="card-text-video">
             <div className="d-flex">
