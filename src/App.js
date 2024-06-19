@@ -11,9 +11,10 @@ import MainComponent from "./logAndSignInWindow/MainComponent.js";
 
 
 function App() {
-  const [matchedVideos, setmatchedVideos] = useState(videos);
   const [allVideos, setAllVideos] = useState(videos);
+  const [matchedVideos, setmatchedVideos] = useState(allVideos ?? videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
+  const[videoComments, setVideoComments] = useState(comments);
 
   return (
 
@@ -24,7 +25,7 @@ function App() {
           element={
             <div>
               <Navbar
-                videoList={videos}
+                videoList={allVideos}
                 setMatchedVideos={setmatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
@@ -42,12 +43,12 @@ function App() {
           element={
             <div>
               <Navbar
-                videoList={videos}
+                videoList={allVideos}
                 setMatchedVideos={setmatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
               />
-              <VideoPage isDarkMode={isDarkMode} />
+              <VideoPage isDarkMode={isDarkMode} videos={allVideos} videoComments={videoComments} setVideoComments={setVideoComments}/>
             </div>
           }
         />

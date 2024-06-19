@@ -1,7 +1,7 @@
 import VideoSidebar from "./VideoSidebar";
-import videos from "../db/videos.json";
 
-function VideoListSidebar({setKey}) {
+
+function VideoListSidebar({setKey, videos}) {
     return ( 
         <div>
             { videos.map((video, id) => (

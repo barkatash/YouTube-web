@@ -2,6 +2,7 @@
     width: 300px;
     height: 200px;
     transition: filter 0.3s ease;
+    position: relative;
 }
 
 .card-text-sidebar {
@@ -15,15 +16,13 @@
     display: block;
     width: 150px;
     height: 100px;
+    position: relative;
 }
 .img-fluid:hover {
     transform: scale(1.03);
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
     opacity: 0.9;
 }
-
-
-
 .container {
     padding: 0;
 }
@@ -31,9 +30,21 @@
 .card-title-sidebar {
     font-weight: 500;
     margin-bottom: 0.5rem;
+    position: relative;
 }
 .ml-3-video-side-bar {
     margin-left: 1rem;
     padding: 0;
     text-align: start;
+}
+.duration-side-video {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 3px;
+    position: absolute;
+    right: inherit;
+    bottom: 5px;
+    margin-left: 115px;
 }

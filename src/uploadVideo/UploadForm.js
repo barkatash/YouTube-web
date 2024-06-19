@@ -1,33 +1,59 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./UploadForm.css";
 import { useNavigate } from "react-router-dom";
+import watch from "../images/youtubelogo.svg";
+import { Link } from "react-router-dom";
 
 function UploadForm({ allVideos, setAllVideos }) {
   const navigate = useNavigate();
   const onMoveToHomepage = () => {
     navigate("/");
   };
+
+  const [activeTab, setActiveTab] = useState("Details");
+  const handleTabClick = (tab) => {
+    setActiveTab(tab);
+  };
+
+  const [selectedVideo, setSelectedVideo] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const [formData, setFormData] = useState({
     video: null,
     title: "",
     description: "",
-    id: 5,
+    id: allVideos.length + 1,
     image: "",
     uploader: "",
     duration: "",
     visits: "0",
-    uploadDate: "4 years ago",
-    decription: "",
+    uploadDate: "now",
     likes: "0",
     categoryId: [0],
   });
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0]; // Get the first file from the selected files
-    setFormData((prevState) => ({
-      ...prevState,
-      videoFile: file,
-    }));
+  const handleVideoChange = (event) => {
+    const videoFile = event.target.files[0];
+    if (videoFile) {
+      const videoUrl = URL.createObjectURL(videoFile);
+      setFormData((prevState) => ({
+        ...prevState,
+        video: videoUrl,
+      }));
+      setSelectedVideo(videoFile);
+    }
+  };
+
+  const handleImageChange = (event) => {
+    const imageFile = event.target.files[0];
+    if (imageFile) {
+      const imageUrl = URL.createObjectURL(imageFile);
+      setFormData((prevState) => ({
+        ...prevState,
+        image: imageUrl,
+      }));
+      setSelectedImage(imageFile);
+    }
   };
 
   const handleInputChange = (event) => {
@@ -38,53 +64,277 @@ function UploadForm({ allVideos, setAllVideos }) {
     }));
   };
 
-  useEffect(() => {
-    setAllVideos([...allVideos, formData]);
-  }, [formData]);
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    if (formData.videoFile) {
-      const videoUrl = URL.createObjectURL(formData.videoFile); // Create URL for the selected video file
-    }
+    setAllVideos([...allVideos, formData]);
     onMoveToHomepage();
   };
 
   return (
-    <form onSubmit={handleSubmit} className="mt-4 text-start add-video-form">
-      <div className="mb-3 d-inline-block mx-auto w-75">
-        <h1>Details</h1>
-        <input
-          type="file"
-          accept="video/*,image/*"
-          onChange={handleFileChange}
-        />
-      </div>
-      <div className="mb-3 d-inline-block mx-auto w-75">
-        <label className="form-label">Title:</label>
-        <input
-          type="text"
-          className="form-control"
-          name="title"
-          value={formData.title}
-          onChange={handleInputChange}
-        />
-      </div>
-      <div className="mb-3 d-inline-block mx-auto w-75">
-        <label className="form-label">Description:</label>
-        <textarea
-          className="form-control"
-          name="description"
-          value={formData.description}
-          onChange={handleInputChange}
-        ></textarea>
-      </div>
-      <div className="text-center mt-3">
-        <button type="submit" className="btn btn-primary btn-upload">
-          Upload Video
-        </button>
-      </div>
-    </form>
+    <div>
+      <h2 className="card-header">
+        <Link to="/">
+          <img className="upload-logo" src={watch} alt="YouTube Logo" />
+        </Link>
+        &nbsp;Upload video
+      </h2>
+
+      <form
+        onSubmit={handleSubmit}
+        className="card card-upload mt-4 text-start add-video-form"
+      >
+        <div>
+          <ul className="nav nav-tabs">
+            <li className="nav-item">
+              <a
+                className={`nav-link ${
+                  activeTab === "Details" ? "active" : ""
+                }`}
+                href="#"
+                onClick={() => handleTabClick("Details")}
+              >
+                Details
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className={`nav-link ${
+                  activeTab === "Link1" ? "active" : ""
+                }`}
+                href="#"
+                onClick={() => handleTabClick("Link1")}
+              >
+                Checks
+              </a>
+            </li>
+            <li className="nav-item">
+              <a
+                className={`nav-link ${
+                  activeTab === "Link2" ? "active" : ""
+                }`}
+                href="#"
+                onClick={() => handleTabClick("Link2")}
+              >
+                Visibility
+              </a>
+            </li>
+          </ul>
+          <div className="tab-content">
+            {activeTab === "Details" && (
+              <div>
+                <h3>Details</h3>
+                <br></br>
+                <input
+                  type="file"
+                  id="fileInput"
+                  accept="video/*"
+                  onChange={handleVideoChange}
+                  style={{ display: "none" }}
+                />
+
+                <label
+                  htmlFor="fileInput"
+                  className="file-input-label"
+                >
+                  {selectedVideo === null ? (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        className="bi bi-upload upload"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                      </svg>
+                      &nbsp; &nbsp; Select video to upload
+                    </div>
+                  ) : (
+                    <div>
+                      <video controls className="file-preview">
+                        <source src={formData.video} type="video/mp4" />
+                      </video>
+                      &nbsp;&nbsp; <p>Change video file</p>
+                    </div>
+                  )}
+                </label>
+
+                <br></br><br></br>
+
+                <input
+                  type="file"
+                  id="fileInput2"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  style={{ display: "none" }}
+                />
+
+                <label
+                  htmlFor="fileInput2"
+                  className="file-input-label"
+                >
+                  {selectedImage === null ? (
+                    <div>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="60"
+                        height="60"
+                        className="bi bi-upload upload"
+                        viewBox="0 0 16 16"
+                      >
+                        <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                        <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                      </svg>
+                      &nbsp;&nbsp; Select image to upload
+                    </div>
+                  ) : (
+                    <div>
+                      <img src={formData.image} alt="Selected" className="file-preview" />
+                      &nbsp;&nbsp;<p>Change image</p>
+                    </div>
+                  )}
+                </label>
+                <br></br>
+                <div className="mb-3 d-inline-block mx-auto w-75">
+                  <div className="input-with-label">
+                    <label className="form-label">Title:</label>
+                    <br />
+                    <input
+                      type="text"
+                      className="form-control"
+                      name="title"
+                      value={formData.title}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                </div>
+
+                <div className="mb-3 d-inline-block mx-auto w-75">
+                  <div className="input-with-label">
+                    <label className="form-label">Description:</label>
+                    <br />
+                    <textarea
+                      className="form-control"
+                      name="description"
+                      value={formData.description}
+                      onChange={handleInputChange}
+                    ></textarea>
+                  </div>
+                </div>
+
+                <div className="text-end mt-3">
+                  <button
+                    type="button"
+                    className="btn-upload"
+                    onClick={() => handleTabClick("Link1")}
+                  >
+                    Next
+                  </button>
+                </div>
+              </div>
+            )}
+
+            {activeTab === "Link1" && (
+              <div>
+                <h3>Checks</h3>
+                <p>
+                  We'll check your video for issues that may restrict its
+                  visibility and then you will have the opportunity to fix
+                  issues before publishing your video.{" "}
+                  <a href="#" className="link">
+                    Learn more
+                  </a>
+                </p>
+                <p className="section-title">Copyright</p>
+                <p>No issues found</p>
+                <p>
+                  Remember: These check results aren’t final. Issues may come up
+                  in the future that impact your video.{" "}
+                  <a href="#" className="link">
+                    Learn more
+                  </a>
+                </p>
+                <div className="text-end mt-3">
+                  <button
+                    type="button"
+                    className="btn-upload"
+                    onClick={() => handleTabClick("Link2")}
+                  >
+                    Next
+                  </button>
+                </div>
+                <br />
+                <br />
+                <p className="small">
+                  By submitting your videos to YouTube, you acknowledge that you
+                  agree to YouTube's Terms of Service and Community Guidelines.
+                </p>
+                <p className="small">
+                  Please be sure not to violate others' copyright or privacy
+                  rights.
+                </p>
+              </div>
+            )}
+
+            {activeTab === "Link2" && (
+              <div>
+                <h3>Visibility</h3>
+                <p>Choose who can see your video</p>
+                <p>Make your video public, unlisted, or private</p>
+
+                <div className="visibility-option">
+                  <input
+                    type="radio"
+                    id="private"
+                    name="visibility"
+                    value="private"
+                  />
+                  <div>
+                    <h4>Private</h4>
+                    <p>Only you and people you choose can watch your video</p>
+                  </div>
+                </div>
+
+                <div className="visibility-option">
+                  <input
+                    type="radio"
+                    id="unlisted"
+                    name="visibility"
+                    value="unlisted"
+                  />
+                  <div>
+                    <h4>Unlisted</h4>
+                    <p>Anyone with the video link can watch your video</p>
+                  </div>
+                </div>
+
+                <div className="visibility-option">
+                  <input
+                    type="radio"
+                    id="public"
+                    name="visibility"
+                    value="public"
+                  />
+                  <div>
+                    <h4>Public</h4>
+                    <p>Everyone can watch your video</p>
+                  </div>
+                </div>
+
+                <div className="text-end mt-3">
+                  <button type="submit" className="btn-upload">
+                    Upload
+                  </button>
+                </div>
+              </div>
+            )}
+            <br />
+            <br />
+          </div>
+        </div>
+      </form>
+    </div>
   );
 }
 
