@@ -4,13 +4,10 @@ import Navbar from "./navbar/Navbar.js";
 import { useState } from "react";
 import videos from "./db/videos.json";
 import Homepage from "./Homepage.js";
-import LogInWindow from "./logInWindow/LogInWindow.js"; // Import SignInWindow
-import SignInWindow from "./signInWindow/SignInWindow.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
-import UploadForm from "./uploadVideo/UploadForm.js";
-import LogInWindow from "./logInWindow/LogInWindow.js";
-import comments from "./db/comments.json";
+import UploadForm from "./uploadVideo/UploadForm.js"; // Import the UploadForm component
+import MainComponent from "./logAndSignInWindow/MainComponent.js";
 
 
 function App() {
@@ -61,12 +58,7 @@ function App() {
             <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />
           }
         />
-        <Route
-          path="/login"
-          element={
-            <LogInWindow />
-          }
-        />
+        <Route path="/login" element={<MainComponent />} /> {/* Add the SignInWindow route */}
       </Routes>
     </div>
   );

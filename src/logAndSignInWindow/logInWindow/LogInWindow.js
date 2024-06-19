@@ -1,41 +1,23 @@
-import { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
-import SignInWindow from "../signInWindow/SignInWindow.js";
 
-function LogInWindow() {
-  const [showSignIn, setShowSignIn] = useState(false);
+function LogInWindow({ users, navigateToSignIn}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const navigate = useNavigate();
-
-  const handleSignInClick = () => {
-    navigate("/signin");
-  };
-
-  const handleLogIn = async (event) => {
+  const handleLogIn = (event) => {
+    console.log('Updated users:', users);
     event.preventDefault();
+    console.log('Attempting login with username:', username, 'and password:', password);
+    const user = users.find((u) => u.username === username && u.password === password);
+    console.log('Found user:', user);
 
-    const user = { username, password };
-
-    try {
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(user),
-      });
-      if (response.ok) {
-        alert("Logged in successfully!");
-      } else {
-        alert("Login failed.");
-      }
-    } catch (error) {
-      console.error("Error:", error);
-      alert("An error occurred.");
+    if (user) {
+      alert(`Logged in successfully! Welcome, ${user.displayName}`);
+    } else {
+      alert("Login failed. Invalid username or password.");
     }
   };
 
@@ -85,7 +67,7 @@ function LogInWindow() {
                 type="button"
                 id="logInWindow_signInButton"
                 className="btn btn-primary"
-                onClick={handleSignInClick}
+                onClick={navigateToSignIn}
               >
                 sign in
               </button>
