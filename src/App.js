@@ -4,11 +4,14 @@ import Navbar from "./navbar/Navbar.js";
 import { useState } from "react";
 import videos from "./db/videos.json";
 import Homepage from "./Homepage.js";
+import LogInWindow from "./logInWindow/LogInWindow.js"; // Import SignInWindow
+import SignInWindow from "./signInWindow/SignInWindow.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import LogInWindow from "./logInWindow/LogInWindow.js";
 import comments from "./db/comments.json";
+
 
 function App() {
   const [allVideos, setAllVideos] = useState(videos);
