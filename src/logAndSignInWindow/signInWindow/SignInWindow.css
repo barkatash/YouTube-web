@@ -22,12 +22,6 @@
     float: left;
 }
 
-img {
-    position: relative;
-    right: 45px;
-    bottom: 60px;
-}
-
 #signInWindow_signIn {
     bottom: 100px;
     font-size: 30pt;
@@ -80,8 +74,3 @@ img {
     display:table-cell;
     background-color: rgb(33, 93, 234);
 }
-img {
-    position: relative;
-    right: 45px;
-    bottom: 60px;
-} */
