@@ -22,7 +22,7 @@
     float: left;
 }
 
-.img-signin {
+.signInWindow_img {
     position: relative;
     right: 45px;
     bottom: 60px;
@@ -80,4 +80,3 @@
     display:table-cell;
     background-color: rgb(33, 93, 234);
 }
-

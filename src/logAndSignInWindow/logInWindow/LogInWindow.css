@@ -23,6 +23,13 @@
     float: left;
 }
 
+.logInWindow_img {
+    position: relative;
+    right: 45px;
+    bottom: 60px;
+}
+
+
 #logInWindow_logIn {
     bottom: 100px;
     font-size: 30pt;
@@ -58,11 +65,6 @@
     display: inline-flex;
 }
 
-.logInWindow_youTubeLogo {
-    position: relative;
-    right: 45px;
-    bottom: 60px;
-} 
 #logInWindow_signInButton {
     width: 90px;
     height: 40px;
@@ -85,6 +87,7 @@
     display:table-cell;
     background-color: rgb(33, 93, 234);
 }
+
 #connectPart{
     top: 200px;
 }

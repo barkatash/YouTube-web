@@ -33,8 +33,7 @@ function LogInWindow({ users, navigateToSignIn}) {
       <div id="logInWindow_background">
         <div id="logInWindow_part1">
           <img
-            className="logInWindow_youTubeLogo"
-            id="#logInWindow_youTubeLogo"
+            className="logInWindow_img"
             src={img1}
             width="150"
             height="150"
