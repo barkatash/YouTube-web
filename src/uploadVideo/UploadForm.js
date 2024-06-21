@@ -17,12 +17,13 @@ function UploadForm({ allVideos, setAllVideos }) {
 
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const maxId = Math.max(...allVideos.map(video => video.id), 0) + 1;
 
   const [formData, setFormData] = useState({
     video: null,
     title: "",
     description: "",
-    id: allVideos.length + 1,
+    id: maxId,
     image: "",
     uploader: "",
     duration: "",

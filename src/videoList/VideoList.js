@@ -1,16 +1,19 @@
-import "./VideoList.css"
-import Video from '../video/Video';
+import "./VideoList.css";
+import Video from "../video/Video";
 
-
-function VideoList( {matchedVideos} ) {
-
-    return (
-      <div className="videos">
-        { matchedVideos.map((video, id) => (
-          <Video key={id} {...video}/>
-        )) }
-      </div>
-    );
+function VideoList({ matchedVideos, handleDeleteVideo, handleEditVideo }) {
+  return (
+    <div className="videos">
+      {matchedVideos.map((video, id) => (
+        <Video
+          key={id}
+          {...video}
+          handleDeleteVideo={handleDeleteVideo}
+          handleEditVideo={handleEditVideo}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default VideoList;
