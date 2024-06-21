@@ -24,8 +24,12 @@ function SignInWindow({ addUser, navigateToLogIn}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (userInfo.password !== userInfo.verifyPassword) {
+      alert("Passwords do not match. Please try again.");
+      return;
+    }
     addUser(userInfo);
-    alert('User signed up successfully!');
+    alert("User signed up successfully!");
     navigateToLogIn();
   };
 
