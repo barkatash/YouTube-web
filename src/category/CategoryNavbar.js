@@ -1,7 +1,7 @@
 import ButtonCategory from "../buttonCategory/ButtonCategory";
 import "./CategoryNavbar.css";
 
-function CategoryNavbar({ categories, matchedVideos, setmatchedVideos, isDarkMode }) {
+function CategoryNavbar({ categories, matchedVideos, setMatchedVideos, isDarkMode }) {
   return (
     <nav className="navbar">
       <form className="container-fluid justify-content-space-between buttons-navbar">
@@ -11,7 +11,7 @@ function CategoryNavbar({ categories, matchedVideos, setmatchedVideos, isDarkMod
             key={id}
             {...category}
             matchedVideos={matchedVideos}
-            setmatchedVideos={setmatchedVideos}
+            setMatchedVideos={setMatchedVideos}
           />
         ))}
       </form>

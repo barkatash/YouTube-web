@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
+import { useNavigate } from "react-router-dom";
 
 function LogInWindow({ users, navigateToSignIn}) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
+
+  const onMoveToHomepage = () => {
+    navigate("/");
+  }
 
   const handleLogIn = (event) => {
     console.log('Updated users:', users);
@@ -16,6 +21,8 @@ function LogInWindow({ users, navigateToSignIn}) {
 
     if (user) {
       alert(`Logged in successfully! Welcome, ${user.displayName}`);
+      onMoveToHomepage();
+
     } else {
       alert("Login failed. Invalid username or password.");
     }
@@ -26,6 +33,7 @@ function LogInWindow({ users, navigateToSignIn}) {
       <div id="logInWindow_background">
         <div id="logInWindow_part1">
           <img
+            className="logInWindow_youTubeLogo"
             id="#logInWindow_youTubeLogo"
             src={img1}
             width="150"
