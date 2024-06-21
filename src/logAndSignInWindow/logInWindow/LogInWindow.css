@@ -58,11 +58,6 @@
     display: inline-flex;
 }
 
-img {
-    position: relative;
-    right: 45px;
-    bottom: 60px;
-} */
 #logInWindow_signInButton {
     width: 90px;
     height: 40px;
@@ -85,6 +80,7 @@ img {
     display:table-cell;
     background-color: rgb(33, 93, 234);
 }
+
 #connectPart{
     top: 200px;
 }
