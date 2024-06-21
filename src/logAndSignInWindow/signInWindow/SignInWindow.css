@@ -22,7 +22,7 @@
     float: left;
 }
 
-img {
+.signInWindow_img {
     position: relative;
     right: 45px;
     bottom: 60px;
@@ -79,9 +79,4 @@ img {
     font-size: 13pt;
     display:table-cell;
     background-color: rgb(33, 93, 234);
-}
-img {
-    position: relative;
-    right: 45px;
-    bottom: 60px;
 }

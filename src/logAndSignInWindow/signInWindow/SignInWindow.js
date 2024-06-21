@@ -38,7 +38,7 @@ function SignInWindow({ addUser, navigateToLogIn}) {
     <body id="signInWindow">
       <div id="signInWindow_background">
         <div id="signInWindow_part1">
-          <img className="img-signin" src={img1} width="150" height="150" alt="YouTube Logo" />
+          <img className="signInWindow_img" src={img1} width="150" height="150" alt="YouTube Logo" />
           <div id="signInWindow_signIn">sign in</div>
           <div id="signInWindow_toContinue">to continue to YouTube</div>
         </div>

@@ -23,6 +23,13 @@
     float: left;
 }
 
+.logInWindow_img {
+    position: relative;
+    right: 45px;
+    bottom: 60px;
+}
+
+
 #logInWindow_logIn {
     bottom: 100px;
     font-size: 30pt;
