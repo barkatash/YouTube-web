@@ -7,13 +7,23 @@ function MainComponent() {
   const [currentView, setCurrentView] = useState('login'); // 'login' or 'signin'
 
   const addUser = (newUser) => {
+    // Update state with new user
     setUsers(prevUsers => [...prevUsers, newUser]);
+
+    // Save users to localStorage
+    const updatedUsers = [...users, newUser];
+    localStorage.setItem('users', JSON.stringify(updatedUsers));
+
     console.log('New user added:', newUser);
   };
 
   useEffect(() => {
-    console.log('Updated users:', users);
-  }, [users]);
+    // Load users from localStorage on component mount
+    const storedUsers = localStorage.getItem('users');
+    if (storedUsers) {
+      setUsers(JSON.parse(storedUsers));
+    }
+  }, []);
 
   const navigateToSignIn = () => {
     setCurrentView('signin');
