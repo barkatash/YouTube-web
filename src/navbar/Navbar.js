@@ -114,8 +114,8 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
                   &nbsp;
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
+                    width="24"
+                    height="24"
                     fill="currentColor"
                     className="bi bi-person-circle"
                     viewBox="0 0 16 16"
