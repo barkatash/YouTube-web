@@ -15,7 +15,7 @@ function LogInWindow({ allUsers, navigateToSignIn, handleLogIn }) {
   const handleLogInClick = (event) => {
     event.preventDefault();
     console.log('Attempting login with username:', username, 'and password:', password);
-    const user = allUsers.find(user => user.username === username && user.password === password);
+    const user = allUsers.find((user) => user.username === username && user.password === password);
     console.log('Found user:', user);
 
     if (user) {

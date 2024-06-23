@@ -7,6 +7,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn }) {
     username: "",
     displayName: "",
     password: "",
+    verifyPassword: "",
     image: "",
   });
 
@@ -33,13 +34,13 @@ function SignInWindow({ setAllUsers, navigateToLogIn }) {
     }
 
     setAllUsers((prevUsers) => [...prevUsers, userInfo]);
-    alert("User signed up successfully!");
+    alert("signed up successfully!");
     navigateToLogIn();
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;
   return (
-    <body id="signInWindow">
+    <div id="signInWindow">
       <div id="signInWindow_background">
         <div id="signInWindow_part1">
           <img className="signInWindow_img" src={img1} width="150" height="150" alt="YouTube Logo" />
@@ -132,7 +133,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn }) {
           </form>
         </div>
       </div>
-    </body>
+    </div>
   );
 }
 
