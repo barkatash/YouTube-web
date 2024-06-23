@@ -2,14 +2,7 @@ import React, { useState } from "react";
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
 
-function SignInWindow({ setAllUsers, navigateToLogIn }) {
-  const [userInfo, setUserInfo] = useState({
-    username: "",
-    displayName: "",
-    password: "",
-    verifyPassword: "",
-    image: "",
-  });
+function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -39,6 +32,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn }) {
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;
+  console.log(userInfo);
   return (
     <div id="signInWindow">
       <div id="signInWindow_background">

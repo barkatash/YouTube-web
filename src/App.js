@@ -12,11 +12,18 @@ import MainComponent from "./logAndSignInWindow/MainComponent.js";
 import comments from "./db/comments.json";
 
 function App() {
-  const [allUsers, setAllUsers] = useState(signInUsers)
+  const [allUsers, setAllUsers] = useState(signInUsers);
   const [allVideos, setAllVideos] = useState(videos);
   const [matchedVideos, setMatchedVideos] = useState(allVideos ?? videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [videoComments, setVideoComments] = useState(comments);
+  const [userInfo, setUserInfo] = useState({
+    username: "",
+    displayName: "",
+    password: "",
+    verifyPassword: "",
+    image: "",
+  });
 
   const handleDeleteVideo = (id) => {
     const updatedVideos = allVideos.filter((video) => video.id !== id);
@@ -31,7 +38,7 @@ function App() {
     setAllVideos(updatedVideos);
     setMatchedVideos(updatedVideos);
   };
-
+  console.log(userInfo);
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -44,6 +51,7 @@ function App() {
                 setMatchedVideos={setMatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
+                userInfo={userInfo}
               />
               <Homepage
                 matchedVideos={matchedVideos}
@@ -64,6 +72,7 @@ function App() {
                 setMatchedVideos={setMatchedVideos}
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
+                userInfo={userInfo}
               />
               <VideoPage
                 isDarkMode={isDarkMode}
@@ -78,9 +87,21 @@ function App() {
         />
         <Route
           path="/addVideo"
-          element={<UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />}
+          element={
+            <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />
+          }
         />
-        <Route path="/login" element={<MainComponent allUsers={allUsers} setAllUsers={setAllUsers}/>} />
+        <Route
+          path="/login"
+          element={
+            <MainComponent
+              allUsers={allUsers}
+              setAllUsers={setAllUsers}
+              setUserInfo={setUserInfo}
+              userInfo={userInfo}
+            />
+          }
+        />
       </Routes>
     </div>
   );
