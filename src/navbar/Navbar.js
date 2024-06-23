@@ -2,9 +2,15 @@ import { useEffect, useState } from "react";
 import watch from "../images/youtubelogo.svg";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
-function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
+function Navbar({
+  videoList,
+  setMatchedVideos,
+  setIsDarkMode,
+  isDarkMode,
+  userInfo,
+}) {
   const [searchedVideo, setSearchedVideo] = useState("");
   const [input, setInput] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
@@ -27,14 +33,13 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
     setIsDarkMode(!isDarkMode);
   };
 
-
   const navigate = useNavigate();
   const onMoveToAddVideo = () => {
     navigate("/addVideo");
-  }
+  };
   const onMoveToLogin = () => {
-    navigate("login");
-  }
+    navigate("/login");
+  };
   return (
     <div>
       <nav className="navbar navbar-expand">
@@ -81,22 +86,27 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
           <div>
             <ul className="navbar-nav me-auto mb-2">
               <li className="nav-item add-item">
-                <button className="navbar-brand add-video" onClick={onMoveToAddVideo}>
-                  &nbsp;
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    fill="currentColor"
-                    className="bi bi-camera-reels"
-                    viewBox="0 0 16 16"
+                {userInfo?.username && (
+                  <button
+                    className="navbar-brand add-video"
+                    onClick={onMoveToAddVideo}
                   >
-                    <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0M1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0" />
-                    <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm6 8.73V7.27l-3.5 1.555v4.35zM1 8v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1" />
-                    <path d="M9 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6M7 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
-                  </svg>
-                  &nbsp;
-                </button>
+                    &nbsp;
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      fill="currentColor"
+                      className="bi bi-camera-reels"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M6 3a3 3 0 1 1-6 0 3 3 0 0 1 6 0M1 3a2 2 0 1 0 4 0 2 2 0 0 0-4 0" />
+                      <path d="M9 6h.5a2 2 0 0 1 1.983 1.738l3.11-1.382A1 1 0 0 1 16 7.269v7.462a1 1 0 0 1-1.406.913l-3.111-1.382A2 2 0 0 1 9.5 16H2a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2zm6 8.73V7.27l-3.5 1.555v4.35zM1 8v6a1 1 0 0 0 1 1h7.5a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1" />
+                      <path d="M9 6a3 3 0 1 0 0-6 3 3 0 0 0 0 6M7 3a2 2 0 1 1 4 0 2 2 0 0 1-4 0" />
+                    </svg>
+                    &nbsp;
+                  </button>
+                )}
               </li>
               <li
                 className={`nav-item ${
@@ -112,20 +122,30 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
                   href="#"
                 >
                   &nbsp;
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="22"
-                    height="22"
-                    fill="currentColor"
-                    className="bi bi-person-circle"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
-                    <path
-                      fillRule="evenodd"
-                      d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
-                    />
-                  </svg>
+                  {!userInfo?.username && (
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="22"
+                      height="22"
+                      fill="currentColor"
+                      className="bi bi-person-circle"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0" />
+                      <path
+                        fillRule="evenodd"
+                        d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"
+                      />
+                    </svg>
+                  )}
+                  {userInfo?.username && (
+                    <img
+                      src={userInfo.image}
+                      width="34"
+                      height="34"
+                      className="username_img"
+                    ></img>
+                  )}
                 </button>
               </li>
               <li className="nav-item">

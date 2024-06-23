@@ -9,6 +9,13 @@
         "username":"chen",
         "displayName":"chch",
         "password": "111222333",
-        "image": ""
+        "image": "usersImage/sagiUser.jpg"
+    },
+    {   
+        "username":"bar",
+        "displayName":"bar",
+        "password": "78495210",
+        "image": "usersImage/sagiUser.jpg"
     }
+
 ]

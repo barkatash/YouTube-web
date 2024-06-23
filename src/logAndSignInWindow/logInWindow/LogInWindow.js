@@ -3,11 +3,14 @@ import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
 import { useNavigate } from "react-router-dom";
 
-function LogInWindow({ allUsers, navigateToSignIn, handleLogIn }) {
+function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
+  const handleLogIn = (user) => {
+    setUserInfo(user);
+  };
   const onMoveToHomepage = () => {
     navigate("/");
   };
@@ -16,7 +19,6 @@ function LogInWindow({ allUsers, navigateToSignIn, handleLogIn }) {
     event.preventDefault();
     console.log('Attempting login with username:', username, 'and password:', password);
     const user = allUsers.find((user) => user.username === username && user.password === password);
-    console.log('Found user:', user);
 
     if (user) {
       alert(`Logged in successfully! Welcome, ${user.displayName}`);

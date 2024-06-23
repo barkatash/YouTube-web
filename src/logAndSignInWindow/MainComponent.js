@@ -3,11 +3,10 @@ import { useNavigate } from "react-router-dom";
 import LogInWindow from './logInWindow/LogInWindow.js';
 import SignInWindow from './signInWindow/SignInWindow.js';
 
-function MainComponent({ allUsers, setAllUsers }) { // Ensure setAllUsers is correctly initialized
+function MainComponent({ allUsers, setAllUsers, setUserInfo, userInfo }) { 
   const navigate = useNavigate();
-  const [users, setUsers] = useState([]);
-  const [currentView, setCurrentView] = useState('login'); // 'login' or 'signin'
-  const [loggedInUser, setLoggedInUser] = useState(null);
+  const [currentView, setCurrentView] = useState('login');
+
 
   const navigateToSignIn = () => {
     setCurrentView('signin');
@@ -17,16 +16,14 @@ function MainComponent({ allUsers, setAllUsers }) { // Ensure setAllUsers is cor
     setCurrentView('login');
   };
 
-  const handleLogIn = (user) => {
-    setLoggedInUser(user);
-  };
+
 
   return (
     <div>
       {currentView === 'login' ? (
-        <LogInWindow allUsers={allUsers} navigateToSignIn={navigateToSignIn} handleLogIn={handleLogIn} />
+        <LogInWindow allUsers={allUsers} navigateToSignIn={navigateToSignIn} setUserInfo={setUserInfo}/>
       ) : (
-        <SignInWindow setAllUsers={setAllUsers} navigateToLogIn={navigateToLogIn} />
+        <SignInWindow setAllUsers={setAllUsers} navigateToLogIn={navigateToLogIn} setUserInfo={setUserInfo} userInfo={userInfo}/>
       )}
     </div>
   );
