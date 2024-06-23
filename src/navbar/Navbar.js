@@ -33,7 +33,7 @@ function Navbar({ videoList, setMatchedVideos, setIsDarkMode, isDarkMode }) {
     navigate("/addVideo");
   }
   const onMoveToLogin = () => {
-    navigate("login");
+    navigate("/login");
   }
   return (
     <div>

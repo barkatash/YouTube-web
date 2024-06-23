@@ -23,9 +23,9 @@ function VideoSidebar( { id, image, title, uploader, visits, duration, uploadDat
           <span className="duration-side-video">{duration}</span>
           <div className="ml-3 ml-3-video-side-bar">
             <p className="card-title-sidebar mb-0">{title}</p>
-            <p className="card-text-sidebar text-muted">{uploader}</p>
+            <p className="card-text-sidebar">{uploader}</p>
             <p className="card-text-sidebar">
-              <small className="text-muted">
+              <small>
                 {visits} • {uploadDate}
               </small>
             </p>
