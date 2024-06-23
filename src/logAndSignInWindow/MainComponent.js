@@ -1,29 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { useNavigate } from "react-router-dom";
 import LogInWindow from './logInWindow/LogInWindow.js';
 import SignInWindow from './signInWindow/SignInWindow.js';
 
-function MainComponent() {
+function MainComponent({ allUsers, setAllUsers }) { // Ensure setAllUsers is correctly initialized
+  const navigate = useNavigate();
   const [users, setUsers] = useState([]);
   const [currentView, setCurrentView] = useState('login'); // 'login' or 'signin'
-
-  const addUser = (newUser) => {
-    // Update state with new user
-    setUsers(prevUsers => [...prevUsers, newUser]);
-
-    // Save users to localStorage
-    const updatedUsers = [...users, newUser];
-    localStorage.setItem('users', JSON.stringify(updatedUsers));
-
-    console.log('New user added:', newUser);
-  };
-
-  useEffect(() => {
-    // Load users from localStorage on component mount
-    const storedUsers = localStorage.getItem('users');
-    if (storedUsers) {
-      setUsers(JSON.parse(storedUsers));
-    }
-  }, []);
+  const [loggedInUser, setLoggedInUser] = useState(null);
 
   const navigateToSignIn = () => {
     setCurrentView('signin');
@@ -33,12 +17,16 @@ function MainComponent() {
     setCurrentView('login');
   };
 
+  const handleLogIn = (user) => {
+    setLoggedInUser(user);
+  };
+
   return (
     <div>
       {currentView === 'login' ? (
-        <LogInWindow users={users} navigateToSignIn={navigateToSignIn} />
+        <LogInWindow allUsers={allUsers} navigateToSignIn={navigateToSignIn} handleLogIn={handleLogIn} />
       ) : (
-        <SignInWindow addUser={addUser} navigateToLogIn={navigateToLogIn} />
+        <SignInWindow setAllUsers={setAllUsers} navigateToLogIn={navigateToLogIn} />
       )}
     </div>
   );
