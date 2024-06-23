@@ -1,0 +1,14 @@
+[
+    {
+        "username":"sagi",
+        "displayName":"sasa",
+        "password": "123789456",
+        "image": "usersImage/sagiUser.jpg"
+    },
+    {
+        "username":"chen",
+        "displayName":"chch",
+        "password": "111222333",
+        "image": ""
+    }
+]

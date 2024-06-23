@@ -2,33 +2,37 @@ import React, { useState } from "react";
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
 
-
-function SignInWindow({ addUser, navigateToLogIn}) {
-
+function SignInWindow({ setAllUsers, navigateToLogIn }) {
   const [userInfo, setUserInfo] = useState({
     username: "",
     displayName: "",
     password: "",
-    verifyPassword: "",
     image: "",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setUserInfo({
       ...userInfo,
       [name]: value,
     });
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const { password, verifyPassword } = userInfo;
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (userInfo.password !== userInfo.verifyPassword) {
+    if (password.length < 8 || password.length > 20) {
+      alert("your password must be 8-20 characters long.");
+      return;
+    }
+
+    if (password !== verifyPassword) {
       alert("Passwords do not match. Please try again.");
       return;
     }
-    addUser(userInfo);
+
+    setAllUsers((prevUsers) => [...prevUsers, userInfo]);
     alert("User signed up successfully!");
     navigateToLogIn();
   };
@@ -91,7 +95,7 @@ function SignInWindow({ addUser, navigateToLogIn}) {
                   type="password"
                   className="form-control"
                   name="verifyPassword"
-                  placeholder="verify code"
+                  placeholder="verify password"
                   value={verifyPassword}
                   onChange={handleChange}
                   required
@@ -103,15 +107,15 @@ function SignInWindow({ addUser, navigateToLogIn}) {
                 type="file"
                 name="image"
                 id="signInWindow_uploadPhotoButton"
-                class="form-control"
+                className="form-control"
                 placeholder="image"
                 value={image}
                 onChange={handleChange}
               />
               <label
-                for="formFile"
+                htmlFor="formFile"
                 id="signInWindow_uploadPhotoText"
-                class="form-label"
+                className="form-label"
               >
                 please upload your photo
               </label>

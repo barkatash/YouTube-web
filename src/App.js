@@ -3,6 +3,7 @@ import "./navbar/Navbar.js";
 import Navbar from "./navbar/Navbar.js";
 import { useState } from "react";
 import videos from "./db/videos.json";
+import signInUsers from "./db/signInUsers.json";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
@@ -11,6 +12,7 @@ import MainComponent from "./logAndSignInWindow/MainComponent.js";
 import comments from "./db/comments.json";
 
 function App() {
+  const [allUsers, setAllUsers] = useState(signInUsers)
   const [allVideos, setAllVideos] = useState(videos);
   const [matchedVideos, setMatchedVideos] = useState(allVideos ?? videos);
   const [isDarkMode, setIsDarkMode] = useState(false);
@@ -78,7 +80,7 @@ function App() {
           path="/addVideo"
           element={<UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />}
         />
-        <Route path="/login" element={<MainComponent />} />
+        <Route path="/login" element={<MainComponent allUsers={allUsers} setAllUsers={setAllUsers}/>} />
       </Routes>
     </div>
   );
