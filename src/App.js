@@ -38,7 +38,6 @@ function App() {
     setAllVideos(updatedVideos);
     setMatchedVideos(updatedVideos);
   };
-  console.log(userInfo);
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>

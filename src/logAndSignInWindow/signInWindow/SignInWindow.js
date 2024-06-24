@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
 
@@ -32,7 +31,6 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;
-  console.log(userInfo);
   return (
     <div id="signInWindow">
       <div id="signInWindow_background">
