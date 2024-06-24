@@ -29,8 +29,8 @@ function Video({
     setIsEditing(true);
   };
 
-  const handleSave = (updatedVideo) => {
-    handleEditVideo(id, updatedVideo);
+  const handleSave = (formData) => {
+    handleEditVideo(id, formData);
     setIsEditing(false);
   };
 
