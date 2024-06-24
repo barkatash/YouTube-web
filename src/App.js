@@ -80,6 +80,7 @@ function App() {
                 setVideoComments={setVideoComments}
                 handleDeleteVideo={handleDeleteVideo}
                 handleEditVideo={handleEditVideo}
+                userInfo={userInfo}
               />
             </div>
           }

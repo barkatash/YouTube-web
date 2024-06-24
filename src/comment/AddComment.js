@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "./AddComment.css";
 
-function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
+function AddComment({ comments, setVideoComments, videoId, isDarkMode,  userInfo }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -19,7 +19,7 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
       {
         commentId: comments.length + 1,
         videoId: videoId,
-        userName: "?",
+        userName: userInfo?.displayName ? userInfo?.displayName : "@username",
         description: comment,
         uploadDate: "now",
         likes: 0,
