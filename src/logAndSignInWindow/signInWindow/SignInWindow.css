@@ -79,4 +79,5 @@
     font-size: 13pt;
     display:table-cell;
     background-color: rgb(33, 93, 234);
+    border-color: transparent;
 }
