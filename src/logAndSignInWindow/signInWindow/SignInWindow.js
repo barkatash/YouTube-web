@@ -21,14 +21,13 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
       });
     }
   };
-  
 
   const handleSubmit = (event) => {
     event.preventDefault();
     const { password, verifyPassword } = userInfo;
 
     if (password.length < 8 || password.length > 20) {
-      alert("your password must be 8-20 characters long.");
+      alert("Your password must be 8-20 characters long.");
       return;
     }
 
@@ -38,7 +37,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
     }
 
     setAllUsers((prevUsers) => [...prevUsers, userInfo]);
-    alert("signed up successfully!");
+    alert("Signed up successfully!");
     navigateToLogIn();
   };
 
@@ -54,7 +53,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
             height="150"
             alt="YouTube Logo"
           />
-          <div id="signInWindow_signIn">sign in</div>
+          <div id="signInWindow_signIn">Sign in</div>
           <div id="signInWindow_toContinue">to continue to YouTube</div>
         </div>
         <div id="signInWindow_part2">
@@ -65,7 +64,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                   type="text"
                   className="form-control"
                   name="username"
-                  placeholder="user name"
+                  placeholder="Username"
                   value={username}
                   onChange={handleChange}
                   required
@@ -76,7 +75,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                   type="text"
                   className="form-control"
                   name="displayName"
-                  placeholder="display name"
+                  placeholder="Display Name"
                   value={displayName}
                   onChange={handleChange}
                   required
@@ -89,7 +88,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                   type="password"
                   className="form-control"
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   value={password}
                   onChange={handleChange}
                   required
@@ -106,7 +105,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                   type="password"
                   className="form-control"
                   name="verifyPassword"
-                  placeholder="verify password"
+                  placeholder="Verify Password"
                   value={verifyPassword}
                   onChange={handleChange}
                   required
@@ -148,7 +147,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                 className="btn btn-primary"
                 type="submit"
               >
-                sign in
+                Sign in
               </button>
             </div>
           </form>
