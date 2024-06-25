@@ -100,3 +100,13 @@
 .username_img {
     border-radius: 20px;
 }
+.logout {
+    border-radius: 20px;
+    border-color: transparent;
+    margin-top: 0px;
+    transition: filter 0.3s;
+    vertical-align: middle;
+}
+.logout:hover {
+    filter: brightness(1.3);
+}

@@ -53,6 +53,7 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
               <Homepage
                 matchedVideos={matchedVideos}

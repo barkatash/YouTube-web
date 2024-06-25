@@ -3,10 +3,10 @@ import Share from "./Share.js";
 import { useState } from "react";
 
 
-function WatchVideo({ id, video, title, uploader, visits, description, uploadDate, likes, isDarkMode, videos, setAllVideos },
+function WatchVideo({ id, video, title, uploader, visits, description, uploadDate, likes, isDarkMode, videos, setAllVideos, userInfo },
   { key }
 ) {
-
+  const publicUrl = process.env.PUBLIC_URL;
   const isFromDb = (videoUrl) => videos.find(videoDb => videoDb.video === videoUrl) !== undefined
   const [like, setLike] = useState(false);
   const [unlike, setUnlike] = useState(false);
@@ -34,7 +34,11 @@ function WatchVideo({ id, video, title, uploader, visits, description, uploadDat
             {title}
           </h5>
           <div className="user-upload">
-            <img className="username-image"></img>
+            {userInfo?.image && userInfo.username === uploader ? (
+              <img className="username-image" src={`${publicUrl}/${userInfo.image}`}></img>
+            ) : (
+              <img className="username-image"></img>
+            )}
             <h5 className="card-title uploader title-video-watch">
               {uploader}
             </h5>

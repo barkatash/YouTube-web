@@ -1,5 +1,6 @@
 import "./Comment.css";
 import { useState } from "react";
+import signInUsers from "../db/signInUsers.json"
 
 function Comment({
   userInfo,
@@ -16,6 +17,7 @@ function Comment({
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
   const publicUrl = process.env.PUBLIC_URL;
+  const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
 
   const onDeleteComment = () => {
     setVideoComments(
@@ -44,7 +46,7 @@ function Comment({
         <div className="row">
           <div className="col-1 align-self-start">
               {userInfo?.image && userInfo.username === userName ? (
-              <img className="username-image" src={`${publicUrl}/${userInfo.image}`}></img>
+              <img className="username-image" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
             ) : (
               <img className="username-image-default username-image"></img>
             )}
