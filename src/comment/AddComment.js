@@ -10,6 +10,7 @@ function AddComment({
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const publicUrl = process.env.PUBLIC_URL;
 
   const onFocus = () => {
     setIsFocused(true);
@@ -25,7 +26,7 @@ function AddComment({
       {
         commentId: comments.length + 1,
         videoId: videoId,
-        userName: userInfo?.displayName ? userInfo?.displayName : "@username",
+        userName: userInfo?.displayName ? userInfo?.displayName : "username",
         description: comment,
         uploadDate: "now",
         likes: 0,
@@ -46,7 +47,7 @@ function AddComment({
     <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
         {userInfo?.image ? (
-          <img className="username-image" src={userInfo.image}></img>
+          <img className="username-image" src={`${publicUrl}/${userInfo.image}`}></img>
         ) : (
           <img className="username-image"></img>
         )}

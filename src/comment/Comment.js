@@ -15,6 +15,7 @@ function Comment({
   const [commentUnlike, setCommentunlike] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
+  const publicUrl = process.env.PUBLIC_URL;
 
   const onDeleteComment = () => {
     setVideoComments(
@@ -42,7 +43,11 @@ function Comment({
       <div>
         <div className="row">
           <div className="col-1 align-self-start">
-            <img className="username-image" alt=""></img>
+              {userInfo?.image && userInfo.username === userName ? (
+              <img className="username-image" src={`${publicUrl}/${userInfo.image}`}></img>
+            ) : (
+              <img className="username-image-default username-image"></img>
+            )}
           </div>
           <div className="col-11">
             <div className="d-flex">

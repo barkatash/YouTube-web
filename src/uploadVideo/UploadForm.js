@@ -25,7 +25,7 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
     description: "",
     id: maxId,
     image: "",
-    uploader: userInfo?.username,
+    uploader: userInfo?.displayName ? userInfo?.displayName : "username",
     duration: "",
     visits: "0",
     uploadDate: "now",
