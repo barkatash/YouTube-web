@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import watch from "../images/youtubelogo.svg";
 import { Link } from "react-router-dom";
 
-function UploadForm({ allVideos, setAllVideos }) {
+function UploadForm({ allVideos, setAllVideos, userInfo }) {
   const navigate = useNavigate();
   const onMoveToHomepage = () => {
     navigate("/");
@@ -25,11 +25,11 @@ function UploadForm({ allVideos, setAllVideos }) {
     description: "",
     id: maxId,
     image: "",
-    uploader: "",
+    uploader: userInfo?.displayName ? userInfo?.displayName : "username",
     duration: "",
     visits: "0",
     uploadDate: "now",
-    likes: "0",
+    likes: 0,
     categoryId: [0],
   });
 

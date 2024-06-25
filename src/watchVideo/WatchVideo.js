@@ -1,13 +1,13 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
 import { useState } from "react";
-import videos from "../db/videos.json";
 
-const isFromDb = (videoUrl) => videos.find(videoDb => videoDb.video === videoUrl) !== undefined
 
-function WatchVideo({ video, title, uploader, visits, description, uploadDate, likes, isDarkMode },
+function WatchVideo({ id, video, title, uploader, visits, description, uploadDate, likes, isDarkMode, videos, setAllVideos, userInfo },
   { key }
 ) {
+  const publicUrl = process.env.PUBLIC_URL;
+  const isFromDb = (videoUrl) => videos.find(videoDb => videoDb.video === videoUrl) !== undefined
   const [like, setLike] = useState(false);
   const [unlike, setUnlike] = useState(false);
   const [showShare, setShowShare] = useState(false);
@@ -34,14 +34,28 @@ function WatchVideo({ video, title, uploader, visits, description, uploadDate, l
             {title}
           </h5>
           <div className="user-upload">
-            <img className="username-image"></img>
+            {userInfo?.image && userInfo.username === uploader ? (
+              <img className="username-image" src={`${publicUrl}/${userInfo.image}`}></img>
+            ) : (
+              <img className="username-image"></img>
+            )}
             <h5 className="card-title uploader title-video-watch">
               {uploader}
             </h5>
           </div>
           <div className="flex-container d-flex justify-content-end">
             <div className="btn-group" role="group" aria-label="Basic example">
-              <button type="button" className="btn" onClick={() => setLike(!like)}>
+              <button type="button" className="btn" onClick={() => {setLike(!like)
+                let newLikes = like ? likes - 1 : likes + 1;
+                setAllVideos(
+                  videos.map((video) => {
+                    if (video.id === id) {
+                      return { ...video, likes: newLikes };
+                    }
+                    return video;
+                  })
+                );
+              }}>
                 <div className="like-p">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"

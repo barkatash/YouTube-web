@@ -53,6 +53,7 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
               <Homepage
                 matchedVideos={matchedVideos}
@@ -60,6 +61,7 @@ function App() {
                 isDarkMode={isDarkMode}
                 handleDeleteVideo={handleDeleteVideo}
                 handleEditVideo={handleEditVideo}
+                userInfo={userInfo}
               />
             </div>
           }
@@ -78,6 +80,7 @@ function App() {
               <VideoPage
                 isDarkMode={isDarkMode}
                 videos={allVideos}
+                setAllVideos={setAllVideos}
                 videoComments={videoComments}
                 setVideoComments={setVideoComments}
                 handleDeleteVideo={handleDeleteVideo}
@@ -90,7 +93,7 @@ function App() {
         <Route
           path="/addVideo"
           element={
-            <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} />
+            <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} userInfo={userInfo}/>
           }
         />
         <Route

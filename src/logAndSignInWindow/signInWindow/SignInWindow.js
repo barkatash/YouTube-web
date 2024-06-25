@@ -1,14 +1,25 @@
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
 
-function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
-
+function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
   const handleChange = (event) => {
-    const { name, value } = event.target;
-    setUserInfo({
-      ...userInfo,
-      [name]: value,
-    });
+    const { name, value, files } = event.target;
+    if (name === "image" && files && files[0]) {
+      const file = files[0];
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setUserInfo({
+          ...userInfo,
+          image: reader.result,
+        });
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setUserInfo({
+        ...userInfo,
+        [name]: value,
+      });
+    }
   };
 
   const handleSubmit = (event) => {
@@ -16,7 +27,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
     const { password, verifyPassword } = userInfo;
 
     if (password.length < 8 || password.length > 20) {
-      alert("your password must be 8-20 characters long.");
+      alert("Your password must be 8-20 characters long.");
       return;
     }
 
@@ -26,7 +37,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
     }
 
     setAllUsers((prevUsers) => [...prevUsers, userInfo]);
-    alert("signed up successfully!");
+    alert("Signed up successfully!");
     navigateToLogIn();
   };
 
@@ -35,8 +46,14 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
     <div id="signInWindow">
       <div id="signInWindow_background">
         <div id="signInWindow_part1">
-          <img className="signInWindow_img" src={img1} width="150" height="150" alt="YouTube Logo" />
-          <div id="signInWindow_signIn">sign in</div>
+          <img
+            className="signInWindow_img"
+            src={img1}
+            width="150"
+            height="150"
+            alt="YouTube Logo"
+          />
+          <div id="signInWindow_signIn">Sign in</div>
           <div id="signInWindow_toContinue">to continue to YouTube</div>
         </div>
         <div id="signInWindow_part2">
@@ -47,7 +64,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
                   type="text"
                   className="form-control"
                   name="username"
-                  placeholder="user name"
+                  placeholder="Username"
                   value={username}
                   onChange={handleChange}
                   required
@@ -58,7 +75,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
                   type="text"
                   className="form-control"
                   name="displayName"
-                  placeholder="display name"
+                  placeholder="Display Name"
                   value={displayName}
                   onChange={handleChange}
                   required
@@ -71,7 +88,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
                   type="password"
                   className="form-control"
                   name="password"
-                  placeholder="password"
+                  placeholder="Password"
                   value={password}
                   onChange={handleChange}
                   required
@@ -88,7 +105,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
                   type="password"
                   className="form-control"
                   name="verifyPassword"
-                  placeholder="verify password"
+                  placeholder="Verify Password"
                   value={verifyPassword}
                   onChange={handleChange}
                   required
@@ -99,18 +116,29 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
               <input
                 type="file"
                 name="image"
-                id="signInWindow_uploadPhotoButton"
-                className="form-control"
-                placeholder="image"
-                value={image}
+                id="formFile"
                 onChange={handleChange}
+                style={{ display: "none" }}
               />
               <label
                 htmlFor="formFile"
                 id="signInWindow_uploadPhotoText"
                 className="form-label"
               >
-                please upload your photo
+                <div>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="60"
+                    height="60"
+                    className="bi bi-upload upload"
+                    viewBox="0 0 16 16"
+                  >
+                    <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
+                    <path d="M7.646 1.146a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 2.707V11.5a.5.5 0 0 1-1 0V2.707L5.354 4.854a.5.5 0 1 1-.708-.708z" />
+                  </svg>
+                  <br></br><br></br>
+                  Choose your profile image
+                </div>
               </label>
             </div>
             <div className="col-12">
@@ -119,7 +147,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo}) {
                 className="btn btn-primary"
                 type="submit"
               >
-                sign in
+                Sign in
               </button>
             </div>
           </form>
