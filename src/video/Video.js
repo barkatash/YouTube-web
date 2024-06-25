@@ -1,5 +1,7 @@
-import { useNavigate } from "react-router-dom";
-import "./Video.css";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import './Video.css';
+import EditVideoModal from './EditVideoModal';
 
 function Video({
   id,
@@ -13,6 +15,7 @@ function Video({
   handleEditVideo
 }) {
   const navigate = useNavigate();
+  const [isEditing, setIsEditing] = useState(false);
 
   const onMoveToVideo = () => {
     navigate(`/watch/${id}`);
@@ -23,8 +26,16 @@ function Video({
   };
 
   const onEditVideo = () => {
-    const updatedVideo = { id, image, title: 'New Title', uploader, duration, visits, uploadDate };
-    handleEditVideo(id, updatedVideo);
+    setIsEditing(true);
+  };
+
+  const handleSave = (formData) => {
+    handleEditVideo(id, formData);
+    setIsEditing(false);
+  };
+
+  const handleClose = () => {
+    setIsEditing(false);
   };
 
   return (
@@ -59,10 +70,10 @@ function Video({
                 <path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0" />
               </svg>
             </button>
-            <ul className="dropdown-menu">
+            <ul className="dropdown-menu dropdown-menu-video">
               <li>
                 <button
-                  className="dropdown-item"
+                  className="dropdown-menu-video-btn"
                   type="button"
                   onClick={onDeleteVideo}
                 >
@@ -70,7 +81,7 @@ function Video({
                 </button>
               </li>
               <li>
-                <button className="dropdown-item" type="button" onClick={onEditVideo}>
+                <button className="dropdown-menu-video-btn" type="button" onClick={onEditVideo}>
                   Edit
                 </button>
               </li>
@@ -86,6 +97,13 @@ function Video({
           </div>
         </div>
       </div>
+      {isEditing && (
+        <EditVideoModal
+          video={{ id, image, title, uploader, duration, visits, uploadDate }}
+          handleSave={handleSave}
+          handleClose={handleClose}
+        />
+      )}
     </div>
   );
 }

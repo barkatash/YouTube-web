@@ -1,7 +1,13 @@
 import { useState } from "react";
 import "./AddComment.css";
 
-function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
+function AddComment({
+  comments,
+  setVideoComments,
+  videoId,
+  isDarkMode,
+  userInfo,
+}) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
 
@@ -19,12 +25,13 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
       {
         commentId: comments.length + 1,
         videoId: videoId,
-        userName: "?",
+        userName: userInfo?.displayName ? userInfo?.displayName : "@username",
         description: comment,
         uploadDate: "now",
         likes: 0,
         dislikes: 0,
-      }, ...comments
+      },
+      ...comments,
     ]);
     setComment("");
     setIsFocused(false);
@@ -36,12 +43,13 @@ function AddComment({ comments, setVideoComments, videoId, isDarkMode }) {
   };
 
   return (
-    <form
-      role="search"
-      onSubmit={onSubmitComment}
-    >
+    <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
-        <img className="username-image"></img>
+        {userInfo?.image ? (
+          <img className="username-image" src={userInfo.image}></img>
+        ) : (
+          <img className="username-image"></img>
+        )}
         <input
           onChange={onCommentInput}
           onFocus={onFocus}

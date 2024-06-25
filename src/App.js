@@ -38,7 +38,8 @@ function App() {
     setAllVideos(updatedVideos);
     setMatchedVideos(updatedVideos);
   };
-  console.log(userInfo);
+
+  
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -81,6 +82,7 @@ function App() {
                 setVideoComments={setVideoComments}
                 handleDeleteVideo={handleDeleteVideo}
                 handleEditVideo={handleEditVideo}
+                userInfo={userInfo}
               />
             </div>
           }

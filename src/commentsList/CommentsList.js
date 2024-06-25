@@ -6,7 +6,7 @@ function CommentsList({ comments, setVideoComments, videoId }) {
       {comments
         .filter((comment) => comment.videoId === videoId)
         .map((comment, id) => (
-          <Comment key={id} setVideoComments={setVideoComments} videoComments={comments}{...comment} />
+          <Comment key={id} setVideoComments={setVideoComments} videoComments={comments} {...comment} />
         ))}
     </div>
   );
