@@ -12,7 +12,8 @@ function Video({
   visits,
   uploadDate,
   handleDeleteVideo,
-  handleEditVideo
+  handleEditVideo,
+  userInfo
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -52,7 +53,7 @@ function Video({
         </div>
         <div className="card-body-video">
           <h6 className="card-title card-title-video">{title}</h6>
-          <div className="dropstart video-menu">
+          {userInfo?.username && <div className="dropstart video-menu">
             <button
               type="button"
               className="video-menu"
@@ -86,7 +87,7 @@ function Video({
                 </button>
               </li>
             </ul>
-          </div>
+          </div>}
           <div className="card-text-video">
             <div className="d-flex">
               <p className="card-text">{uploader}</p>

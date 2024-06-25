@@ -6,7 +6,7 @@ import { useState } from 'react';
 import './VideoPage.css';
 import { useParams } from "react-router-dom";
 
-function VideoPage({isDarkMode, videos, videoComments, setVideoComments, userInfo}) {
+function VideoPage({isDarkMode, videos, setAllVideos, videoComments, setVideoComments, userInfo}) {
     const { id } = useParams();
     const [key, setKey] = useState(0);
     
@@ -14,10 +14,10 @@ function VideoPage({isDarkMode, videos, videoComments, setVideoComments, userInf
       <div className={`container-fluid video-page ${isDarkMode ? "dark-mode" : "light-mode"}`}>
         <div className="row video-page">
           <div className="col-md-8">
-            <WatchVideo {...videos[Number(id)-1]} key={key} isDarkMode={isDarkMode}/>
-            <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} isDarkMode={isDarkMode}  userInfo={userInfo}/>
+            <WatchVideo {...videos[Number(id)-1]} key={key} isDarkMode={isDarkMode} videos={videos} setAllVideos={setAllVideos}/>
+            {userInfo?.username && <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} isDarkMode={isDarkMode}  userInfo={userInfo}/>}
             <br></br>
-            <CommentsList comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)}/>
+            <CommentsList comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} userInfo={userInfo}/>
           </div>
           <div className="col-md-4">
             <VideoListSidebar setKey={setKey} videos={videos}/>
