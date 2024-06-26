@@ -12,3 +12,6 @@
     display: flex;
     flex-direction: row;
 }
+.username-image-default {
+    background-color: rgb(65, 102, 194) !important;
+}

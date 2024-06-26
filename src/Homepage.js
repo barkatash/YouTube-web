@@ -10,6 +10,7 @@ function Homepage({
   isDarkMode,
   handleDeleteVideo,
   handleEditVideo,
+  userInfo
 }) {
   return (
     <div>
@@ -30,6 +31,7 @@ function Homepage({
             matchedVideos={matchedVideos}
             handleDeleteVideo={handleDeleteVideo}
             handleEditVideo={handleEditVideo}
+            userInfo={userInfo}
           />
         </div>
       </div>

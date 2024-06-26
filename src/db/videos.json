@@ -9,7 +9,7 @@
     "visits": "1.5M",
     "uploadDate": "4 years ago",
     "description": "",
-    "likes": "59k",
+    "likes": 59,
     "categoryId": [0, 5]
   },
   {
@@ -22,7 +22,7 @@
     "visits": "3B",
     "uploadDate": "14 years ago",
     "description": "",
-    "likes": "25M",
+    "likes": 25,
     "categoryId": [0, 2]
   },
   {
@@ -35,7 +35,7 @@
     "visits": "21M",
     "uploadDate": "7 months ago",
     "description": "",
-    "likes": "114K",
+    "likes": 114,
     "categoryId": [0, 2]
   },
   {
@@ -61,7 +61,7 @@
     "visits": "3.7B",
     "uploadDate": "6 years ago",
     "description": "The official music video for Ed Sheeran - Perfect ",
-    "likes": "21M",
+    "likes": 21,
     "categoryId": [0, 2]
   },
   {
@@ -74,7 +74,7 @@
     "visits": "7.9M",
     "uploadDate": "2 months ago",
     "description": "Eden Golan will represent Israel in the Eurovision Song Contest with her song Hurricane",
-    "likes": "183K",
+    "likes": 183,
     "categoryId": [0, 2]
   },
   {
@@ -87,7 +87,7 @@
     "visits": "5.8M",
     "uploadDate": "9 years ago",
     "description": "",
-    "likes": "20",
+    "likes": 20,
     "categoryId": [0, 1]
   },
   {
@@ -100,7 +100,7 @@
     "visits": "1.9M",
     "uploadDate": "8 years ago",
     "description": "",
-    "likes": "11K",
+    "likes": 11,
     "categoryId": [0, 1]
   },
   {
@@ -113,7 +113,7 @@
     "visits": "30M",
     "uploadDate": "10 years ago",
     "description": "Listen to Eyal Golan's song Yamim Yagidu from his album - Yamim Yagidu",
-    "likes": "68K",
+    "likes": 68,
     "categoryId": [0, 2]
   },
   {
@@ -126,7 +126,7 @@
     "visits": "2.7M",
     "uploadDate": "9 months ago",
     "description": "NBA Rare Moments ,Stephen Curry",
-    "likes": "16K",
+    "likes": 16,
     "categoryId": [0, 3, 4]
   },
   {
@@ -139,7 +139,7 @@
     "visits": "15K",
     "uploadDate": "1 year ago",
     "description": "",
-    "likes": "108",
+    "likes": 108,
     "categoryId": [0, 3, 4]
   },
   {
@@ -152,7 +152,7 @@
     "visits": "28M",
     "uploadDate": "11 months ago",
     "description": "",
-    "likes": "54k",
+    "likes": 54,
     "categoryId": [0, 2]
   }
 

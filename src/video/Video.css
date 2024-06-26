@@ -54,3 +54,10 @@
     margin-right: 15px;
     padding: 0;
 }
+
+.dropdown-menu-video {
+    background-color: transparent;
+}
+.dropdown-menu-video-btn {
+    border-color: transparent;
+}

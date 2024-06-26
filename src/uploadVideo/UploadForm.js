@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import watch from "../images/youtubelogo.svg";
 import { Link } from "react-router-dom";
 
-function UploadForm({ allVideos, setAllVideos }) {
+function UploadForm({ allVideos, setAllVideos, userInfo }) {
   const navigate = useNavigate();
   const onMoveToHomepage = () => {
     navigate("/");
@@ -25,11 +25,11 @@ function UploadForm({ allVideos, setAllVideos }) {
     description: "",
     id: maxId,
     image: "",
-    uploader: "",
+    uploader: userInfo?.displayName ? userInfo?.displayName : "username",
     duration: "",
     visits: "0",
     uploadDate: "now",
-    likes: "0",
+    likes: 0,
     categoryId: [0],
   });
 
@@ -256,6 +256,16 @@ function UploadForm({ allVideos, setAllVideos }) {
                     Learn more
                   </a>
                 </p>
+                <br /><br /><br />
+                <p className="small">
+                  By submitting your videos to YouTube, you acknowledge that you
+                  agree to YouTube's Terms of Service and Community Guidelines.
+                </p>
+                <p className="small">
+                  Please be sure not to violate others' copyright or privacy
+                  rights.
+                </p>
+                <br /><br /><br />
                 <div className="text-end mt-3">
                   <button
                     type="button"
@@ -265,16 +275,7 @@ function UploadForm({ allVideos, setAllVideos }) {
                     Next
                   </button>
                 </div>
-                <br />
-                <br />
-                <p className="small">
-                  By submitting your videos to YouTube, you acknowledge that you
-                  agree to YouTube's Terms of Service and Community Guidelines.
-                </p>
-                <p className="small">
-                  Please be sure not to violate others' copyright or privacy
-                  rights.
-                </p>
+
               </div>
             )}
 
@@ -322,7 +323,7 @@ function UploadForm({ allVideos, setAllVideos }) {
                     <p>Everyone can watch your video</p>
                   </div>
                 </div>
-
+                <br /><br /><br /><br /><br /><br />
                 <div className="text-end mt-3">
                   <button type="submit" className="btn-upload">
                     Upload
