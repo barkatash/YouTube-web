@@ -125,7 +125,8 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                 id="signInWindow_uploadPhotoText"
                 className="form-label"
               >
-                <div>
+                {!userInfo?.image ?
+                (<div>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="60"
@@ -138,7 +139,13 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                   </svg>
                   <br></br><br></br>
                   Choose your profile image
-                </div>
+                </div>)
+                : (
+                  <div>
+                      <img src={userInfo?.image} alt="Selected" className="file-preview-user" />
+                      &nbsp;&nbsp;<p>Change image</p>
+                    </div>
+                )}
               </label>
             </div>
             <div className="col-12">

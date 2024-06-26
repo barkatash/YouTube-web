@@ -7,7 +7,7 @@
     top: 50px;
     left: 200px;
     width: 900px;
-    height: 400px;
+    height: 500px;
     border-radius: 15px;
     background-color: white;
     position: relative;
@@ -80,4 +80,8 @@
     display:table-cell;
     background-color: rgb(33, 93, 234);
     border-color: transparent;
+}
+.file-preview-user {
+    width: 150px;
+    height: 100px;
 }
