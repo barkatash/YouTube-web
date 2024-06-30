@@ -21,6 +21,7 @@ function WatchVideo(
   { key }
 ) {
   const publicUrl = process.env.PUBLIC_URL;
+  const [showTooltip, setShowTooltip] = useState(false);
   const isFromDb = (videoUrl) =>
     videos.find((videoDb) => videoDb.video === videoUrl) !== undefined;
   const [showShare, setShowShare] = useState(false);
@@ -30,6 +31,10 @@ function WatchVideo(
   const handleCloseShare = () => {
     setShowShare(false);
   };
+  const handleAlert = () => {
+    setShowTooltip(true);
+    setTimeout(() => setShowTooltip(false), 3000);  
+  }
   const updateLike = (newLikes) =>
     setAllVideos(
       videos.map((video) => {
@@ -129,7 +134,7 @@ function WatchVideo(
                 type="button"
                 className="btn"
                 onClick={() => {
-                  isLoggedIn ? handleLike() : <div></div>;
+                  isLoggedIn ? handleLike() : handleAlert();
                 }}
               >
                 <div className="like-p">
@@ -156,7 +161,7 @@ function WatchVideo(
                 type="button"
                 className="btn"
                 onClick={() => {
-                  isLoggedIn ? handleUnLike() : <div></div>;
+                  isLoggedIn ? handleUnLike() : handleAlert();
                 }}
               >
                 <svg
@@ -203,6 +208,11 @@ function WatchVideo(
           <p className="card-text title-video-watch">
             {visits} views &nbsp; {uploadDate}
           </p>
+          {showTooltip && (
+              <small className="alertLogin bg-primary-subtle alertLoginVideo">
+                Please log in to like or unlike this video.
+              </small>
+            )}
         </div>
       </div>
     </div>

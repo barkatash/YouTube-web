@@ -234,7 +234,7 @@ function Comment({
         </button>
       </div>
       {showTooltip && (
-              <small className="alertLogin bg-light">
+              <small className="alertLogin bg-primary-subtle">
                 Please log in to like or unlike this comment.
               </small>
             )}

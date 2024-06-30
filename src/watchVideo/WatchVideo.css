@@ -78,4 +78,12 @@
     display: flex;
     margin-top: 8px;
 }
+.alertLoginVideo {
+    text-justify: end;
+    justify-content: end;
+    align-items: end;
+    display: flex;
+    margin-left: 700px;
+    
+}
 
