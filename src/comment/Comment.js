@@ -16,7 +16,7 @@ function Comment({
 
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
-  const publicUrl = process.env.PUBLIC_URL;
+  const [showTooltip, setShowTooltip] = useState(false);
   const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
   const isLoggedIn = !!userInfo?.username;
 
@@ -50,6 +50,10 @@ function Comment({
     );
     setIsEditing(false);
   };
+  const handleAlert = () => {
+    setShowTooltip(true);
+    setTimeout(() => setShowTooltip(false), 3000);  
+  }
   const handleCommentLike = () => {
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
@@ -182,7 +186,7 @@ function Comment({
         <button
           type="button"
           className="btn comment-btn"
-          onClick={() => isLoggedIn ? handleCommentLike() : <div></div>}
+          onClick={() => isLoggedIn ? handleCommentLike() : handleAlert()}
         >
           <div className="like-p">
             <svg
@@ -207,7 +211,7 @@ function Comment({
         <button
           type="button"
           className="btn comment-btn"
-          onClick={() => isLoggedIn ? handleCommentUnLike() : <div></div>}
+          onClick={() => isLoggedIn ? handleCommentUnLike() : handleAlert()}
         >
           <div className="like-p">
             <svg
@@ -229,6 +233,11 @@ function Comment({
           </div>
         </button>
       </div>
+      {showTooltip && (
+              <small className="alertLogin bg-light">
+                Please log in to like or unlike this comment.
+              </small>
+            )}
     </div>
   );
 }
