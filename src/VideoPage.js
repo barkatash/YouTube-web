@@ -17,7 +17,7 @@ function VideoPage({isDarkMode, videos, setAllVideos, videoComments, setVideoCom
             <WatchVideo {...videos[Number(id)-1]} key={key} isDarkMode={isDarkMode} videos={videos} setAllVideos={setAllVideos} userInfo={userInfo} setUserInfo={setUserInfo}/>
             {userInfo?.username && <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} isDarkMode={isDarkMode}  userInfo={userInfo}/>}
             <br></br>
-            <CommentsList comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} userInfo={userInfo}/>
+            <CommentsList comments={videoComments} setVideoComments={setVideoComments} videoId={Number(id)} userInfo={userInfo} setUserInfo={setUserInfo}/>
           </div>
           <div className="col-md-4">
             <VideoListSidebar setKey={setKey} videos={videos}/>
