@@ -23,6 +23,10 @@ function App() {
     password: "",
     verifyPassword: "",
     image: "",
+    videoIdListLiked: [],
+    videoIdListUnliked: [],
+    commentIdListLiked: [],
+    commentIdListUnliked: []
   });
 
   const handleDeleteVideo = (id) => {
@@ -76,6 +80,7 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
               <VideoPage
                 isDarkMode={isDarkMode}
@@ -86,6 +91,7 @@ function App() {
                 handleDeleteVideo={handleDeleteVideo}
                 handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
             </div>
           }

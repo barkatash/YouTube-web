@@ -43,8 +43,8 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
           <div id="logInWindow_toContinue">to continue to YouTube</div>
         </div>
         <div id="logInWindow_part2">
-          <form className="row g-3" onSubmit={handleLogInClick}>
-            <div>
+          <form className="row g-3 login" onSubmit={handleLogInClick}>
+            <div className="login">
               <input
                 id="logInWindow_textInput"
                 type="text"
@@ -65,7 +65,7 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
                 required
               />
             </div>
-            <div>
+            <div className="login">
               <button
                 type="button"
                 id="logInWindow_signInButton"
