@@ -1,14 +1,16 @@
 .btn-upload {
-    background: #0450d5;
+    background: #0450d5 !important;
     color: white;
     border-radius: 4px;
     cursor: pointer;
-    border: 2px solid #0450d5;
+    border: 2px solid #0450d5 !important;
     width: fit-content;
     align-self: flex-end;
+    color: white !important;
 }
+
 .btn-upload:hover {
-    background-color: #023184;
+    background-color: #023184 !important;
 }
 
 .add-video-form {
@@ -46,7 +48,7 @@
 }
 
 .upload {
-    background-color: rgb(195, 195, 195);
+    background-color: rgb(195, 195, 195) !important;
     padding: 20px;
     border-radius: 30px;
 }
@@ -61,7 +63,7 @@
     margin-left: 15px;
 }
 .card-upload {
-    border: 2px solid rgb(157, 152, 152);
+    border: 2px solid rgb(157, 152, 152) !important;
     border-radius: 15px;
     padding: 30px;
     width: fit-content;
@@ -76,7 +78,7 @@
 }
 
 .link {
-    color: #007bff;
+    color: #007bff !important;
     text-decoration: none;
 }
 .link:hover {
@@ -117,4 +119,8 @@
 .file-preview {
     width: 250px;
     height: 150px;
+}
+.upload-form-page * {
+    background-color: white;
+    color: black;
 }

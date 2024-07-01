@@ -1,7 +1,8 @@
 #signInWindow {
     background-color:rgb(224, 239, 244);
     height: 100vh;
-    width: 400vh;}
+    width: 400vh;
+}
 
 #signInWindow_background {
     top: 50px;
@@ -84,4 +85,11 @@
 .file-preview-user {
     width: 150px;
     height: 100px;
+}
+.signin-file * {
+    background-color: white;
+    color: black;
+}
+.upload-signin {
+    background-color:rgb(224, 239, 244);
 }

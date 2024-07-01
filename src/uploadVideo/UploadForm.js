@@ -73,16 +73,18 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
 
   return (
     <div>
-      <h2 className="card-header">
+      <div>
+      <h2 className="">
         <Link to="/">
           <img className="upload-logo" src={watch} alt="YouTube Logo" />
         </Link>
         &nbsp;Upload video
       </h2>
+      </div>
 
       <form
         onSubmit={handleSubmit}
-        className="card card-upload mt-4 text-start add-video-form"
+        className="card card-upload mt-4 text-start add-video-form upload-form-page"
       >
         <div>
           <ul className="nav nav-tabs">
