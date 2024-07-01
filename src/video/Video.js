@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Video.css';
 import EditVideoModal from './EditVideoModal';
+import { useParams } from 'react-router-dom';
 
 function Video({
   id,
@@ -15,7 +16,26 @@ function Video({
   handleEditVideo,
   userInfo
 }) {
+
   const navigate = useNavigate();
+  const { id } = useParams();
+  const [video, setVideo] = useState({id: '',image: '', title: '', uploader : '',
+     duration : '', visits : '', uploadDate : '', visits : '', })
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch('http://localhost:8080/videos/'+id)
+        const article = await response.json()
+        setArticle(article)
+      } catch (error) {
+        // handle error
+      }
+    };
+    fetchVideos();
+  }, [id]);
+  
+
+
   const [isEditing, setIsEditing] = useState(false);
 
   const onMoveToVideo = () => {
