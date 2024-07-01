@@ -1,7 +1,9 @@
 #logInWindow {
-    background-color:rgb(224, 239, 244);
+    background-color:rgb(224, 239, 244) !important;
+    color: black !important;
     height: 100vh;
     width: 400vh;
+    
 }
 
 #logInWindow_background {
@@ -10,8 +12,13 @@
     width: 900px;
     height: 500px;
     border-radius: 15px;
-    background-color: white;
     position: relative;
+    background-color:white !important;
+    color: black !important;
+}
+.login {
+    background-color:white !important;
+    color: black !important;
 }
 
 #logInWindow_part1 {
@@ -21,12 +28,16 @@
     height: 300px;
     position: relative;
     float: left;
+    background-color:white !important;
+    color: black !important;
 }
 
 .logInWindow_img {
     position: relative;
     right: 45px;
     bottom: 60px;
+    background-color:white !important;
+    color: black !important;
 }
 
 
@@ -34,12 +45,16 @@
     bottom: 100px;
     font-size: 30pt;
     position: relative;
+    background-color:white !important;
+    color: black !important;
 }
 
 #logInWindow_toContinue {
     bottom: 100px;
     font-size: 12pt;
     position: relative;
+    background-color:white !important;
+    color: black !important;
 }
 
 #logInWindow_part2 {
@@ -49,6 +64,8 @@
     height: 100px;
     position: relative;
     display: inline-grid;
+    background-color:white !important;
+    color: black !important;
 }
 
 #logInWindow_textInput {
@@ -59,22 +76,26 @@
     position: relative;
     font-size: 12pt;
     margin: 10px;
+    background-color:white !important;
+    color: black !important;
 }
 
 #logInWindow_buttons {
     display: inline-flex;
+    background-color:white !important;
+    color: black !important;
 }
 
 #logInWindow_signInButton {
     width: 90px;
     height: 40px;
     border-radius: 15px;
-    color:white;
+    color:white !important;
     left: 100px;
     float: left;
     font-size: 13pt;
     display:table-cell;
-    background-color: rgb(33, 93, 234);
+    background-color: rgb(33, 93, 234) !important;
     border-color: transparent;
 }
 
@@ -82,14 +103,16 @@
     width: 90px;
     height: 40px;
     border-radius: 15px;
-    color:white;
+    color:white !important;
     float: right;
     font-size: 13pt;
     display:table-cell;
-    background-color: rgb(33, 93, 234);
+    background-color: rgb(33, 93, 234) !important;
     border-color: transparent;
 }
 
 #connectPart{
     top: 200px;
+    background-color:white !important;
+    color: black !important;
 }

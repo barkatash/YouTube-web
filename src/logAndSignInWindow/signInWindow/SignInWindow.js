@@ -57,7 +57,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
           <div id="signInWindow_toContinue">to continue to YouTube</div>
         </div>
         <div id="signInWindow_part2">
-          <form className="row g-3" onSubmit={handleSubmit}>
+          <form className="row g-3 sign-in" onSubmit={handleSubmit}>
             <div id="signInWindow_textInputRow">
               <div className="col-md-4 signInWindow_textInputs">
                 <input
@@ -70,7 +70,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                   required
                 />
               </div>
-              <div className="col-md-4 signInWindow_textInputs">
+              <div className="col-md-4 signInWindow_textInputs sign-in">
                 <input
                   type="text"
                   className="form-control"
@@ -112,7 +112,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                 />
               </div>
             </div>
-            <div className="mb-3 col-md-4">
+            <div className="mb-3 col-md-4 sign-in" >
               <input
                 type="file"
                 name="image"
@@ -123,15 +123,15 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
               <label
                 htmlFor="formFile"
                 id="signInWindow_uploadPhotoText"
-                className="form-label"
+                className="form-label sign-in"
               >
                 {!userInfo?.image ?
-                (<div>
+                (<div className="sign-in">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="60"
                     height="60"
-                    className="bi bi-upload upload"
+                    className="bi bi-upload upload uploadSignIn"
                     viewBox="0 0 16 16"
                   >
                     <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5" />
@@ -148,7 +148,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
                 )}
               </label>
             </div>
-            <div className="col-12">
+            <div className="col-12 sign-in">
               <button
                 id="signInWindow_signInButton"
                 className="btn btn-primary"
