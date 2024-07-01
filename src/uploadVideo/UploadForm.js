@@ -12,6 +12,10 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
 
   const [activeTab, setActiveTab] = useState("Details");
   const handleTabClick = (tab) => {
+    if (tab === "Link1" && (!formData.video || !formData.title || !formData.image )) {
+      alert("Please fill out all details and upload a video before proceeding.");
+      return;
+    }
     setActiveTab(tab);
   };
 

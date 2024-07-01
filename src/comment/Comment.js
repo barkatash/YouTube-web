@@ -52,7 +52,7 @@ function Comment({
   };
   const handleAlert = () => {
     setShowTooltip(true);
-    setTimeout(() => setShowTooltip(false), 3000);  
+    setTimeout(() => setShowTooltip(false), 5000);  
   }
   const handleCommentLike = () => {
     if (isLikedByUser) {
