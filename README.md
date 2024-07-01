@@ -18,6 +18,7 @@ username: bar
 password: 78495210
 
 In addition, we also implemented the functionality of searching for videos in the search box and filtering by categories of the videos as you can see and try :).
+Part of the functionalities tou can't see until you logged in such as upload videos, delete video, edit video and leave a comment.
 Regarding to our work process: during the construction of the first part, we performed most of the tasks together at the university or at Zoom together.
 Yishai was in the military reserves for part of the time, so sometimes we split up and did each one alone, and we kept up to date and helped each other.
 Everyone got to work on both the web and Android and that's how we actually combined everything.
