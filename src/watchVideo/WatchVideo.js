@@ -71,8 +71,8 @@ function WatchVideo(
     updateLike(newLikes);
   };
   
-  const isLikedByUser = userInfo?.videoIdListLiked.includes(id);
-  const isUnLikedByUser = userInfo?.videoIdListUnliked.includes(id);
+  const isLikedByUser = userInfo?.videoIdListLiked?.includes(id);
+  const isUnLikedByUser = userInfo?.videoIdListUnliked?.includes(id);
 
   const handleUnLike = () => {
     if (isUnLikedByUser) {

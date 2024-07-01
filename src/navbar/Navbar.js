@@ -47,7 +47,11 @@ function Navbar({
       displayName: "",
       password: "",
       verifyPassword: "",
-      image: "",
+      image: "",    
+      videoIdListLiked: [],
+      videoIdListUnliked: [],
+      commentIdListLiked: [],
+      commentIdListUnliked: []
     });
     onMoveToLogin();
   }

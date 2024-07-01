@@ -80,6 +80,7 @@ function App() {
                 setIsDarkMode={setIsDarkMode}
                 isDarkMode={isDarkMode}
                 userInfo={userInfo}
+                setUserInfo={setUserInfo}
               />
               <VideoPage
                 isDarkMode={isDarkMode}
