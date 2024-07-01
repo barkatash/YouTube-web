@@ -1,6 +1,7 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
 import { useState } from "react";
+import videosDb from "../db/videos.json"
 
 function WatchVideo(
   {
@@ -23,7 +24,7 @@ function WatchVideo(
   const publicUrl = process.env.PUBLIC_URL;
   const [showTooltip, setShowTooltip] = useState(false);
   const isFromDb = (videoUrl) =>
-    videos.find((videoDb) => videoDb.video === videoUrl) !== undefined;
+    videosDb.find((videoDb) => videoDb.video === videoUrl) !== undefined;
   const [showShare, setShowShare] = useState(false);
   const handleOpenShare = () => {
     setShowShare(true);
@@ -100,7 +101,7 @@ function WatchVideo(
       });
     }
   };
-
+  console.log(isFromDb(video));
   return (
     <div>
       <br></br>
