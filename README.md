@@ -4,7 +4,7 @@ A web client, written using the React.JS framework, for our Youtube-like applica
 
 part1 will be on the main branch.
 project status part1: in process.
-project status part2: didn't start yet.
+project status part2-server: didn't start yet.
 
 To run the project, use "npm start".
 
