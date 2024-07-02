@@ -7,7 +7,8 @@ app.use(cors());
 app.use(express.static('public'));
 app.use(express.json());
 
-require("custom-env").env(process.env.NODE_ENV, "./config");
+const customEnv = require("custom-env")
+customEnv.env(process.env.NODE_ENV, "./config");
 
 const mongoose = require("mongoose");
 mongoose.connect(process.env.CONNECTION_STRING, {

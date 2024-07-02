@@ -1,4 +1,4 @@
-const Video = require('../models/Video');
+const Video = require('../models/videos');
 const { MoongoClient, MongoClient } = require("mongodb");
 
 // async function create() {
@@ -10,9 +10,9 @@ const { MoongoClient, MongoClient } = require("mongodb");
 // }
     
 const addVideo = async (id, image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {
-    const video = new Video({ id, image, video, title, duration, visits, description, likes, categoryId })
-    if (uploadDate) video.uploadDate = uploadDate;
-    return await video.save()
+    const newVideo = new Video({ id, image, video, title, duration, visits, description, likes, categoryId })
+    if (uploadDate) newVideo.uploadDate = uploadDate;
+    return await newVideo.save()
 };
 
 const getVideo = async (id) => {
@@ -24,22 +24,22 @@ const getVideos = async () => {
 };
 
 const updateVideo = async (id, image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {
-    const video = await getVideo(id)
-    if (!video)
+    const newVideo = await getVideo(id)
+    if (!newVideo)
         return null
 
-    video.image = image
-    video.video = video
-    video.duration = duration
-    video.image = image
-    video.uploadDate = uploadDate
-    video.title = title
-    video.description = description
-    video.visits = visits
-    video.likes = likes
-    video.categoryId = categoryId
-    await video.save()
-    return video
+    newVideo.image = image
+    newVideo.video = video
+    newVideo.duration = duration
+    newVideo.image = image
+    newVideo.uploadDate = uploadDate
+    newVideo.title = title
+    newVideo.description = description
+    newVideo.visits = visits
+    newVideo.likes = likes
+    newVideo.categoryId = categoryId
+    await newVideo.save()
+    return newVideo
 };
 const deleteVideo = async (id) => {
     const video = await getVideo(id)
