@@ -1,7 +1,17 @@
 const Video = require('../models/Video');
+const { MoongoClient, MongoClient } = require("mongodb");
+
+// async function create() {
+//     const Client = new MongoClient("mongodb://localhost:27017");
+//     try {
+//         const db = Client.db('youtube');
+//         const
+//     }
+// }
     
-const addVideo = async (image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {
-    const video = new Video({ image, video, title, duration, visits, uploadDate, description, likes, categoryId })
+const addVideo = async (id, image, video, title, duration, visits, uploadDate, description, likes, categoryId) => {
+    const video = new Video({ id, image, video, title, duration, visits, description, likes, categoryId })
+    if (uploadDate) video.uploadDate = uploadDate;
     return await video.save()
 };
 

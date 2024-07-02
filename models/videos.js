@@ -3,6 +3,9 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const Video = new Schema({
+    id: {
+        type: Number
+    },
     image : {
         type: String
     },
@@ -19,7 +22,8 @@ const Video = new Schema({
         type: String
     },
     uploadDate : {
-        type: String
+        type: Date,
+        default: Date.now
     },
     description : {
         type: String
@@ -28,7 +32,7 @@ const Video = new Schema({
         type: Number
     },
     categoryId : {
-        type: Number[]
+        type: [Number],
     },
 });
 module.exports = mongoose.module('Video', Video);

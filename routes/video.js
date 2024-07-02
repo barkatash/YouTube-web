@@ -1,11 +1,11 @@
-
 const express = require('express'); 
-var router = express. Router();
+var router = express.Router();
+
 const videoController = require('../controllers/video');
 router.route('/')
         .get(videoController.getVideos)
         .post(videoController.createVideo);
-        
+
 router.route('/:id')
         .get(videoController.getVideo)
         .patch(videoController.updateVideo)

@@ -5,13 +5,6 @@ import EditVideoModal from './EditVideoModal';
 import { useParams } from 'react-router-dom';
 
 function Video({
-  id,
-  image,
-  title,
-  uploader,
-  duration,
-  visits,
-  uploadDate,
   handleDeleteVideo,
   handleEditVideo,
   userInfo
@@ -25,8 +18,8 @@ function Video({
     const fetchVideos = async () => {
       try {
         const response = await fetch('http://localhost:8080/videos/'+id)
-        const article = await response.json()
-        setArticle(article)
+        const video = await response.json()
+        setVideo(video)
       } catch (error) {
         
       }
@@ -65,14 +58,14 @@ function Video({
         <div className="position-relative">
           <img
             className="video-image"
-            src={image}
-            alt={title}
+            src={video.image}
+            alt={video.title}
             onClick={onMoveToVideo}
           />
-          <span className="duration">{duration}</span>
+          <span className="duration">{video.duration}</span>
         </div>
         <div className="card-body-video">
-          <h6 className="card-title card-title-video">{title}</h6>
+          <h6 className="card-title card-title-video">{video.title}</h6>
           {userInfo?.username && <div className="dropstart video-menu">
             <button
               type="button"
@@ -110,17 +103,17 @@ function Video({
           </div>}
           <div className="card-text-video">
             <div className="d-flex">
-              <p className="card-text">{uploader}</p>
+              <p className="card-text">{video.uploader}</p>
             </div>
             <p className="card-text">
-              {visits} • {uploadDate}
+              {video.visits} • {video.uploadDate}
             </p>
           </div>
         </div>
       </div>
       {isEditing && (
         <EditVideoModal
-          video={{ id, image, title, uploader, duration, visits, uploadDate }}
+          video={video}
           handleSave={handleSave}
           handleClose={handleClose}
         />
