@@ -17,7 +17,7 @@ function Video({
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch('http://localhost:8080/videos/'+id)
+        const response = await fetch('http://localhost:8080/api/videos/'+id)
         const video = await response.json()
         setVideo(video)
       } catch (error) {
