@@ -4,8 +4,8 @@ A web client, written using the React.JS framework, for our Youtube-like applica
 
 part1 will be on the main branch.
 part2 with server will be on the main-server branch.
-project status part1: in process.
-project status part2-server: didn't start yet.
+project status part1: complete.
+project status part2-server: in progress.
 part2-server link: https://github.com/barkatash/project2024-server
 
 about first part - client:
