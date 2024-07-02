@@ -28,7 +28,7 @@ function Video({
         const article = await response.json()
         setArticle(article)
       } catch (error) {
-        // handle error
+        
       }
     };
     fetchVideos();
