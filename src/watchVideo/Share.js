@@ -21,19 +21,19 @@ function Share({ show, handleClose }) {
           </div>
           <div className="modal-body">
             <div>
-              <img className="share-img-nav" src={whatsapp}></img>
+              <img className="share-img-nav" alt="" src={whatsapp}></img>
               <p>WhatsApp</p>
             </div>
             <div>
-              <img className="share-img-nav" src={facebook}></img>
+              <img className="share-img-nav" alt="" src={facebook}></img>
               <p>Facebook</p>
             </div>
             <div className="both">
-              <img className="share-img-nav" src={email}></img>
+              <img className="share-img-nav" alt="" src={email}></img>
               <p>Email</p>
             </div>
             <div>
-              <img className="share-img-nav" src={insta}></img>
+              <img className="share-img-nav" alt="" src={insta}></img>
               <p>Instagram</p>
             </div>
           </div>
