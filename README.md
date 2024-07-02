@@ -6,7 +6,9 @@ part1 will be on the main branch.
 part2 with server will be on the main-server branch.
 project status part1: in process.
 project status part2-server: didn't start yet.
+part2-server link: https://github.com/barkatash/project2024-server
 
+about first part - client:
 To run the project, use "npm start".
 
 dependencies: 
