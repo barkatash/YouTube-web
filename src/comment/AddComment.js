@@ -12,7 +12,6 @@ function AddComment({
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const publicUrl = process.env.PUBLIC_URL;
   const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
 
   const onFocus = () => {
@@ -50,9 +49,9 @@ function AddComment({
     <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
         {userInfo?.image ? (
-          <img className="username-image" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
+          <img className="username-image" alt="" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
         ) : (
-          <img className="username-image"></img>
+          <img className="username-image" alt=""></img>
         )}
         <input
           onChange={onCommentInput}

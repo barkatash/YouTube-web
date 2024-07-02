@@ -65,7 +65,7 @@ function Navbar({
             }`}
             to="/"
           >
-            <img className="logo" src={watch}></img> YouTube
+            <img className="logo" src={watch} alt=""></img> YouTube
           </Link>
 
           <form
@@ -169,7 +169,7 @@ function Navbar({
                   href="#"
                 >
                   &nbsp;
-                  {!userInfo?.username && (
+                  {!userInfo?.image && (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="22"
@@ -185,9 +185,10 @@ function Navbar({
                       />
                     </svg>
                   )}
-                  {userInfo?.username && (
+                  {userInfo?.image && (
                     <img
                       src={userInfo.image}
+                      alt=""
                       width="34"
                       height="34"
                       className="username_img"
