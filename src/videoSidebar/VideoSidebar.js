@@ -13,8 +13,7 @@ function VideoSidebar( { _id, id, image, title, uploader, visits, duration, uplo
       <div className="container mt-3">
         <div className="d-flex align-items-start position-relative">
           <img
-            // src={isFromDb(id) ? `${process.env.PUBLIC_URL}/${image}` : image}
-            src=""
+            src={image}
             className="img-fluid video-img"
             alt="Description"
             onClick={changeWatchedVideo}

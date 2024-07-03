@@ -1,4 +1,3 @@
-import categories from "./db/categories.json";
 import Sidebar from "./sidebar/Sidebar.js";
 import VideoList from "./videoList/VideoList.js";
 import CategoryNavbar from "./category/CategoryNavbar.js";
@@ -11,9 +10,8 @@ function Homepage({
   isDarkMode,
   handleDeleteVideo,
   handleEditVideo,
-  userInfo
+  userInfo,
 }) {
-  
   return (
     <div>
       <div className="row">
@@ -23,8 +21,7 @@ function Homepage({
         <div className="col-md-10">
           <div className="row">
             <CategoryNavbar
-            allVideos={allVideos}
-              categories={categories}
+              allVideos={allVideos}
               matchedVideos={matchedVideos}
               setMatchedVideos={setMatchedVideos}
               isDarkMode={isDarkMode}

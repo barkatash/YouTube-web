@@ -8,16 +8,16 @@ import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
-import comments from "./db/comments.json";
 
 function App() {
   const [allUsers, setAllUsers] = useState(signInUsers);
   const [allVideos, setAllVideos] = useState([]);
 
+
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/videos/");
+        const response = await fetch("http://localhost:8080/api/videos/all");
         const data = await response.json();
         setAllVideos(data);
         setMatchedVideos(data);
@@ -28,9 +28,10 @@ function App() {
     fetchVideos();
   }, []);
 
+
   const [matchedVideos, setMatchedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [videoComments, setVideoComments] = useState(comments);
+
   const [userInfo, setUserInfo] = useState({
     username: "",
     displayName: "",
@@ -101,8 +102,6 @@ function App() {
                 isDarkMode={isDarkMode}
                 videos={allVideos}
                 setAllVideos={setAllVideos}
-                videoComments={videoComments}
-                setVideoComments={setVideoComments}
                 handleDeleteVideo={handleDeleteVideo}
                 handleEditVideo={handleEditVideo}
                 userInfo={userInfo}

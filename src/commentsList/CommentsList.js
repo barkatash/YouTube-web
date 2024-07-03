@@ -1,21 +1,19 @@
 import Comment from "../comment/Comment.js";
 
 function CommentsList({
-  comments,
+  videoComments,
   setVideoComments,
-  videoId,
   userInfo,
   setUserInfo,
 }) {
+
   return (
     <div>
-      {comments
-        .filter((comment) => comment.videoId === videoId)
-        .map((comment, id) => (
+      {videoComments.map((comment, id) => (
           <Comment
             key={id}
             setVideoComments={setVideoComments}
-            videoComments={comments}
+            videoComments={videoComments}
             {...comment}
             userInfo={userInfo}
             setUserInfo={setUserInfo}
