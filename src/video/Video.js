@@ -7,11 +7,13 @@ function Video({
   _id,
   id,
   image,
+  video,
   title,
   uploader,
   duration,
   visits,
   uploadDate,
+  description,
   handleDeleteVideo,
   handleEditVideo,
   userInfo
@@ -32,7 +34,7 @@ function Video({
   };
 
   const handleSave = (formData) => {
-    handleEditVideo(id, formData);
+    handleEditVideo(_id, formData);
     setIsEditing(false);
   };
 
@@ -107,7 +109,7 @@ function Video({
       </div>
       {isEditing && (
         <EditVideoModal
-          video={{ id, image, title, uploader, duration, visits, uploadDate }}
+          video={{ id, image, video, title, uploader, duration, uploadDate, description }}
           handleSave={handleSave}
           handleClose={handleClose}
         />

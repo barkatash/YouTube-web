@@ -14,6 +14,8 @@ import axios from 'axios';
 function App() {
   const [allUsers, setAllUsers] = useState(signInUsers);
   const [allVideos, setAllVideos] = useState([]);
+  const [matchedVideos, setMatchedVideos] = useState([]);
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -28,10 +30,6 @@ function App() {
     };
     fetchVideos();
   }, []);
-
-
-  const [matchedVideos, setMatchedVideos] = useState([]);
-  const [isDarkMode, setIsDarkMode] = useState(false);
 
   const [userInfo, setUserInfo] = useState({
     username: "",
@@ -54,12 +52,18 @@ function App() {
       .catch(error => console.error('Error deleting video:', error));
   };
 
-  const handleEditVideo = (id, updatedVideo) => {
-    const updatedVideos = allVideos.map((video) =>
-      video.id === id ? updatedVideo : video
-    );
-    setAllVideos(updatedVideos);
-    setMatchedVideos(updatedVideos);
+  const handleEditVideo = async (id, updatedVideoData) => {
+    try {
+      const response = await axios.patch("http://localhost:8080/api/videos/" + id, updatedVideoData);
+      const updatedVideo = response.data;
+      const updatedVideos = allVideos.map(video =>
+        video._id === id ? updatedVideo : video
+      );
+      setAllVideos(updatedVideos);
+      setMatchedVideos(updatedVideos);
+    } catch (error) {
+      console.error('Error updating video:', error);
+    }
   };
 
   
