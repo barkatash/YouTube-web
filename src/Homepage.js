@@ -5,6 +5,7 @@ import CategoryNavbar from "./category/CategoryNavbar.js";
 import "./Homepage.css";
 
 function Homepage({
+  allVideos,
   matchedVideos,
   setMatchedVideos,
   isDarkMode,
@@ -12,6 +13,7 @@ function Homepage({
   handleEditVideo,
   userInfo
 }) {
+  
   return (
     <div>
       <div className="row">
@@ -21,6 +23,7 @@ function Homepage({
         <div className="col-md-10">
           <div className="row">
             <CategoryNavbar
+            allVideos={allVideos}
               categories={categories}
               matchedVideos={matchedVideos}
               setMatchedVideos={setMatchedVideos}

@@ -1,13 +1,4 @@
 import "./Sidebar.css";
-import home from "../images/1946488.png";
-import tranding from "../images/hot_fire_flame_trend_creative_trending_icon_212616.png";
-import music from "../images/music.png";
-import sports from "../images/sport.png";
-import news from "../images/news.png";
-import like from "../images/like.png";
-import history from "../images/history.png";
-import channel from "../images/channel.png";
-import videos from "../images/video.png";
 import "../App.css";
 
 function Sidebar({ isDarkMode }) {

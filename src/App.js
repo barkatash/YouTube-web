@@ -1,8 +1,7 @@
 import "./App.css";
 import "./navbar/Navbar.js";
 import Navbar from "./navbar/Navbar.js";
-import { useState } from "react";
-import videos from "./db/videos.json";
+import { useState, useEffect } from "react";
 import signInUsers from "./db/signInUsers.json";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
@@ -13,8 +12,23 @@ import comments from "./db/comments.json";
 
 function App() {
   const [allUsers, setAllUsers] = useState(signInUsers);
-  const [allVideos, setAllVideos] = useState(videos);
-  const [matchedVideos, setMatchedVideos] = useState(allVideos ?? videos);
+  const [allVideos, setAllVideos] = useState([]);
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/videos/");
+        const data = await response.json();
+        setAllVideos(data);
+        setMatchedVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+    fetchVideos();
+  }, []);
+
+  const [matchedVideos, setMatchedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
   const [videoComments, setVideoComments] = useState(comments);
   const [userInfo, setUserInfo] = useState({
@@ -60,6 +74,7 @@ function App() {
                 setUserInfo={setUserInfo}
               />
               <Homepage
+                allVideos={allVideos}
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
