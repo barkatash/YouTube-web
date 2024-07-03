@@ -24,7 +24,7 @@ function Video({
   };
 
   const onDeleteVideo = () => {
-    handleDeleteVideo(id);
+    handleDeleteVideo(_id);
   };
 
   const onEditVideo = () => {

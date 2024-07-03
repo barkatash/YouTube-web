@@ -8,11 +8,12 @@ import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
+import axios from 'axios';
+
 
 function App() {
   const [allUsers, setAllUsers] = useState(signInUsers);
   const [allVideos, setAllVideos] = useState([]);
-
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -45,9 +46,12 @@ function App() {
   });
 
   const handleDeleteVideo = (id) => {
-    const updatedVideos = allVideos.filter((video) => video.id !== id);
-    setAllVideos(updatedVideos);
-    setMatchedVideos(updatedVideos);
+    axios.delete("http://localhost:8080/api/videos/" + id)
+      .then(() => {
+        setAllVideos(allVideos.filter(video => video._id !== id));
+        setMatchedVideos(matchedVideos.filter(video => video._id !== id));
+      })
+      .catch(error => console.error('Error deleting video:', error));
   };
 
   const handleEditVideo = (id, updatedVideo) => {
