@@ -1,6 +1,7 @@
 import "./Comment.css";
 import { useState } from "react";
 import signInUsers from "../db/signInUsers.json"
+import { daysAgo } from "../video/utils";
 
 function Comment({
   setVideoComments,
@@ -123,7 +124,7 @@ function Comment({
             <div className="d-flex">
               <h6>{userName}</h6>
               &nbsp;
-              <small>{uploadDate}</small>
+              <small>{daysAgo(uploadDate)}</small>
               {userInfo?.username && (
                 <div className="ms-auto d-flex">
                   <button
