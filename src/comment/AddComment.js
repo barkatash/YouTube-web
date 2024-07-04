@@ -6,12 +6,10 @@ function AddComment({
   setVideoComments,
   videoId,
   isDarkMode,
-  userInfo,
-  allUsers
+  userInfo
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const isFromDb = (userInfo) => allUsers.find(user => user.username === userInfo?.username) !== undefined
 
   const onFocus = () => {
     setIsFocused(true);
@@ -48,7 +46,7 @@ function AddComment({
     <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
         {userInfo?.image ? (
-          <img className="username-image" alt="" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
+          <img className="username-image" alt="" src={userInfo.image}></img>
         ) : (
           <img className="username-image" alt=""></img>
         )}

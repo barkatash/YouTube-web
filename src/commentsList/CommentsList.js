@@ -4,8 +4,7 @@ function CommentsList({
   videoComments,
   setVideoComments,
   userInfo,
-  setUserInfo,
-  allUsers
+  setUserInfo
 }) {
 
   return (
@@ -18,7 +17,6 @@ function CommentsList({
             {...comment}
             userInfo={userInfo}
             setUserInfo={setUserInfo}
-            allUsers={allUsers}
           />
         ))}
     </div>

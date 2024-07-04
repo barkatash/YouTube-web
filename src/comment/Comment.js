@@ -11,14 +11,12 @@ function Comment({
   uploadDate,
   likes,
   userInfo,
-  setUserInfo,
-  allUsers
+  setUserInfo
 }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
   const [showTooltip, setShowTooltip] = useState(false);
-  const isFromDb = (userInfo) => allUsers.find(user => user.username === userInfo?.username) !== undefined
   const isLoggedIn = !!userInfo?.username;
 
   const updateLike = (newLikes) =>
@@ -115,7 +113,7 @@ function Comment({
         <div className="row">
           <div className="col-1 align-self-start">
               {userInfo?.image && userInfo.username === userName ? (
-              <img className="username-image" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
+              <img className="username-image" src={userInfo.image}></img>
             ) : (
               <img className="username-image-default username-image"></img>
             )}
