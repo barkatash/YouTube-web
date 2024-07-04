@@ -4,21 +4,24 @@ function CommentsList({
   videoComments,
   setVideoComments,
   userInfo,
-  setUserInfo
+  setUserInfo,
 }) {
-
   return (
     <div>
       {videoComments.map((comment, id) => (
-          <Comment
-            key={id}
-            setVideoComments={setVideoComments}
-            videoComments={videoComments}
-            {...comment}
-            userInfo={userInfo}
-            setUserInfo={setUserInfo}
-          />
-        ))}
+        <Comment
+          key={id}
+          setVideoComments={setVideoComments}
+          videoComments={videoComments}
+          _id={comment._id}
+          userName={comment.userName}
+          description={comment.description}
+          uploadDate={comment.uploadDate}
+          likes={comment.likes}
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+        />
+      ))}
     </div>
   );
 }

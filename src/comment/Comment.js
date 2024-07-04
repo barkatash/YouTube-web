@@ -5,7 +5,7 @@ import { daysAgo } from "../video/utils";
 function Comment({
   setVideoComments,
   videoComments,
-  commentId,
+  _id,
   userName,
   description,
   uploadDate,
@@ -22,17 +22,38 @@ function Comment({
   const updateLike = (newLikes) =>
     setVideoComments(
       videoComments.map((comment) => {
-        if (comment.commentId === commentId) {
+        if (comment._id === _id) {
           return { ...comment, likes: newLikes };
         }
         return comment;
       })
     );
 
-  const onDeleteComment = () => {
-    setVideoComments(
-      videoComments.filter((comment) => comment.commentId !== commentId)
-    );
+  const onDeleteComment = async () => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${_id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to delete this comment.");
+        return;
+      }
+      setVideoComments(
+        videoComments.filter((comment) => comment._id !== _id)
+      );
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      alert("An error occurred while deleting the comment.");
+    }
   };
   const onEditComment = () => {
     setIsEditing(true);
@@ -41,7 +62,7 @@ function Comment({
   const onSaveComment = () => {
     setVideoComments(
       videoComments.map((comment) => {
-        if (comment.commentId === commentId) {
+        if (comment._id === _id) {
           return { ...comment, description: newDescription };
         }
         return comment;
@@ -56,23 +77,23 @@ function Comment({
   const handleCommentLike = () => {
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
-      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(commentId), 1);
+      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(_id), 1);
       setUserInfo({ ...userInfo, commentIdListLiked: newCommentIdListLiked });
       let newLikes = likes - 1;
       updateLike(newLikes);
       return;
     } else if (isUnLikedByUser) {
       const newCommentIdListUnLiked = userInfo.commentIdListUnliked;
-      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(commentId), 1);
+      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(_id), 1);
       setUserInfo({
         ...userInfo,
-        commentIdListLiked: [...userInfo.commentIdListLiked, commentId],
+        commentIdListLiked: [...userInfo.commentIdListLiked, _id],
         commentIdListUnliked: newCommentIdListUnLiked
       });
     } else
       setUserInfo({
         ...userInfo,
-        commentIdListLiked: [...userInfo.commentIdListLiked, commentId],
+        commentIdListLiked: [...userInfo.commentIdListLiked, _id],
       });
     let newLikes = likes + 1;
     updateLike(newLikes);
@@ -81,18 +102,18 @@ function Comment({
   const handleCommentUnLike = () => {
     if (isUnLikedByUser) {
       const newCommentIdListUnLiked = userInfo.commentIdListUnliked;
-      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(commentId), 1);
+      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(_id), 1);
       setUserInfo({ ...userInfo, commentIdListUnliked: newCommentIdListUnLiked });
       return;
     } 
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
-      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(commentId), 1);
+      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(_id), 1);
       let newLikes = likes - 1;
       updateLike(newLikes);
       setUserInfo({
         ...userInfo,
-        commentIdListUnliked: [...userInfo.commentIdListUnliked, commentId],
+        commentIdListUnliked: [...userInfo.commentIdListUnliked, _id],
         commentIdListLiked: newCommentIdListLiked
       });
       return;
@@ -100,12 +121,12 @@ function Comment({
     if (!isUnLikedByUser) {
       setUserInfo({
         ...userInfo,
-        commentIdListUnliked: [...userInfo.commentIdListUnliked, commentId],
+        commentIdListUnliked: [...userInfo.commentIdListUnliked, _id],
       });
     }
   };
-  const isLikedByUser = userInfo?.commentIdListLiked.includes(commentId);
-  const isUnLikedByUser = userInfo?.commentIdListUnliked.includes(commentId);
+  const isLikedByUser = userInfo?.commentIdListLiked.includes(_id);
+  const isUnLikedByUser = userInfo?.commentIdListUnliked.includes(_id);
 
   return (
     <div className="list-group-item flex-column ">
