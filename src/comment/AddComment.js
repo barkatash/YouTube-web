@@ -1,7 +1,5 @@
 import { useState } from "react";
 import "./AddComment.css";
-import signInUsers from "../db/signInUsers.json"
-
 
 function AddComment({
   comments,
@@ -9,10 +7,11 @@ function AddComment({
   videoId,
   isDarkMode,
   userInfo,
+  allUsers
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
+  const isFromDb = (userInfo) => allUsers.find(user => user.username === userInfo?.username) !== undefined
 
   const onFocus = () => {
     setIsFocused(true);

@@ -23,7 +23,7 @@ function MainComponent({ allUsers, setAllUsers, setUserInfo, userInfo }) {
       {currentView === 'login' ? (
         <LogInWindow allUsers={allUsers} navigateToSignIn={navigateToSignIn} setUserInfo={setUserInfo}/>
       ) : (
-        <SignInWindow setAllUsers={setAllUsers} navigateToLogIn={navigateToLogIn} setUserInfo={setUserInfo} userInfo={userInfo}/>
+        <SignInWindow setAllUsers={setAllUsers} navigateToLogIn={navigateToLogIn} setUserInfo={setUserInfo} userInfo={userInfo} allUsers={allUsers}/>
       )}
     </div>
   );

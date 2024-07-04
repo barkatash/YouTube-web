@@ -1,6 +1,5 @@
 import "./Comment.css";
 import { useState } from "react";
-import signInUsers from "../db/signInUsers.json"
 import { daysAgo } from "../video/utils";
 
 function Comment({
@@ -12,13 +11,14 @@ function Comment({
   uploadDate,
   likes,
   userInfo,
-  setUserInfo
+  setUserInfo,
+  allUsers
 }) {
 
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
   const [showTooltip, setShowTooltip] = useState(false);
-  const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
+  const isFromDb = (userInfo) => allUsers.find(user => user.username === userInfo?.username) !== undefined
   const isLoggedIn = !!userInfo?.username;
 
   const updateLike = (newLikes) =>

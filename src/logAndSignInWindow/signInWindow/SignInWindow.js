@@ -1,7 +1,8 @@
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
+import axios from "axios";
 
-function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
+function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo, allUsers }) {
   const handleChange = (event) => {
     const { name, value, files } = event.target;
     if (name === "image" && files && files[0]) {
@@ -22,23 +23,35 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const { password, verifyPassword } = userInfo;
+    const { password, verifyPassword, ...userData } = userInfo;
 
     if (password.length < 8 || password.length > 20) {
-      alert("Your password must be 8-20 characters long.");
+      alert('Your password must be 8-20 characters long.');
       return;
     }
 
     if (password !== verifyPassword) {
-      alert("Passwords do not match. Please try again.");
+      alert('Passwords do not match. Please try again.');
       return;
     }
 
-    setAllUsers((prevUsers) => [...prevUsers, userInfo]);
-    alert("Signed up successfully!");
-    navigateToLogIn();
+    const username = allUsers.filter(user => user.username === userInfo.username)
+    if (username.length) {
+      alert('This username already exist, please choose other username.');
+      return;
+    }
+    try {
+      const response = await axios.post("http://localhost:8080/api/users/", userInfo);
+      const newUser = response.data;
+      setAllUsers((prevUsers) => [...prevUsers, newUser]);
+      alert('Signed up successfully!');
+      navigateToLogIn();
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('Error signing up. Please try again later.');
+    }
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;

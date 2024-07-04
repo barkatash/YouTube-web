@@ -2,7 +2,6 @@ import "./App.css";
 import "./navbar/Navbar.js";
 import Navbar from "./navbar/Navbar.js";
 import { useState, useEffect } from "react";
-import signInUsers from "./db/signInUsers.json";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
@@ -12,10 +11,23 @@ import axios from 'axios';
 
 
 function App() {
-  const [allUsers, setAllUsers] = useState(signInUsers);
+  const [allUsers, setAllUsers] = useState([]);
   const [allVideos, setAllVideos] = useState([]);
   const [matchedVideos, setMatchedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    const fetchUsers = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/users/");
+        const data = await response.json();
+        setAllUsers(data);
+      } catch (error) {
+        console.error("Error fetching users:", error);
+      }
+    };
+    fetchUsers();
+  }, []);
 
   useEffect(() => {
     const fetchVideos = async () => {
@@ -114,6 +126,7 @@ function App() {
                 handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
+                allUsers={allUsers}
               />
             </div>
           }
