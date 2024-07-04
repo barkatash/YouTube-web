@@ -2,16 +2,13 @@ import React, { useState } from "react";
 import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
 
 function LogInWindow({ allUsers, navigateToSignIn, setUserInfo, userInfo }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogIn = (user) => {
-    setUserInfo(user);
-  };
+
   const onMoveToHomepage = () => {
     navigate("/");
   };
@@ -30,9 +27,9 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo, userInfo }) {
       const json = await res.json()
       if (json.result === "success") {
         const user = allUsers.filter((user) => user.username === username)[0];
+        const updatedUserInfo = { ...user, token: json.token };
         alert(`Logged in successfully! Welcome, ${user.displayName}`);
-        setUserInfo({ ...userInfo, token: json.token});
-        handleLogIn(user);
+        setUserInfo(updatedUserInfo);
         onMoveToHomepage();
       }
       else {

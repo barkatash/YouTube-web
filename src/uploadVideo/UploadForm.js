@@ -12,10 +12,10 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
 
   const [activeTab, setActiveTab] = useState("Details");
   const handleTabClick = (tab) => {
-    if (tab === "Link1" && (!formData.video || !formData.title || !formData.image )) {
-      alert("Please fill out all details and upload a video before proceeding.");
-      return;
-    }
+    // if (tab === "Link1" && (!formData.video || !formData.title || !formData.image )) {
+    //   alert("Please fill out all details and upload a video before proceeding.");
+    //   return;
+    // }
     setActiveTab(tab);
   };
 
@@ -31,8 +31,8 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
     image: "",
     uploader: userInfo?.displayName ? userInfo?.displayName : "username",
     duration: "",
-    visits: "0",
-    uploadDate: "now",
+    visits: 0,
+    uploadDate: "",
     likes: 0,
     categoryId: [0],
   });
@@ -69,10 +69,33 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
     }));
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    setAllVideos([...allVideos, formData]);
-    onMoveToHomepage();
+  const handleSubmit = async (event) => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You need to login to upload a video");
+        return;
+      }
+      event.preventDefault();
+      setAllVideos([...allVideos, formData]);
+      onMoveToHomepage();
+
+    } catch (error) {
+      console.error("Error edit video:", error);
+      alert("An error occurred while editing the video.");
+    }
   };
 
   return (

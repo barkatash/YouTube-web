@@ -7,8 +7,6 @@ import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
-import axios from 'axios';
-
 
 function App() {
   const [allUsers, setAllUsers] = useState([]);
@@ -53,33 +51,66 @@ function App() {
     videoIdListUnliked: [],
     commentIdListLiked: [],
     commentIdListUnliked: [],
-    token: ""
+    token: "",
   });
 
-  const handleDeleteVideo = (id) => {
-    axios.delete("http://localhost:8080/api/videos/" + id)
-      .then(() => {
-        setAllVideos(allVideos.filter(video => video._id !== id));
-        setMatchedVideos(matchedVideos.filter(video => video._id !== id));
-      })
-      .catch(error => console.error('Error deleting video:', error));
+  const handleDeleteVideo = async (id) => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to delete this video.");
+        return;
+      }
+      setAllVideos(allVideos.filter((video) => video._id !== id));
+      setMatchedVideos(matchedVideos.filter((video) => video._id !== id));
+    } catch (error) {
+      console.error("Error deleting video:", error);
+      alert("An error occurred while deleting the video.");
+    }
   };
 
   const handleEditVideo = async (id, updatedVideoData) => {
     try {
-      const response = await axios.patch("http://localhost:8080/api/videos/" + id, updatedVideoData);
-      const updatedVideo = response.data;
-      const updatedVideos = allVideos.map(video =>
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(updatedVideoData),
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to edit this video.");
+        return;
+      }
+      const updatedVideo = json;
+      const updatedVideos = allVideos.map((video) =>
         video._id === id ? updatedVideo : video
       );
       setAllVideos(updatedVideos);
       setMatchedVideos(updatedVideos);
     } catch (error) {
-      console.error('Error updating video:', error);
+      console.error("Error edit video:", error);
+      alert("An error occurred while editing the video.");
     }
   };
 
-  
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -95,6 +126,7 @@ function App() {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
               />
+
               <Homepage
                 allVideos={allVideos}
                 matchedVideos={matchedVideos}
@@ -135,7 +167,11 @@ function App() {
         <Route
           path="/addVideo"
           element={
-            <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} userInfo={userInfo}/>
+            <UploadForm
+              allVideos={allVideos}
+              setAllVideos={setAllVideos}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
