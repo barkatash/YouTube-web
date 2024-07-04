@@ -3,11 +3,10 @@ import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
 import { useNavigate } from "react-router-dom";
 
-function LogInWindow({ allUsers, navigateToSignIn, setUserInfo, userInfo }) {
+function LogInWindow({ navigateToSignIn, setUserInfo, userInfo }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-
 
   const onMoveToHomepage = () => {
     navigate("/");
@@ -26,10 +25,8 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo, userInfo }) {
 
       const json = await res.json()
       if (json.result === "success") {
-        const user = allUsers.filter((user) => user.username === username)[0];
-        const updatedUserInfo = { ...user, token: json.token };
-        alert(`Logged in successfully! Welcome, ${user.displayName}`);
-        setUserInfo(updatedUserInfo);
+        alert(`Logged in successfully! Welcome, ${userInfo.displayName}`);
+        setUserInfo({ ...userInfo, token: json.token});
         onMoveToHomepage();
       }
       else {
