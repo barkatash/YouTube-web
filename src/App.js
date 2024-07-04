@@ -52,7 +52,8 @@ function App() {
     videoIdListLiked: [],
     videoIdListUnliked: [],
     commentIdListLiked: [],
-    commentIdListUnliked: []
+    commentIdListUnliked: [],
+    token: ""
   });
 
   const handleDeleteVideo = (id) => {

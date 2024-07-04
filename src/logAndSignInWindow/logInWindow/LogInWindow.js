@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
-function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
+function LogInWindow({ allUsers, navigateToSignIn, setUserInfo, userInfo }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
@@ -15,19 +16,30 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
     navigate("/");
   };
 
-  const handleLogInClick = (event) => {
-    event.preventDefault();
-    const user = allUsers.find((user) => user.username === username && user.password === password);
+  const handleLogInClick = async (event) => {
+      event.preventDefault();
+      const data = { username: username, password: password}
+      const res = await fetch("http://localhost:8080/api/tokens/", {
+        'method': 'post',
+        'headers': {
+        'Content-Type': 'application/json',
+        },
+        'body': JSON.stringify(data)
+        })
 
-    if (user) {
-      alert(`Logged in successfully! Welcome, ${user.displayName}`);
-      handleLogIn(user);
-      onMoveToHomepage();
-    } else {
-      alert("Login failed. Invalid username or password.");
+      const json = await res.json()
+      if (json.result === "success") {
+        const user = allUsers.filter((user) => user.username === username)[0];
+        alert(`Logged in successfully! Welcome, ${user.displayName}`);
+        setUserInfo({ ...userInfo, token: json.token});
+        handleLogIn(user);
+        onMoveToHomepage();
+      }
+      else {
+        alert(json.message);
+      }
     }
-  };
-
+  
   return (
     <div id="logInWindow">
       <div id="logInWindow_background">
@@ -55,7 +67,7 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
                 required
               />
               <input
-                id="logInWindow_textInput"
+                id="logInWindow_textInput2"
                 type="password"
                 className="form-control"
                 name="password"
