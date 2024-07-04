@@ -31,8 +31,6 @@ function App() {
   const [userInfo, setUserInfo] = useLocalStorage("userInfo",{
     username: "",
     displayName: "",
-    password: "",
-    verifyPassword: "",
     image: "",
     videoIdListLiked: [],
     videoIdListUnliked: [],

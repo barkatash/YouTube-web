@@ -13,27 +13,36 @@ function LogInWindow({ navigateToSignIn, setUserInfo, userInfo }) {
   };
 
   const handleLogInClick = async (event) => {
-      event.preventDefault();
-      const data = { username: username, password: password}
-      const res = await fetch("http://localhost:8080/api/tokens/", {
-        'method': 'post',
-        'headers': {
-        'Content-Type': 'application/json',
-        },
-        'body': JSON.stringify(data)
-        })
+    event.preventDefault();
+    const data = { username: username, password: password };
+    const res = await fetch("http://localhost:8080/api/tokens/", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
-      const json = await res.json()
-      if (json.result === "success") {
-        alert(`Logged in successfully! Welcome, ${userInfo.displayName}`);
-        setUserInfo({ ...userInfo, token: json.token});
-        onMoveToHomepage();
-      }
-      else {
-        alert(json.message);
-      }
+    const json = await res.json();
+    console.log(json);
+    if (json.result === "success") {
+      setUserInfo({
+        username: json.username,
+        displayName: json.displayName,
+        image: json.image,
+        videoIdListLiked: json.videoIdListLiked,
+        videoIdListUnliked: json.videoIdListUnliked,
+        commentIdListLiked: json.commentIdListLiked,
+        commentIdListUnliked: json.commentIdListUnliked,
+        token: json.token,
+      });
+      alert(`Logged in successfully! Welcome, ${json.displayName}`);
+      onMoveToHomepage();
+    } else {
+      alert(json.message);
     }
-  
+  };
+
   return (
     <div id="logInWindow">
       <div id="logInWindow_background">
