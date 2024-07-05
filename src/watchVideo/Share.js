@@ -6,7 +6,7 @@ import insta from "../images/Insta.png"
 
 function Share({ show, handleClose }) {
   return (
-    <div className={`modal ${show ? "show" : ""}`} tabindex="-1">
+    <div className={`modal ${show ? "show" : ""}`} tabIndex="-1">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
