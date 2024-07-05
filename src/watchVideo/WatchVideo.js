@@ -5,11 +5,12 @@ import { useParams } from 'react-router-dom';
 import { useEffect } from "react";
 import { daysAgo } from "../video/utils.js";
 
-function WatchVideo(
+function WatchVideo (
   { isDarkMode, videos, setAllVideos, userInfo, setUserInfo },
   { key }
 ) {
   const { id } = useParams();
+  const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState({
     _id: "",
     id: 1,
@@ -30,14 +31,14 @@ function WatchVideo(
         const response = await fetch("http://localhost:8080/api/videos/" + id);
         const video = await response.json();
         setVideo(video);
+        setLoading(false);
       } catch (error) {
-
+        setLoading(false);
       }
     };
     fetchVideo();
   }, [id]);
 
-  const publicUrl = process.env.PUBLIC_URL;
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShare, setShowShare] = useState(false);
   const handleOpenShare = () => {
@@ -115,16 +116,16 @@ function WatchVideo(
       });
     }
   };
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        <video key={key} controls className="video">
-          <source
-            src={video}
-            type="video/mp4"
-          ></source>
-        </video>
+        {!loading && <video key={key} controls className="video">
+        <source src={`http://localhost:8080/${video.video}`} type="video/mp4" />
+        </video>}
         <div className={`card-body ${isDarkMode ? "dark-mode" : "light-mode"}`}>
           <h5 className="card-title title-video-watch watch-video-title">
             {video?.title}
@@ -133,10 +134,11 @@ function WatchVideo(
             {userInfo?.image && userInfo.username === video?.uploader ? (
               <img
                 className="username-image"
-                src={`${publicUrl}/${userInfo.image}`}
+                alt="profile"
+                src={`http://localhost:8080/${userInfo.image}`}
               ></img>
             ) : (
-              <img className="username-image"></img>
+              <img className="username-image" alt="profile"></img>
             )}
             <h5 className="card-title uploader title-video-watch">
               {video?.uploader}

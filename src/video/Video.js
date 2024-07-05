@@ -20,7 +20,6 @@ function Video({
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
-  console.log(video);
   const onMoveToVideo = () => {
     navigate(`/watch/${_id}`);
   };
@@ -48,7 +47,7 @@ function Video({
         <div className="position-relative">
           <img
             className="video-image"
-            src={image}
+            src={`http://localhost:8080/${image}`}
             alt={title}
             onClick={onMoveToVideo}
           />
