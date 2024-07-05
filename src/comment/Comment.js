@@ -59,16 +59,39 @@ function Comment({
     setIsEditing(true);
   };
 
-  const onSaveComment = () => {
-    setVideoComments(
-      videoComments.map((comment) => {
-        if (comment._id === _id) {
-          return { ...comment, description: newDescription };
+  const onSaveComment = async () => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${_id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ description: newDescription })
         }
-        return comment;
-      })
-    );
-    setIsEditing(false);
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to edit this comment.");
+        setIsEditing(false);
+        return;
+      }
+      setVideoComments(
+        videoComments.map((comment) => {
+          if (comment._id === _id) {
+            return { ...comment, description: newDescription };
+          }
+          return comment;
+        })
+      );
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error editing comment:", error);
+      alert("An error occurred while editing the comment.");
+    }
   };
   const handleAlert = () => {
     setShowTooltip(true);
