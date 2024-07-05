@@ -1,49 +1,101 @@
 import "./App.css";
 import "./navbar/Navbar.js";
 import Navbar from "./navbar/Navbar.js";
-import { useState } from "react";
-import videos from "./db/videos.json";
-import signInUsers from "./db/signInUsers.json";
+import { useState, useEffect } from "react";
+import useLocalStorage from "./hooks/useLocalStorage.js";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
-import comments from "./db/comments.json";
 
 function App() {
-  const [allUsers, setAllUsers] = useState(signInUsers);
-  const [allVideos, setAllVideos] = useState(videos);
-  const [matchedVideos, setMatchedVideos] = useState(allVideos ?? videos);
+  const [allVideos, setAllVideos] = useState([]);
+  const [matchedVideos, setMatchedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const [videoComments, setVideoComments] = useState(comments);
-  const [userInfo, setUserInfo] = useState({
+
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/videos/all");
+        const data = await response.json();
+        setAllVideos(data);
+        setMatchedVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+    fetchVideos();
+  }, []);
+
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo",{
     username: "",
     displayName: "",
-    password: "",
-    verifyPassword: "",
     image: "",
     videoIdListLiked: [],
     videoIdListUnliked: [],
     commentIdListLiked: [],
-    commentIdListUnliked: []
+    commentIdListUnliked: [],
+    token: "",
   });
 
-  const handleDeleteVideo = (id) => {
-    const updatedVideos = allVideos.filter((video) => video.id !== id);
-    setAllVideos(updatedVideos);
-    setMatchedVideos(updatedVideos);
+  const handleDeleteVideo = async (id) => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to delete this video.");
+        return;
+      }
+      setAllVideos(allVideos.filter((video) => video._id !== id));
+      setMatchedVideos(matchedVideos.filter((video) => video._id !== id));
+    } catch (error) {
+      console.error("Error deleting video:", error);
+      alert("An error occurred while deleting the video.");
+    }
   };
 
-  const handleEditVideo = (id, updatedVideo) => {
-    const updatedVideos = allVideos.map((video) =>
-      video.id === id ? updatedVideo : video
-    );
-    setAllVideos(updatedVideos);
-    setMatchedVideos(updatedVideos);
+  const handleEditVideo = async (id, updatedVideoData) => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(updatedVideoData),
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to edit this video.");
+        return;
+      }
+      const updatedVideo = json;
+      const updatedVideos = allVideos.map((video) =>
+        video._id === id ? updatedVideo : video
+      );
+      setAllVideos(updatedVideos);
+      setMatchedVideos(updatedVideos);
+    } catch (error) {
+      console.error("Error edit video:", error);
+      alert("An error occurred while editing the video.");
+    }
   };
 
-  
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -59,7 +111,9 @@ function App() {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
               />
+
               <Homepage
+                allVideos={allVideos}
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
@@ -86,12 +140,11 @@ function App() {
                 isDarkMode={isDarkMode}
                 videos={allVideos}
                 setAllVideos={setAllVideos}
-                videoComments={videoComments}
-                setVideoComments={setVideoComments}
                 handleDeleteVideo={handleDeleteVideo}
                 handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
+
               />
             </div>
           }
@@ -99,15 +152,17 @@ function App() {
         <Route
           path="/addVideo"
           element={
-            <UploadForm allVideos={allVideos} setAllVideos={setAllVideos} userInfo={userInfo}/>
+            <UploadForm
+              allVideos={allVideos}
+              setAllVideos={setAllVideos}
+              userInfo={userInfo}
+            />
           }
         />
         <Route
           path="/login"
           element={
             <MainComponent
-              allUsers={allUsers}
-              setAllUsers={setAllUsers}
               setUserInfo={setUserInfo}
               userInfo={userInfo}
             />

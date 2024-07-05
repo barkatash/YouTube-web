@@ -1,7 +1,8 @@
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
+import axios from "axios";
 
-function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
+function SignInWindow({ navigateToLogIn, setUserInfo, userInfo }) {
   const handleChange = (event) => {
     const { name, value, files } = event.target;
     if (name === "image" && files && files[0]) {
@@ -22,23 +23,32 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { password, verifyPassword } = userInfo;
-
     if (password.length < 8 || password.length > 20) {
-      alert("Your password must be 8-20 characters long.");
+      alert('Your password must be 8-20 characters long.');
       return;
     }
 
     if (password !== verifyPassword) {
-      alert("Passwords do not match. Please try again.");
+      alert('Passwords do not match. Please try again.');
       return;
     }
-
-    setAllUsers((prevUsers) => [...prevUsers, userInfo]);
-    alert("Signed up successfully!");
-    navigateToLogIn();
+    try {
+        const response = await axios.post("http://localhost:8080/api/users/", userInfo);
+        if (response.data)
+        { 
+          alert('Signed up successfully!');
+          navigateToLogIn();
+        }
+        else {
+          alert('This username already taken, please choose other one.');
+        }
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('Error signing up. Please try again later.');
+    }
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;

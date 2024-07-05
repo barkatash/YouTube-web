@@ -1,30 +1,44 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
 import { useState } from "react";
-import videosDb from "../db/videos.json"
+import { useParams } from 'react-router-dom';
+import { useEffect } from "react";
+import { daysAgo } from "../video/utils.js";
 
 function WatchVideo(
-  {
-    id,
-    video,
-    title,
-    uploader,
-    visits,
-    description,
-    uploadDate,
-    likes,
-    isDarkMode,
-    videos,
-    setAllVideos,
-    userInfo,
-    setUserInfo,
-  },
+  { isDarkMode, videos, setAllVideos, userInfo, setUserInfo },
   { key }
 ) {
+  const { id } = useParams();
+  const [video, setVideo] = useState({
+    _id: "",
+    id: 1,
+    image: "",
+    video: "",
+    title: "",
+    uploader: "",
+    duration: "",
+    visits: "",
+    uploadDate: "",
+    description: "",
+    likes: 59,
+    categoryId: []
+  });
+  useEffect(() => {
+    const fetchVideo = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/videos/" + id);
+        const video = await response.json();
+        setVideo(video);
+      } catch (error) {
+
+      }
+    };
+    fetchVideo();
+  }, [id]);
+
   const publicUrl = process.env.PUBLIC_URL;
   const [showTooltip, setShowTooltip] = useState(false);
-  const isFromDb = (videoUrl) =>
-    videosDb.find((videoDb) => videoDb.video === videoUrl) !== undefined;
   const [showShare, setShowShare] = useState(false);
   const handleOpenShare = () => {
     setShowShare(true);
@@ -34,8 +48,8 @@ function WatchVideo(
   };
   const handleAlert = () => {
     setShowTooltip(true);
-    setTimeout(() => setShowTooltip(false), 3000);  
-  }
+    setTimeout(() => setShowTooltip(false), 3000);
+  };
   const updateLike = (newLikes) =>
     setAllVideos(
       videos.map((video) => {
@@ -52,7 +66,7 @@ function WatchVideo(
       const newVideoIdListLiked = userInfo.videoIdListLiked;
       newVideoIdListLiked.splice(userInfo.videoIdListLiked.indexOf(id), 1);
       setUserInfo({ ...userInfo, videoIdListLiked: newVideoIdListLiked });
-      let newLikes = likes - 1;
+      let newLikes = video?.likes - 1;
       updateLike(newLikes);
       return;
     } else if (isUnLikedByUser) {
@@ -61,17 +75,17 @@ function WatchVideo(
       setUserInfo({
         ...userInfo,
         videoIdListLiked: [...userInfo.videoIdListLiked, id],
-        videoIdListUnliked: newVideoIdListUnLiked
+        videoIdListUnliked: newVideoIdListUnLiked,
       });
     } else
       setUserInfo({
         ...userInfo,
         videoIdListLiked: [...userInfo.videoIdListLiked, id],
       });
-    let newLikes = likes + 1;
+    let newLikes = video?.likes + 1;
     updateLike(newLikes);
   };
-  
+
   const isLikedByUser = userInfo?.videoIdListLiked?.includes(id);
   const isUnLikedByUser = userInfo?.videoIdListUnliked?.includes(id);
 
@@ -81,19 +95,19 @@ function WatchVideo(
       newVideoIdListUnLiked.splice(userInfo.videoIdListUnliked.indexOf(id), 1);
       setUserInfo({ ...userInfo, videoIdListUnliked: newVideoIdListUnLiked });
       return;
-    } 
+    }
     if (isLikedByUser) {
       const newVideoIdListLiked = userInfo.videoIdListLiked;
       newVideoIdListLiked.splice(userInfo.videoIdListLiked.indexOf(id), 1);
-      let newLikes = likes - 1;
+      let newLikes = video?.likes - 1;
       updateLike(newLikes);
       setUserInfo({
         ...userInfo,
         videoIdListUnliked: [...userInfo.videoIdListUnliked, id],
-        videoIdListLiked: newVideoIdListLiked
+        videoIdListLiked: newVideoIdListLiked,
       });
       return;
-    } 
+    }
     if (!isUnLikedByUser) {
       setUserInfo({
         ...userInfo,
@@ -101,23 +115,22 @@ function WatchVideo(
       });
     }
   };
-  console.log(isFromDb(video));
   return (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
         <video key={key} controls className="video">
           <source
-            src={isFromDb(video) ? `${process.env.PUBLIC_URL}/${video}` : video}
+            src={video}
             type="video/mp4"
           ></source>
         </video>
         <div className={`card-body ${isDarkMode ? "dark-mode" : "light-mode"}`}>
           <h5 className="card-title title-video-watch watch-video-title">
-            {title}
+            {video?.title}
           </h5>
           <div className="user-upload">
-            {userInfo?.image && userInfo.username === uploader ? (
+            {userInfo?.image && userInfo.username === video?.uploader ? (
               <img
                 className="username-image"
                 src={`${publicUrl}/${userInfo.image}`}
@@ -126,7 +139,7 @@ function WatchVideo(
               <img className="username-image"></img>
             )}
             <h5 className="card-title uploader title-video-watch">
-              {uploader}
+              {video?.uploader}
             </h5>
           </div>
           <div className="flex-container d-flex justify-content-end">
@@ -155,7 +168,7 @@ function WatchVideo(
                       }`}
                     />
                   </svg>
-                  &nbsp;&nbsp;<p>{likes}</p>
+                  &nbsp;&nbsp;<p>{video?.likes}</p>
                 </div>
               </button>
               <button
@@ -205,15 +218,15 @@ function WatchVideo(
             </button>
             <Share show={showShare} handleClose={handleCloseShare} />
           </div>
-          <p className="card-text title-video-watch">{description}</p>
+          <p className="card-text title-video-watch">{video?.description}</p>
           <p className="card-text title-video-watch">
-            {visits} views &nbsp; {uploadDate}
+            {video?.visits} views &nbsp; {daysAgo(video?.uploadDate)}
           </p>
           {showTooltip && (
-              <small className="alertLogin bg-primary-subtle alertLoginVideo">
-                Please log in to like or unlike this video.
-              </small>
-            )}
+            <small className="alertLogin bg-primary-subtle alertLoginVideo">
+              Please log in to like or unlike this video.
+            </small>
+          )}
         </div>
       </div>
     </div>

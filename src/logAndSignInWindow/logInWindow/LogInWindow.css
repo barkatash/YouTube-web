@@ -80,6 +80,18 @@
     color: black !important;
 }
 
+#logInWindow_textInput2 {
+    display: inline-grid;
+    width: 400px;
+    height: 50px;
+    text-align: left;
+    position: relative;
+    font-size: 12pt;
+    margin: 10px;
+    background-color:white !important;
+    color: black !important;
+}
+
 #logInWindow_buttons {
     display: inline-flex;
     background-color:white !important;
