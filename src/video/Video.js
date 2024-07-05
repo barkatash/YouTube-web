@@ -20,7 +20,7 @@ function Video({
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
-
+  console.log(video);
   const onMoveToVideo = () => {
     navigate(`/watch/${_id}`);
   };
