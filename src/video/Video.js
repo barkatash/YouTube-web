@@ -106,7 +106,7 @@ function Video({
       {isEditing && (
         <EditVideoModal
           video={{
-            id,
+            _id,
             image,
             video,
             title,
