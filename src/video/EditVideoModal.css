@@ -1,3 +1,14 @@
 .modal-content-video {
     background-color: transparent !important;
 }
+.video-view {
+    width: 320px;
+    height: 200px;
+}
+.image-view {
+    width: 320px;
+    height: 200px;
+}
+.btn-edit-files {
+    border-color: transparent;
+}

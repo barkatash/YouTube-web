@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./UploadForm.css";
 import { useNavigate } from "react-router-dom";
 import watch from "../images/youtubelogo.svg";
@@ -66,8 +66,6 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
       }));
       setSelectedImage(imageFile);
     }
-
-
   };
 
   const handleInputChange = (event) => {

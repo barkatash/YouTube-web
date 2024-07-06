@@ -64,37 +64,7 @@ function App() {
     }
   };
 
-  const handleEditVideo = async (id, updatedVideoData) => {
-    try {
-      const token = userInfo.token;
-      const response = await fetch(
-        `http://localhost:8080/api/users/${userInfo.username}/videos/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify(updatedVideoData),
-        }
-      );
-      const json = await response.json();
-      if (json.errors) {
-        alert("You are not authorized to edit this video.");
-        return;
-      }
-      const updatedVideo = json;
-      const updatedVideos = allVideos.map((video) =>
-        video._id === id ? updatedVideo : video
-      );
-      setAllVideos(updatedVideos);
-      setMatchedVideos(updatedVideos);
-    } catch (error) {
-      console.error("Error edit video:", error);
-      alert("An error occurred while editing the video.");
-    }
-  };
-
+  
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -112,13 +82,13 @@ function App() {
               />
 
               <Homepage
-                allVideos={allVideos}
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
                 handleDeleteVideo={handleDeleteVideo}
-                handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
+                allVideos={allVideos}
+                setAllVideos={setAllVideos}
               />
             </div>
           }
@@ -140,10 +110,8 @@ function App() {
                 videos={allVideos}
                 setAllVideos={setAllVideos}
                 handleDeleteVideo={handleDeleteVideo}
-                handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
-
               />
             </div>
           }

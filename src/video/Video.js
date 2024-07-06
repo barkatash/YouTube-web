@@ -15,8 +15,9 @@ function Video({
   uploadDate,
   description,
   handleDeleteVideo,
-  handleEditVideo,
   userInfo,
+  setAllVideos,
+  allVideos
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -31,11 +32,6 @@ function Video({
 
   const onEditVideo = () => {
     setIsEditing(true);
-  };
-
-  const handleSave = (formData) => {
-    handleEditVideo(_id, formData);
-    setIsEditing(false);
   };
 
   const handleClose = () => {
@@ -119,8 +115,10 @@ function Video({
             uploadDate,
             description,
           }}
-          handleSave={handleSave}
           handleClose={handleClose}
+          setAllVideos={setAllVideos}
+          allVideos={allVideos}
+          userInfo={userInfo}
         />
       )}
     </div>
