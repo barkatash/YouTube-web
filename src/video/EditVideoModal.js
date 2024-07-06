@@ -2,7 +2,13 @@ import React, { useState } from "react";
 import "./EditVideoModal.css";
 import axios from "axios";
 
-function EditVideoModal({ video, handleClose, setAllVideos, allVideos, userInfo }) {
+function EditVideoModal({
+  video,
+  handleClose,
+  setAllVideos,
+  allVideos,
+  userInfo,
+}) {
   const [updatedVideo, setUpdatedVideo] = useState({ ...video });
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -11,14 +17,14 @@ function EditVideoModal({ video, handleClose, setAllVideos, allVideos, userInfo 
 
   const handleEditVideo = async () => {
     try {
-        const formDataToSend = new FormData();
-        formDataToSend.append("video", videoFile);
-        formDataToSend.append("image", imageFile);
-        formDataToSend.append("title", updatedVideo.title);
-        formDataToSend.append("description", updatedVideo.description);
-        formDataToSend.append("duration", updatedVideo.duration);
-        const token = userInfo.token;
-        const response = await axios.patch(
+      const formDataToSend = new FormData();
+      formDataToSend.append("video", videoFile);
+      formDataToSend.append("image", imageFile);
+      formDataToSend.append("title", updatedVideo.title);
+      formDataToSend.append("description", updatedVideo.description);
+      formDataToSend.append("duration", updatedVideo.duration);
+      const token = userInfo.token;
+      const response = await axios.patch(
         `http://localhost:8080/api/users/${userInfo.username}/videos/${video._id}`,
         formDataToSend,
         {
@@ -88,8 +94,18 @@ function EditVideoModal({ video, handleClose, setAllVideos, allVideos, userInfo 
                 <label className="form-label"></label>
                 {imagePreview ? (
                   <div>
-                    <img src={imagePreview} alt="Preview" className="image-view" />
-                    <button type="button" className="btn-edit-files" onClick={() => setImagePreview(null)}>Change Image</button>
+                    <img
+                      src={imagePreview}
+                      alt="Preview"
+                      className="image-view"
+                    />
+                    <button
+                      type="button"
+                      className="btn-edit-files"
+                      onClick={() => setImagePreview(null)}
+                    >
+                      Change Image
+                    </button>
                   </div>
                 ) : (
                   <>
@@ -124,7 +140,13 @@ function EditVideoModal({ video, handleClose, setAllVideos, allVideos, userInfo 
                 {videoPreview ? (
                   <div>
                     <video src={videoPreview} controls className="video-view" />
-                    <button type="button"  className="btn-edit-files" onClick={() => setVideoPreview(null)}>Change Video</button>
+                    <button
+                      type="button"
+                      className="btn-edit-files"
+                      onClick={() => setVideoPreview(null)}
+                    >
+                      Change Video
+                    </button>
                   </div>
                 ) : (
                   <>
@@ -183,7 +205,11 @@ function EditVideoModal({ video, handleClose, setAllVideos, allVideos, userInfo 
             >
               Close
             </button>
-            <button type="button" className="btn btn-primary" onClick={handleEditVideo}>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={handleEditVideo}
+            >
               Save changes
             </button>
           </div>
