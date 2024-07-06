@@ -138,7 +138,7 @@ function WatchVideo (
                 src={`http://localhost:8080/${userInfo.image}`}
               ></img>
             ) : (
-              <img className="username-image" alt="profile"></img>
+              <div className="username-image"></div>
             )}
             <h5 className="card-title uploader title-video-watch">
               {video?.uploader}

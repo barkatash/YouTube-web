@@ -84,6 +84,8 @@
     align-items: end;
     display: flex;
     margin-left: 700px;
-    
+}
+.username-image {
+    background-color: slateblue;
 }
 
