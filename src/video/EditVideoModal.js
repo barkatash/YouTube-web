@@ -8,6 +8,7 @@ function EditVideoModal({
   setAllVideos,
   allVideos,
   userInfo,
+  rerenderVideos
 }) {
   const [updatedVideo, setUpdatedVideo] = useState({ ...video });
   const [imageFile, setImageFile] = useState(null);
@@ -39,6 +40,7 @@ function EditVideoModal({
         video._id === newVideo._id ? newVideo : video
       );
       setAllVideos(updatedVideos);
+      rerenderVideos();
     } catch (error) {
       console.error("Error editing video:", error);
       alert("An error occurred while editing the video.");

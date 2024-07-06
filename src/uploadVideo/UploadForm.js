@@ -5,7 +5,7 @@ import watch from "../images/youtubelogo.svg";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-function UploadForm({ allVideos, setAllVideos, userInfo }) {
+function UploadForm({ allVideos, setAllVideos, userInfo, rerenderVideos }) {
   const navigate = useNavigate();
   const onMoveToHomepage = () => {
     navigate("/");
@@ -108,6 +108,7 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
         return;
       }
       setAllVideos([...allVideos, formData]);
+      rerenderVideos();
       onMoveToHomepage();
     } catch (error) {
       console.error("Error upload video:", error);

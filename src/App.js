@@ -26,6 +26,16 @@ function App() {
     };
     fetchVideos();
   }, []);
+  const rerenderVideos = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/videos/all");
+      const data = await response.json();
+      setAllVideos(data);
+      setMatchedVideos(data);
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
+  };
 
   const [userInfo, setUserInfo] = useLocalStorage("userInfo",{
     username: "",
@@ -89,6 +99,7 @@ function App() {
                 userInfo={userInfo}
                 allVideos={allVideos}
                 setAllVideos={setAllVideos}
+                rerenderVideos={rerenderVideos}
               />
             </div>
           }
@@ -123,6 +134,7 @@ function App() {
               allVideos={allVideos}
               setAllVideos={setAllVideos}
               userInfo={userInfo}
+              rerenderVideos={rerenderVideos}
             />
           }
         />

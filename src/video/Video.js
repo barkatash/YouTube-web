@@ -17,7 +17,8 @@ function Video({
   handleDeleteVideo,
   userInfo,
   setAllVideos,
-  allVideos
+  allVideos,
+  rerenderVideos,
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -28,6 +29,7 @@ function Video({
 
   const onDeleteVideo = () => {
     handleDeleteVideo(_id);
+    rerenderVideos();
   };
 
   const onEditVideo = () => {
@@ -119,6 +121,7 @@ function Video({
           setAllVideos={setAllVideos}
           allVideos={allVideos}
           userInfo={userInfo}
+          rerenderVideos={rerenderVideos}
         />
       )}
     </div>

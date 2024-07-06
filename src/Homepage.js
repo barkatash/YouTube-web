@@ -11,6 +11,7 @@ function Homepage({
   userInfo,
   setAllVideos,
   allVideos,
+  rerenderVideos
 }) {
   return (
     <div>
@@ -33,6 +34,7 @@ function Homepage({
             userInfo={userInfo}
             setAllVideos={setAllVideos}
             allVideos={allVideos}
+            rerenderVideos={rerenderVideos}
           />
         </div>
       </div>
