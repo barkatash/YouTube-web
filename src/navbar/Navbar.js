@@ -187,7 +187,7 @@ function Navbar({
                   )}
                   {userInfo?.image && (
                     <img
-                      src={userInfo.image}
+                      src={`http://localhost:8080/${userInfo.image}`}
                       alt=""
                       width="34"
                       height="34"

@@ -71,7 +71,7 @@ function AddComment({
     <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
         {userInfo?.image ? (
-          <img className="username-image" alt="" src={userInfo.image}></img>
+          <img className="username-image" alt="" src={`http://localhost:8080/${userInfo.image}`}></img>
         ) : (
           <img className="username-image" alt=""></img>
         )}

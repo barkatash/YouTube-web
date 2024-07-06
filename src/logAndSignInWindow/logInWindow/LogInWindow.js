@@ -22,9 +22,7 @@ function LogInWindow({ navigateToSignIn, setUserInfo, userInfo }) {
       },
       body: JSON.stringify(data),
     });
-
     const json = await res.json();
-    console.log(json);
     if (json.result === "success") {
       setUserInfo({
         username: json.username,
