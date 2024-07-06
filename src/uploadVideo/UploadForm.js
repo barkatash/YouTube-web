@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./UploadForm.css";
 import { useNavigate } from "react-router-dom";
 import watch from "../images/youtubelogo.svg";
@@ -24,6 +24,7 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
   const [selectedImage, setSelectedImage] = useState(null);
   const [selectedVideoSend, setSelectedVideoSend] = useState(null);
   const [selectedImageSend, setSelectedImageSend] = useState(null);
+
   const maxId = Math.max(...allVideos.map(video => video.id), 0) + 1;
 
   const [formData, setFormData] = useState({

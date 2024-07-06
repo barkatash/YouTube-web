@@ -10,7 +10,7 @@ function Homepage({
   isDarkMode,
   handleDeleteVideo,
   handleEditVideo,
-  userInfo,
+  userInfo
 }) {
   return (
     <div>

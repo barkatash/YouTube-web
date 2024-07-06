@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Video.css';
-import EditVideoModal from './EditVideoModal';
-import { daysAgo } from './utils';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Video.css";
+import EditVideoModal from "./EditVideoModal";
+import { daysAgo } from "./utils";
 function Video({
   _id,
   id,
@@ -16,10 +16,11 @@ function Video({
   description,
   handleDeleteVideo,
   handleEditVideo,
-  userInfo
+  userInfo,
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
+
   const onMoveToVideo = () => {
     navigate(`/watch/${_id}`);
   };
@@ -108,7 +109,16 @@ function Video({
       </div>
       {isEditing && (
         <EditVideoModal
-          video={{ id, image, video, title, uploader, duration, uploadDate, description }}
+          video={{
+            id,
+            image,
+            video,
+            title,
+            uploader,
+            duration,
+            uploadDate,
+            description,
+          }}
           handleSave={handleSave}
           handleClose={handleClose}
         />
