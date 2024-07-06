@@ -61,3 +61,6 @@
 .dropdown-menu-video-btn {
     border-color: transparent;
 }
+.uploader-link:hover {
+    cursor: pointer;
+}

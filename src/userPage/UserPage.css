@@ -1,0 +1,52 @@
+.user-page {
+    padding: 20px;
+  }
+  
+  .user-header {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .video-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .video-card {
+    width: 240px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    overflow: hidden;
+    transition: transform 0.2s;
+  }
+  
+  .video-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .video-thumbnail img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .video-info {
+    padding: 10px;
+  }
+  
+  .video-title {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+  }
+  
+  .video-description {
+    font-size: 0.9em;
+    color: #555;
+  }
+  
+  .video-views,
+  .video-duration {
+    font-size: 0.8em;
+    color: #888;
+  }
+  

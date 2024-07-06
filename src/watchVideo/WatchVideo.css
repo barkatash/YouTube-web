@@ -26,6 +26,12 @@
     text-align: left !important;
     font-size: 14px;
 }
+.title-video-watch:hover {
+    cursor: pointer;
+}
+.username-image:hover {
+    cursor: pointer;
+}
 
 .watch-video-title {
     font-size: 18px !important;

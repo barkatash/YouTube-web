@@ -4,12 +4,14 @@ import { useState } from "react";
 import { useParams } from 'react-router-dom';
 import { useEffect } from "react";
 import { daysAgo } from "../video/utils.js";
+import { useNavigate } from "react-router-dom";
 
 function WatchVideo (
   { isDarkMode, videos, setAllVideos, userInfo, setUserInfo },
   { key }
 ) {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
   const [video, setVideo] = useState({
     _id: "",
@@ -50,6 +52,9 @@ function WatchVideo (
   const handleAlert = () => {
     setShowTooltip(true);
     setTimeout(() => setShowTooltip(false), 3000);
+  };
+  const onMoveToUserPage = () => {
+    navigate(`/${video.uploader}`);
   };
   const updateLike = (newLikes) =>
     setAllVideos(
@@ -136,11 +141,12 @@ function WatchVideo (
                 className="username-image"
                 alt="profile"
                 src={`http://localhost:8080/${userInfo.image}`}
+                onClick={onMoveToUserPage}
               ></img>
             ) : (
-              <div className="username-image"></div>
+              <div onClick={onMoveToUserPage} className="username-image"></div>
             )}
-            <h5 className="card-title uploader title-video-watch">
+            <h5 className="card-title uploader title-video-watch" onClick={onMoveToUserPage}>
               {video?.uploader}
             </h5>
           </div>

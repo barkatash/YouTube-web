@@ -8,6 +8,8 @@ import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
+import UserPage from "./userPage/UserPage.js";
+import Sidebar from "./sidebar/Sidebar.js";
 
 function App() {
   const [allVideos, setAllVideos] = useState([]);
@@ -37,7 +39,7 @@ function App() {
     }
   };
 
-  const [userInfo, setUserInfo] = useLocalStorage("userInfo",{
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo", {
     username: "",
     displayName: "",
     image: "",
@@ -74,7 +76,6 @@ function App() {
     }
   };
 
-  
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -90,7 +91,6 @@ function App() {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
               />
-
               <Homepage
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
@@ -141,10 +141,30 @@ function App() {
         <Route
           path="/login"
           element={
-            <MainComponent
-              setUserInfo={setUserInfo}
-              userInfo={userInfo}
-            />
+            <MainComponent setUserInfo={setUserInfo} userInfo={userInfo} />
+          }
+        />
+        <Route
+          path={"/:id"}
+          element={
+            <div>
+              <Navbar
+                videoList={allVideos}
+                setMatchedVideos={setMatchedVideos}
+                setIsDarkMode={setIsDarkMode}
+                isDarkMode={isDarkMode}
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+              />
+              <div className="row">
+                <div className="col-md-2">
+                  <Sidebar isDarkMode={isDarkMode} />
+                </div>
+                <div className="col-md-10">
+                  <UserPage />
+                </div>
+              </div>
+            </div>
           }
         />
       </Routes>

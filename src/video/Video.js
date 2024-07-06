@@ -26,6 +26,9 @@ function Video({
   const onMoveToVideo = () => {
     navigate(`/watch/${_id}`);
   };
+  const onMoveToUserPage = () => {
+    navigate(`/${uploader}`);
+  };
 
   const onDeleteVideo = () => {
     handleDeleteVideo(_id);
@@ -97,7 +100,7 @@ function Video({
           )}
           <div className="card-text-video">
             <div className="d-flex">
-              <p className="card-text">{uploader}</p>
+              <p className="card-text uploader-link" onClick={onMoveToUserPage}>{uploader}</p>
             </div>
             <p className="card-text">
               {visits} • {daysAgo(uploadDate)}
