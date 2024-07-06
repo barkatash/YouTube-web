@@ -5,6 +5,7 @@
 .user-header {
   margin-bottom: 20px;
   text-align: center;
+  display: flex;
 }
 
 .video-grid {
@@ -12,9 +13,8 @@
   flex-wrap: wrap;
   gap: 20px;
 }
-
 .video-card {
-  width: 330px;
+  width: 320px;
   border-radius: 5px;
   overflow: hidden;
   transition: transform 0.2s;
@@ -29,7 +29,7 @@
 }
 
 .video-title {
-  font-size: 1.1em;
+  font-size: 14px;
   margin-bottom: 5px;
 }
 
@@ -44,7 +44,7 @@
   color: #888;
 }
 .video-user-image {
-  width: 330px;
+  width: 320px;
   height: 180px;
   border-radius: 12px;
 }
@@ -60,4 +60,9 @@
 }
 .for-you-videos {
   font-weight: 700;
+}
+.user-page-image {
+  border-radius: 100px;
+  width: 120px;
+  height: 120px;
 }

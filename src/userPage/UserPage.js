@@ -8,6 +8,7 @@ function UserPage() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [userVideos, setUserVideos] = useState([]);
+  const [user, setUser] = useState();
 
   const fetchUserVideos = useCallback(async () => {
     try {
@@ -19,6 +20,15 @@ function UserPage() {
     }
   }, [id]);
 
+  const fetchUser = useCallback(async() => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/${id}`);
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error('Error fetching user videos:', error);
+    }
+  }, [id])
   const onMoveToVideo = (videoId) => {
     navigate(`/watch/${videoId}`);
   };
@@ -26,11 +36,15 @@ function UserPage() {
   useEffect(() => {
     fetchUserVideos();
   }, [fetchUserVideos]);
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   return (
     <div className="user-page">
       <header className="user-header">
-        <h1>{id}</h1>
+      {user?.image && <img src={`http://localhost:8080/${user.image}`} className='user-page-image'></img>}
+        &nbsp;&nbsp;&nbsp;&nbsp;<h1>{id}</h1>
       </header>
       <hr />
       <h5 className="for-you-videos">For You</h5>
@@ -48,7 +62,7 @@ function UserPage() {
               <span className="duration-user-video">{video.duration}</span>
             </div>
             <div className="video-info">
-              <h3 className="video-title">{video.title}</h3>
+              <h5 className="video-title">{video.title}</h5>
               <p className="video-views">{video.visits} views • {daysAgo(video.uploadDate)}</p>
               <p className="video-duration">{video.duration}</p>
             </div>
