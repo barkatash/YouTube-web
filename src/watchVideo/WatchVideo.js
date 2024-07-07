@@ -12,7 +12,7 @@ function WatchVideo (
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
-  const [user, setUser] = useState();
+  const [uploader, setUploader] = useState();
   const [video, setVideo] = useState({
     _id: "",
     id: 1,
@@ -28,30 +28,21 @@ function WatchVideo (
     categoryId: []
   });
   useEffect(() => {
-    const fetchVideo = async () => {
+    const fetchVideoAndUploader = async () => {
       try {
         const response = await fetch("http://localhost:8080/api/videos/" + id);
         const video = await response.json();
         setVideo(video);
+        const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
+        const data = await responseUploader.json();
+        setUploader(data);
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
-    fetchVideo();
+    fetchVideoAndUploader();
   }, [id]);
-  const fetchUser = useCallback(async() => {
-    try {
-      const response = await fetch(`http://localhost:8080/api/users/${id}`);
-      const data = await response.json();
-      setUser(data);
-    } catch (error) {
-      console.error('Error fetching user videos:', error);
-    }
-  }, [id])
-  useEffect(() => {
-    fetchUser();
-  }, [fetchUser]);
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShare, setShowShare] = useState(false);
@@ -94,7 +85,35 @@ function WatchVideo (
       alert("An error occurred while you liked the video");
     }
   }
+  // useEffect(() => {
 
+  //   addVisit();
+  // }, [id])
+  const addVisit = async () => {
+    try {
+      const token = userInfo.token;
+      const response = await axios.patch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      setAllVideos(
+        videos.map((video) => {
+          if (video.id === id) {
+            return { ...video, visits: video.visits + 1 };
+          }
+          return video;
+        })
+      );
+    } catch (error) {
+      console.error("Error watch the video:", error);
+      alert("An error occurred while you watch the video");
+    }
+  }
   const isLoggedIn = !!userInfo?.username;
   const handleLike = () => {
     if (isLikedByUser) {
@@ -165,11 +184,11 @@ function WatchVideo (
             {video?.title}
           </h5>
           <div className="user-upload">
-            {user?.image ? (
+            {uploader?.image && !loading ? (
               <img
                 className="username-image"
                 alt="profile"
-                src={`http://localhost:8080/${user.image}`}
+                src={`http://localhost:8080/${uploader.image}`}
                 onClick={onMoveToUserPage}
               ></img>
             ) : (
