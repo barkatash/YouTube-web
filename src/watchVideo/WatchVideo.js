@@ -1,10 +1,9 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
-import { useState } from "react";
-import { useParams } from 'react-router-dom';
-import { useEffect } from "react";
+import { useState, useCallback, useEffect } from "react";
+
 import { daysAgo } from "../video/utils.js";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function WatchVideo (
   { isDarkMode, videos, setAllVideos, userInfo, setUserInfo },
@@ -13,6 +12,7 @@ function WatchVideo (
   const { id } = useParams();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(true);
+  const [user, setUser] = useState();
   const [video, setVideo] = useState({
     _id: "",
     id: 1,
@@ -40,6 +40,18 @@ function WatchVideo (
     };
     fetchVideo();
   }, [id]);
+  const fetchUser = useCallback(async() => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/${id}`);
+      const data = await response.json();
+      setUser(data);
+    } catch (error) {
+      console.error('Error fetching user videos:', error);
+    }
+  }, [id])
+  useEffect(() => {
+    fetchUser();
+  }, [fetchUser]);
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShare, setShowShare] = useState(false);
@@ -136,11 +148,11 @@ function WatchVideo (
             {video?.title}
           </h5>
           <div className="user-upload">
-            {userInfo?.image && userInfo.username === video?.uploader ? (
+            {user?.image ? (
               <img
                 className="username-image"
                 alt="profile"
-                src={`http://localhost:8080/${userInfo.image}`}
+                src={`http://localhost:8080/${user.image}`}
                 onClick={onMoveToUserPage}
               ></img>
             ) : (

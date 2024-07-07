@@ -36,6 +36,7 @@ function UserPage() {
   useEffect(() => {
     fetchUserVideos();
   }, [fetchUserVideos]);
+  
   useEffect(() => {
     fetchUser();
   }, [fetchUser]);
