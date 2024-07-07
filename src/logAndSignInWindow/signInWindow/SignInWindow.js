@@ -1,11 +1,14 @@
+import { useState } from "react";
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
 import axios from "axios";
 
 function SignInWindow({ navigateToLogIn, setUserInfo, userInfo }) {
+  const[profileImage, setProfileImage] = useState(null);
   const handleChange = (event) => {
     const { name, value, files } = event.target;
     if (name === "image" && files && files[0]) {
+      setProfileImage(event.target.files[0]);
       const file = files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -36,7 +39,12 @@ function SignInWindow({ navigateToLogIn, setUserInfo, userInfo }) {
       return;
     }
     try {
-        const response = await axios.post("http://localhost:8080/api/users/", userInfo);
+          const formDataToSend = new FormData();
+          formDataToSend.append("username", userInfo.username);
+          formDataToSend.append("image", profileImage);
+          formDataToSend.append("displayName", userInfo.displayName);
+          formDataToSend.append("password", userInfo.password);
+        const response = await axios.post("http://localhost:8080/api/users/", formDataToSend);
         if (response.data)
         { 
           alert('Signed up successfully!');
@@ -68,7 +76,7 @@ function SignInWindow({ navigateToLogIn, setUserInfo, userInfo }) {
             <div id="signInWindow_toContinue">to continue to YouTube</div>
           </div>
           <div id="signInWindow_part2">
-            <form className="row g-3" onSubmit={handleSubmit}>
+            <form className="row g-3" encType="multipart/form-data" onSubmit={handleSubmit}>
               <div id="signInWindow_textInputRow">
                 <div className="col-md-4 signInWindow_textInputs">
                   <input

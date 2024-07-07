@@ -1,7 +1,7 @@
 import "./VideoList.css";
 import Video from "../video/Video";
 
-function VideoList({ matchedVideos, handleDeleteVideo, handleEditVideo, userInfo }) {
+function VideoList({ matchedVideos, handleDeleteVideo, userInfo, setAllVideos, allVideos, rerenderVideos }) {
 
   return (
     <div className="videos">
@@ -10,8 +10,10 @@ function VideoList({ matchedVideos, handleDeleteVideo, handleEditVideo, userInfo
           key={id}
           {...video}
           handleDeleteVideo={handleDeleteVideo}
-          handleEditVideo={handleEditVideo}
           userInfo={userInfo}
+          setAllVideos={setAllVideos}
+          allVideos={allVideos}
+          rerenderVideos={rerenderVideos}
         />
       ))}
     </div>

@@ -26,6 +26,12 @@
     text-align: left !important;
     font-size: 14px;
 }
+.title-video-watch:hover {
+    cursor: pointer;
+}
+.username-image:hover {
+    cursor: pointer;
+}
 
 .watch-video-title {
     font-size: 18px !important;
@@ -84,6 +90,8 @@
     align-items: end;
     display: flex;
     margin-left: 700px;
-    
+}
+.username-image {
+    background-color: slateblue;
 }
 

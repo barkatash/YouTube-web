@@ -4,13 +4,14 @@ import CategoryNavbar from "./category/CategoryNavbar.js";
 import "./Homepage.css";
 
 function Homepage({
-  allVideos,
   matchedVideos,
   setMatchedVideos,
   isDarkMode,
   handleDeleteVideo,
-  handleEditVideo,
   userInfo,
+  setAllVideos,
+  allVideos,
+  rerenderVideos
 }) {
   return (
     <div>
@@ -30,8 +31,10 @@ function Homepage({
           <VideoList
             matchedVideos={matchedVideos}
             handleDeleteVideo={handleDeleteVideo}
-            handleEditVideo={handleEditVideo}
             userInfo={userInfo}
+            setAllVideos={setAllVideos}
+            allVideos={allVideos}
+            rerenderVideos={rerenderVideos}
           />
         </div>
       </div>

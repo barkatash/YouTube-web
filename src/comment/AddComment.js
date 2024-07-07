@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddComment.css";
 
 function AddComment({
@@ -10,6 +10,20 @@ function AddComment({
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [newCommentsCounter, setNewCommentsCounter] = useState(0);
+
+  useEffect(() => {
+    const fetchVideoComments = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/comments/video/" + videoId);
+        const data = await response.json();
+        setVideoComments(data);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+    fetchVideoComments();
+  }, [newCommentsCounter]);
   const onFocus = () => {
     setIsFocused(true);
   };
@@ -25,7 +39,6 @@ function AddComment({
       const commentData = {
         description: comment,
       }
-      console.log(userInfo.username)
       const response = await fetch(
         `http://localhost:8080/api/comments/user/${userInfo.username}/${videoId}`,
         {
@@ -38,7 +51,6 @@ function AddComment({
         }
       );
       const json = await response.json();
-      console.log(json);
       if (json.errors) {
         alert("You need to login to add a comment");
         return;
@@ -56,6 +68,7 @@ function AddComment({
       ]);
       setComment("");
       setIsFocused(false);
+      setNewCommentsCounter(newCommentsCounter + 1);
     } catch (error) {
       console.error("Error edit video:", error);
       alert("An error occurred while adding your comment.");
@@ -71,7 +84,7 @@ function AddComment({
     <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
         {userInfo?.image ? (
-          <img className="username-image" alt="" src={userInfo.image}></img>
+          <img className="username-image" alt="" src={`http://localhost:8080/${userInfo.image}`}></img>
         ) : (
           <img className="username-image" alt=""></img>
         )}

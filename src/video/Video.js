@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Video.css';
-import EditVideoModal from './EditVideoModal';
-import { daysAgo } from './utils';
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./Video.css";
+import EditVideoModal from "./EditVideoModal";
+import { daysAgo } from "./utils";
+
 function Video({
   _id,
   id,
@@ -15,8 +16,10 @@ function Video({
   uploadDate,
   description,
   handleDeleteVideo,
-  handleEditVideo,
-  userInfo
+  userInfo,
+  setAllVideos,
+  allVideos,
+  rerenderVideos,
 }) {
   const navigate = useNavigate();
   const [isEditing, setIsEditing] = useState(false);
@@ -24,18 +27,17 @@ function Video({
   const onMoveToVideo = () => {
     navigate(`/watch/${_id}`);
   };
+  const onMoveToUserPage = () => {
+    navigate(`/${uploader}`);
+  };
 
   const onDeleteVideo = () => {
     handleDeleteVideo(_id);
+    rerenderVideos();
   };
 
   const onEditVideo = () => {
     setIsEditing(true);
-  };
-
-  const handleSave = (formData) => {
-    handleEditVideo(_id, formData);
-    setIsEditing(false);
   };
 
   const handleClose = () => {
@@ -48,7 +50,7 @@ function Video({
         <div className="position-relative">
           <img
             className="video-image"
-            src={image}
+            src={`http://localhost:8080/${image}`}
             alt={title}
             onClick={onMoveToVideo}
           />
@@ -99,19 +101,31 @@ function Video({
           )}
           <div className="card-text-video">
             <div className="d-flex">
-              <p className="card-text">{uploader}</p>
+              <p className="card-text uploader-link" onClick={onMoveToUserPage}>{uploader}</p>
             </div>
             <p className="card-text">
-              {visits} • {daysAgo(uploadDate)}
+              {visits} views • {daysAgo(uploadDate)}
             </p>
           </div>
         </div>
       </div>
       {isEditing && (
         <EditVideoModal
-          video={{ id, image, video, title, uploader, duration, uploadDate, description }}
-          handleSave={handleSave}
+          video={{
+            _id,
+            image,
+            video,
+            title,
+            uploader,
+            duration,
+            uploadDate,
+            description,
+          }}
           handleClose={handleClose}
+          setAllVideos={setAllVideos}
+          allVideos={allVideos}
+          userInfo={userInfo}
+          rerenderVideos={rerenderVideos}
         />
       )}
     </div>

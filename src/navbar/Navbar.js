@@ -3,6 +3,7 @@ import watch from "../images/youtubelogo.svg";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import EditUserModal from "./EditUserModal";
 
 function Navbar({
   videoList,
@@ -10,12 +11,19 @@ function Navbar({
   setIsDarkMode,
   isDarkMode,
   userInfo,
-  setUserInfo
+  setUserInfo,
 }) {
   const [searchedVideo, setSearchedVideo] = useState("");
   const [input, setInput] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isEditingUser, setIsEditingUser] = useState(false);
 
+  const onEditUser = () => {
+    setIsEditingUser(true);
+  };
+  const handleClose = () => {
+    setIsEditingUser(false);
+  };
   const onKeyboardInput = (event) => {
     setInput(event.target.value);
   };
@@ -41,20 +49,42 @@ function Navbar({
   const onMoveToLogin = () => {
     navigate("/login");
   };
+  const onDeleteUser = async () => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const json = await response.json();
+      alert(`The user ${userInfo.username} delete succesfully.`)
+      logout();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("An error occurred while deleting the user.");
+    }
+  }
   const logout = () => {
     setUserInfo({
       username: "",
       displayName: "",
       password: "",
       verifyPassword: "",
-      image: "",    
+      image: "",
       videoIdListLiked: [],
       videoIdListUnliked: [],
       commentIdListLiked: [],
-      commentIdListUnliked: []
+      commentIdListUnliked: [],
     });
     onMoveToLogin();
-  }
+  };
+
   return (
     <div>
       <nav className="navbar navbar-expand">
@@ -65,7 +95,8 @@ function Navbar({
             }`}
             to="/"
           >
-            <img className="logo" src={watch} alt=""></img> YouTube
+            <img className="logo" src={watch} alt=""></img> 
+            &nbsp;YouTube
           </Link>
 
           <form
@@ -103,34 +134,6 @@ function Navbar({
               <li className="nav-item add-item">
                 {userInfo?.username && (
                   <button
-                    className="navbar-brand logout"
-                    onClick={logout}
-                  >
-                    &nbsp;
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="22"
-                      height="22"
-                      fill="currentColor"
-                      className="bi bi-box-arrow-left"
-                      viewBox="0 0 16 16"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"
-                      />
-                      <path
-                        fill-rule="evenodd"
-                        d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"
-                      />
-                    </svg>
-                    &nbsp;
-                  </button>
-                )}
-              </li>
-              <li className="nav-item add-item">
-                {userInfo?.username && (
-                  <button
                     className="navbar-brand add-video"
                     onClick={onMoveToAddVideo}
                   >
@@ -160,16 +163,28 @@ function Navbar({
                   className={`sign-in navbar-brand ${
                     isDarkMode ? "dark-mode" : "light-mode"
                   }`}
-                  aria-current="page"
                   onClick={() => {
                     if (!userInfo?.username) {
                       onMoveToLogin();
                     }
                   }}
                   href="#"
+                  {...(userInfo?.username && {
+                    "aria-current": "page",
+                    "data-bs-toggle": "dropdown",
+                    "aria-expanded": "false",
+                  })}
                 >
                   &nbsp;
-                  {!userInfo?.image && (
+                  {userInfo?.image ? (
+                    <img
+                      src={`http://localhost:8080/${userInfo.image}`}
+                      alt=""
+                      width="34"
+                      height="34"
+                      className="username_img"
+                    ></img>
+                  ) : (
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="22"
@@ -185,16 +200,77 @@ function Navbar({
                       />
                     </svg>
                   )}
-                  {userInfo?.image && (
-                    <img
-                      src={userInfo.image}
-                      alt=""
-                      width="34"
-                      height="34"
-                      className="username_img"
-                    ></img>
-                  )}
                 </button>
+                {userInfo?.username && (
+                  <div className="dropstart video-menu">
+                    <button type="button" className="video-menu"></button>
+                    <ul className="dropdown-menu dropdown-menu-video">
+                    <li>
+                        <button
+                          className="dropdown-menu-video-btn"
+                          type="button"
+                          onClick={onEditUser}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-person-fill-gear"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4m9.886-3.54c.18-.613 1.048-.613 1.229 0l.043.148a.64.64 0 0 0 .921.382l.136-.074c.561-.306 1.175.308.87.869l-.075.136a.64.64 0 0 0 .382.92l.149.045c.612.18.612 1.048 0 1.229l-.15.043a.64.64 0 0 0-.38.921l.074.136c.305.561-.309 1.175-.87.87l-.136-.075a.64.64 0 0 0-.92.382l-.045.149c-.18.612-1.048.612-1.229 0l-.043-.15a.64.64 0 0 0-.921-.38l-.136.074c-.561.305-1.175-.309-.87-.87l.075-.136a.64.64 0 0 0-.382-.92l-.148-.045c-.613-.18-.613-1.048 0-1.229l.148-.043a.64.64 0 0 0 .382-.921l-.074-.136c-.306-.561.308-1.175.869-.87l.136.075a.64.64 0 0 0 .92-.382zM14 12.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0" />
+                          </svg>
+                          &nbsp; Edit user
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className="dropdown-menu-video-btn"
+                          type="button"
+                          onClick={onDeleteUser}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-person-fill-slash"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M13.879 10.414a2.501 2.501 0 0 0-3.465 3.465zm.707.707-3.465 3.465a2.501 2.501 0 0 0 3.465-3.465m-4.56-1.096a3.5 3.5 0 1 1 4.949 4.95 3.5 3.5 0 0 1-4.95-4.95ZM11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0m-9 8c0 1 1 1 1 1h5.256A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1 1.544-3.393Q8.844 9.002 8 9c-5 0-6 3-6 4" />
+                          </svg>
+                          &nbsp; Delete user
+                        </button>
+                      </li>
+                      <li>
+                        <button
+                          className="dropdown-menu-video-btn"
+                          onClick={logout}
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="20"
+                            height="20"
+                            fill="currentColor"
+                            className="bi bi-box-arrow-left"
+                            viewBox="0 0 16 16"
+                          >
+                            <path
+                              fill="evenodd"
+                              d="M6 12.5a.5.5 0 0 0 .5.5h8a.5.5 0 0 0 .5-.5v-9a.5.5 0 0 0-.5-.5h-8a.5.5 0 0 0-.5.5v2a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 1 6.5 2h8A1.5 1.5 0 0 1 16 3.5v9a1.5 1.5 0 0 1-1.5 1.5h-8A1.5 1.5 0 0 1 5 12.5v-2a.5.5 0 0 1 1 0z"
+                            />
+                            <path
+                              fill="evenodd"
+                              d="M.146 8.354a.5.5 0 0 1 0-.708l3-3a.5.5 0 1 1 .708.708L1.707 7.5H10.5a.5.5 0 0 1 0 1H1.707l2.147 2.146a.5.5 0 0 1-.708.708z"
+                            />
+                          </svg>
+                          &nbsp; Sign out
+                        </button>
+                      </li>
+                    </ul>
+                  </div>
+                )}
               </li>
               <li className="nav-item">
                 <button className="mode navbar-brand" onClick={changeMode}>
@@ -222,6 +298,13 @@ function Navbar({
           </div>
         </div>
       </nav>
+      {isEditingUser && (
+        <EditUserModal
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+          handleClose={handleClose}
+        />
+      )}
     </div>
   );
 }

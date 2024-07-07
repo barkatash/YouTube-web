@@ -8,16 +8,17 @@ import { Route, Routes } from "react-router-dom";
 import VideoPage from "./VideoPage.js";
 import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
+import UserPage from "./userPage/UserPage.js";
+import Sidebar from "./sidebar/Sidebar.js";
 
 function App() {
   const [allVideos, setAllVideos] = useState([]);
   const [matchedVideos, setMatchedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/videos/all");
+        const response = await fetch("http://localhost:8080/api/videos");
         const data = await response.json();
         setAllVideos(data);
         setMatchedVideos(data);
@@ -27,8 +28,18 @@ function App() {
     };
     fetchVideos();
   }, []);
+  const rerenderVideos = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/videos/all");
+      const data = await response.json();
+      setAllVideos(data);
+      setMatchedVideos(data);
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
+  };
 
-  const [userInfo, setUserInfo] = useLocalStorage("userInfo",{
+  const [userInfo, setUserInfo] = useLocalStorage("userInfo", {
     username: "",
     displayName: "",
     image: "",
@@ -65,37 +76,6 @@ function App() {
     }
   };
 
-  const handleEditVideo = async (id, updatedVideoData) => {
-    try {
-      const token = userInfo.token;
-      const response = await fetch(
-        `http://localhost:8080/api/users/${userInfo.username}/videos/${id}`,
-        {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-          body: JSON.stringify(updatedVideoData),
-        }
-      );
-      const json = await response.json();
-      if (json.errors) {
-        alert("You are not authorized to edit this video.");
-        return;
-      }
-      const updatedVideo = json;
-      const updatedVideos = allVideos.map((video) =>
-        video._id === id ? updatedVideo : video
-      );
-      setAllVideos(updatedVideos);
-      setMatchedVideos(updatedVideos);
-    } catch (error) {
-      console.error("Error edit video:", error);
-      alert("An error occurred while editing the video.");
-    }
-  };
-
   return (
     <div className={`app ${isDarkMode ? "dark-mode" : "light-mode"}`}>
       <Routes>
@@ -111,15 +91,15 @@ function App() {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
               />
-
               <Homepage
-                allVideos={allVideos}
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
                 handleDeleteVideo={handleDeleteVideo}
-                handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
+                allVideos={allVideos}
+                setAllVideos={setAllVideos}
+                rerenderVideos={rerenderVideos}
               />
             </div>
           }
@@ -141,10 +121,8 @@ function App() {
                 videos={allVideos}
                 setAllVideos={setAllVideos}
                 handleDeleteVideo={handleDeleteVideo}
-                handleEditVideo={handleEditVideo}
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
-
               />
             </div>
           }
@@ -156,16 +134,37 @@ function App() {
               allVideos={allVideos}
               setAllVideos={setAllVideos}
               userInfo={userInfo}
+              rerenderVideos={rerenderVideos}
             />
           }
         />
         <Route
           path="/login"
           element={
-            <MainComponent
-              setUserInfo={setUserInfo}
-              userInfo={userInfo}
-            />
+            <MainComponent setUserInfo={setUserInfo} userInfo={userInfo} />
+          }
+        />
+        <Route
+          path={"/:id"}
+          element={
+            <div>
+              <Navbar
+                videoList={allVideos}
+                setMatchedVideos={setMatchedVideos}
+                setIsDarkMode={setIsDarkMode}
+                isDarkMode={isDarkMode}
+                userInfo={userInfo}
+                setUserInfo={setUserInfo}
+              />
+              <div className="row">
+                <div className="col-md-2">
+                  <Sidebar isDarkMode={isDarkMode} />
+                </div>
+                <div className="col-md-10">
+                  <UserPage />
+                </div>
+              </div>
+            </div>
           }
         />
       </Routes>
