@@ -1,5 +1,5 @@
 import "./Comment.css";
-import { useState } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { daysAgo } from "../video/utils";
 
 function Comment({
@@ -17,7 +17,21 @@ function Comment({
   const [isEditing, setIsEditing] = useState(false);
   const [newDescription, setNewDescription] = useState(description);
   const [showTooltip, setShowTooltip] = useState(false);
+  const[uploader, setUploader] = useState();
   const isLoggedIn = !!userInfo?.username;
+
+  const fetchUploader = useCallback(async() => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/${userName}`);
+      const data = await response.json();
+      setUploader(data);
+    } catch (error) {
+      console.error('Error fetching user videos:', error);
+    }
+  }, [_id])
+  useEffect(() => {
+    fetchUploader();
+  }, [fetchUploader]);
 
   const updateLike = (newLikes) =>
     setVideoComments(
@@ -156,11 +170,7 @@ function Comment({
       <div>
         <div className="row">
           <div className="col-1 align-self-start">
-              {userInfo?.image && userInfo.username === userName ? (
-              <img className="username-image" src={userInfo.image}></img>
-            ) : (
-              <img className="username-image-default username-image"></img>
-            )}
+              {uploader?.image && <img src={`http://localhost:8080/${uploader.image}`} className='username-image'></img>}
           </div>
           <div className="col-11">
             <div className="d-flex">
