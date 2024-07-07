@@ -105,6 +105,7 @@ function Comment({
     } catch (error) {
       console.error("Error editing comment:", error);
       alert("An error occurred while editing the comment.");
+      setIsEditing(false);
     }
   };
   const handleAlert = () => {
