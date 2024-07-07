@@ -36,7 +36,7 @@ function WatchVideo (
         const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
-        addVisit();
+        if (userInfo.username) addVisit();
         setLoading(false);
       } catch (error) {
         setLoading(false);
