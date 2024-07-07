@@ -95,7 +95,8 @@ function Navbar({
             }`}
             to="/"
           >
-            <img className="logo" src={watch} alt=""></img> YouTube
+            <img className="logo" src={watch} alt=""></img> 
+            &nbsp;YouTube
           </Link>
 
           <form
