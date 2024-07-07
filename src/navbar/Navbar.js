@@ -3,6 +3,7 @@ import watch from "../images/youtubelogo.svg";
 import "./Navbar.css";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import EditUserModal from "./EditUserModal";
 
 function Navbar({
   videoList,
@@ -15,7 +16,14 @@ function Navbar({
   const [searchedVideo, setSearchedVideo] = useState("");
   const [input, setInput] = useState("");
   const [isSubmit, setIsSubmit] = useState(false);
+  const [isEditingUser, setIsEditingUser] = useState(false);
 
+  const onEditUser = () => {
+    setIsEditingUser(true);
+  };
+  const handleClose = () => {
+    setIsEditingUser(false);
+  };
   const onKeyboardInput = (event) => {
     setInput(event.target.value);
   };
@@ -61,9 +69,6 @@ function Navbar({
       console.error("Error deleting user:", error);
       alert("An error occurred while deleting the user.");
     }
-  }
-  const onEditUser = () => {
-
   }
   const logout = () => {
     setUserInfo({
@@ -292,6 +297,13 @@ function Navbar({
           </div>
         </div>
       </nav>
+      {isEditingUser && (
+        <EditUserModal
+          userInfo={userInfo}
+          setUserInfo={setUserInfo}
+          handleClose={handleClose}
+        />
+      )}
     </div>
   );
 }
