@@ -3,8 +3,11 @@ Ishay, Sagi, and Bar project
 A web client, written using the React.JS framework, for our Youtube-like application, developed as the project for the Advanced Programming course, Bar-Ilan University, 2024.
 
 part1 will be on the main branch.
-part2 with server will be on the main-server branch.
 project status part1: finish
+
+The second part of this web is served through the server in: https://github.com/barkatash/project2024-server 
+so for part2 use this link and there will be more information about running the second part of the project.
+changes we did to work with server are on the the main-server branch.
 project status part2-server: in progress.
 part2-server link: https://github.com/barkatash/project2024-server
 
