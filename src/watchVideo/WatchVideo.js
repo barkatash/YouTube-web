@@ -1,6 +1,6 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
-import { useState, useCallback, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { daysAgo } from "../video/utils.js";
 import { useNavigate, useParams } from "react-router-dom";
@@ -36,6 +36,7 @@ function WatchVideo (
         const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
+        addVisit();
         setLoading(false);
       } catch (error) {
         setLoading(false);
@@ -85,29 +86,17 @@ function WatchVideo (
       alert("An error occurred while you liked the video");
     }
   }
-  // useEffect(() => {
-
-  //   addVisit();
-  // }, [id])
   const addVisit = async () => {
     try {
       const token = userInfo.token;
       const response = await axios.patch(
-        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
+        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,{},
         {
           headers: {
             "Content-Type": "application/json",
             Authorization: "Bearer " + token,
           },
         }
-      );
-      setAllVideos(
-        videos.map((video) => {
-          if (video.id === id) {
-            return { ...video, visits: video.visits + 1 };
-          }
-          return video;
-        })
       );
     } catch (error) {
       console.error("Error watch the video:", error);
