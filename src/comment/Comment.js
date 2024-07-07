@@ -41,6 +41,7 @@ function Comment({
 
   const onDeleteComment = async () => {
     try {
+      console.log(comment._id);
       const token = userInfo.token;
       const response = await fetch(
         `http://localhost:8080/api/comments/user/${userInfo.username}/${comment._id}`,

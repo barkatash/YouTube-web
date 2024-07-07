@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddComment.css";
 
 function AddComment({
@@ -10,6 +10,20 @@ function AddComment({
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
+  const [newCommentsCounter, setNewCommentsCounter] = useState(0);
+
+  useEffect(() => {
+    const fetchVideoComments = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/comments/video/" + videoId);
+        const data = await response.json();
+        setVideoComments(data);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+    fetchVideoComments();
+  }, [newCommentsCounter]);
   const onFocus = () => {
     setIsFocused(true);
   };
@@ -54,6 +68,7 @@ function AddComment({
       ]);
       setComment("");
       setIsFocused(false);
+      setNewCommentsCounter(newCommentsCounter + 1);
     } catch (error) {
       console.error("Error edit video:", error);
       alert("An error occurred while adding your comment.");
