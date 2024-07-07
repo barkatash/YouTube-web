@@ -104,7 +104,7 @@ function Video({
               <p className="card-text uploader-link" onClick={onMoveToUserPage}>{uploader}</p>
             </div>
             <p className="card-text">
-              {visits} • {daysAgo(uploadDate)}
+              {visits} views • {daysAgo(uploadDate)}
             </p>
           </div>
         </div>

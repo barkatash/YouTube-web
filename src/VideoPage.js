@@ -6,7 +6,7 @@ import { useState, useEffect } from 'react';
 import './VideoPage.css';
 import { useParams } from "react-router-dom";
 
-function VideoPage({isDarkMode, videos, setAllVideos, userInfo, setUserInfo}) {
+function VideoPage({ isDarkMode, videos, setAllVideos, userInfo, setUserInfo }) {
     const { id } = useParams();
     const [key, setKey] = useState(0);
     const [videoComments, setVideoComments] = useState([]);
@@ -26,7 +26,7 @@ function VideoPage({isDarkMode, videos, setAllVideos, userInfo, setUserInfo}) {
       <div className={`container-fluid video-page ${isDarkMode ? "dark-mode" : "light-mode"}`}>
         <div className="row video-page">
           <div className="col-md-8">
-            <WatchVideo key={key} isDarkMode={isDarkMode} videos={videos} setAllVideos={setAllVideos} userInfo={userInfo} setUserInfo={setUserInfo}/>
+            <WatchVideo key={key} isDarkMode={isDarkMode} videos={videos} setAllVideos={setAllVideos} userInfo={userInfo} setUserInfo={setUserInfo} />
             {userInfo?.username && <AddComment comments={videoComments} setVideoComments={setVideoComments} videoId={id} isDarkMode={isDarkMode} userInfo={userInfo}/>}
             <br></br>
             <CommentsList videoComments={videoComments} setVideoComments={setVideoComments} setVideoCommentsvideoId={id} userInfo={userInfo} setUserInfo={setUserInfo}/>

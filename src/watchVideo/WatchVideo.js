@@ -1,7 +1,7 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
 import { useState, useCallback, useEffect } from "react";
-
+import axios from "axios";
 import { daysAgo } from "../video/utils.js";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -24,7 +24,7 @@ function WatchVideo (
     visits: "",
     uploadDate: "",
     description: "",
-    likes: 59,
+    likes: 0,
     categoryId: []
   });
   useEffect(() => {
@@ -68,15 +68,32 @@ function WatchVideo (
   const onMoveToUserPage = () => {
     navigate(`/${video.uploader}`);
   };
-  const updateLike = (newLikes) =>
-    setAllVideos(
-      videos.map((video) => {
-        if (video.id === id) {
-          return { ...video, likes: newLikes };
+  const updateLike = async (newLikes) => {
+    try {
+      const token = userInfo.token;
+      const response = await axios.patch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/like/${id}`,
+        { newLikes },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
         }
-        return video;
-      })
-    );
+      );
+      setAllVideos(
+        videos.map((video) => {
+          if (video.id === id) {
+            return { ...video, likes: newLikes };
+          }
+          return video;
+        })
+      );
+    } catch (error) {
+      console.error("Error like the video:", error);
+      alert("An error occurred while you liked the video");
+    }
+  }
 
   const isLoggedIn = !!userInfo?.username;
   const handleLike = () => {

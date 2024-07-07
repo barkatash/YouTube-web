@@ -33,7 +33,7 @@ function UploadForm({ allVideos, setAllVideos, userInfo, rerenderVideos }) {
     description: "",
     id: maxId,
     image: null,
-    uploader: userInfo.displayName,
+    uploader: userInfo.username,
     duration: "",
     visits: 0,
     uploadDate: "",
