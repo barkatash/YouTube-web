@@ -25,7 +25,6 @@ function AddComment({
       const commentData = {
         description: comment,
       }
-      console.log(userInfo.username)
       const response = await fetch(
         `http://localhost:8080/api/comments/user/${userInfo.username}/${videoId}`,
         {
@@ -38,7 +37,6 @@ function AddComment({
         }
       );
       const json = await response.json();
-      console.log(json);
       if (json.errors) {
         alert("You need to login to add a comment");
         return;

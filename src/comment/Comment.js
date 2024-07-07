@@ -5,41 +5,37 @@ import { daysAgo } from "../video/utils";
 function Comment({
   setVideoComments,
   videoComments,
-  _id,
-  userName,
-  description,
-  uploadDate,
-  likes,
+  comment,
   userInfo,
   setUserInfo
 }) {
 
   const [isEditing, setIsEditing] = useState(false);
-  const [newDescription, setNewDescription] = useState(description);
+  const [newDescription, setNewDescription] = useState(comment.description);
   const [showTooltip, setShowTooltip] = useState(false);
   const[uploader, setUploader] = useState();
   const isLoggedIn = !!userInfo?.username;
 
   const fetchUploader = useCallback(async() => {
     try {
-      const response = await fetch(`http://localhost:8080/api/users/${userName}`);
+      const response = await fetch(`http://localhost:8080/api/users/${comment.userName}`);
       const data = await response.json();
       setUploader(data);
     } catch (error) {
       console.error('Error fetching user videos:', error);
     }
-  }, [_id])
+  }, [comment._id])
   useEffect(() => {
     fetchUploader();
   }, [fetchUploader]);
 
   const updateLike = (newLikes) =>
     setVideoComments(
-      videoComments.map((comment) => {
-        if (comment._id === _id) {
-          return { ...comment, likes: newLikes };
+      videoComments.map((videoComment) => {
+        if (videoComment._id === comment._id) {
+          return { ...videoComment, likes: newLikes };
         }
-        return comment;
+        return videoComment;
       })
     );
 
@@ -47,7 +43,7 @@ function Comment({
     try {
       const token = userInfo.token;
       const response = await fetch(
-        `http://localhost:8080/api/comments/user/${userInfo.username}/${_id}`,
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${comment._id}`,
         {
           method: "DELETE",
           headers: {
@@ -62,7 +58,7 @@ function Comment({
         return;
       }
       setVideoComments(
-        videoComments.filter((comment) => comment._id !== _id)
+        videoComments.filter((videoComment) => videoComment._id !== comment._id)
       );
     } catch (error) {
       console.error("Error deleting comment:", error);
@@ -77,7 +73,7 @@ function Comment({
     try {
       const token = userInfo.token;
       const response = await fetch(
-        `http://localhost:8080/api/comments/user/${userInfo.username}/${_id}`,
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${comment._id}`,
         {
           method: "PATCH",
           headers: {
@@ -94,11 +90,11 @@ function Comment({
         return;
       }
       setVideoComments(
-        videoComments.map((comment) => {
-          if (comment._id === _id) {
-            return { ...comment, description: newDescription };
+        videoComments.map((videoComment) => {
+          if (videoComment._id === comment._id) {
+            return { ...videoComment, description: newDescription };
           }
-          return comment;
+          return videoComment;
         })
       );
       setIsEditing(false);
@@ -115,43 +111,43 @@ function Comment({
   const handleCommentLike = () => {
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
-      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(_id), 1);
+      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(comment._id), 1);
       setUserInfo({ ...userInfo, commentIdListLiked: newCommentIdListLiked });
-      let newLikes = likes - 1;
+      let newLikes = comment.likes - 1;
       updateLike(newLikes);
       return;
     } else if (isUnLikedByUser) {
       const newCommentIdListUnLiked = userInfo.commentIdListUnliked;
-      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(_id), 1);
+      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(comment._id), 1);
       setUserInfo({
         ...userInfo,
-        commentIdListLiked: [...userInfo.commentIdListLiked, _id],
+        commentIdListLiked: [...userInfo.commentIdListLiked, comment._id],
         commentIdListUnliked: newCommentIdListUnLiked
       });
     } else
       setUserInfo({
         ...userInfo,
-        commentIdListLiked: [...userInfo.commentIdListLiked, _id],
+        commentIdListLiked: [...userInfo.commentIdListLiked, comment._id],
       });
-    let newLikes = likes + 1;
+    let newLikes = comment.likes + 1;
     updateLike(newLikes);
             
   }
   const handleCommentUnLike = () => {
     if (isUnLikedByUser) {
       const newCommentIdListUnLiked = userInfo.commentIdListUnliked;
-      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(_id), 1);
+      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(comment._id), 1);
       setUserInfo({ ...userInfo, commentIdListUnliked: newCommentIdListUnLiked });
       return;
     } 
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
-      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(_id), 1);
-      let newLikes = likes - 1;
+      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(comment._id), 1);
+      let newLikes = comment.likes - 1;
       updateLike(newLikes);
       setUserInfo({
         ...userInfo,
-        commentIdListUnliked: [...userInfo.commentIdListUnliked, _id],
+        commentIdListUnliked: [...userInfo.commentIdListUnliked, comment._id],
         commentIdListLiked: newCommentIdListLiked
       });
       return;
@@ -159,12 +155,12 @@ function Comment({
     if (!isUnLikedByUser) {
       setUserInfo({
         ...userInfo,
-        commentIdListUnliked: [...userInfo.commentIdListUnliked, _id],
+        commentIdListUnliked: [...userInfo.commentIdListUnliked, comment._id],
       });
     }
   };
-  const isLikedByUser = userInfo?.commentIdListLiked.includes(_id);
-  const isUnLikedByUser = userInfo?.commentIdListUnliked.includes(_id);
+  const isLikedByUser = userInfo?.commentIdListLiked.includes(comment._id);
+  const isUnLikedByUser = userInfo?.commentIdListUnliked.includes(comment._id);
 
   return (
     <div className="list-group-item flex-column ">
@@ -175,9 +171,9 @@ function Comment({
           </div>
           <div className="col-11">
             <div className="d-flex">
-              <h6>{userName}</h6>
+              <h6>{comment.userName}</h6>
               &nbsp;
-              <small>{daysAgo(uploadDate)}</small>
+              <small>{daysAgo(comment.uploadDate)}</small>
               {userInfo?.username && (
                 <div className="ms-auto d-flex">
                   <button
@@ -231,7 +227,7 @@ function Comment({
                 </button>
               </div>
             ) : (
-              <p className="mb-1">{description}</p>
+              <p className="mb-1">{comment.description}</p>
             )}
           </div>
         </div>
@@ -259,7 +255,7 @@ function Comment({
                 }`}
               />{" "}
             </svg>
-            &nbsp;&nbsp;<p>{likes}</p>
+            &nbsp;&nbsp;<p>{comment.likes}</p>
           </div>
         </button>
         <button
