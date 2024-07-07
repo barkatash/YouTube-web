@@ -41,9 +41,26 @@ function Navbar({
   const onMoveToLogin = () => {
     navigate("/login");
   };
-  const onDeleteUser = () => {
-    alert(`The user ${userInfo.username} delete succesfully.`)
-    //logout();
+  const onDeleteUser = async () => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/users/${userInfo.username}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const json = await response.json();
+      alert(`The user ${userInfo.username} delete succesfully.`)
+      logout();
+    } catch (error) {
+      console.error("Error deleting user:", error);
+      alert("An error occurred while deleting the user.");
+    }
   }
   const onEditUser = () => {
 
