@@ -2,11 +2,7 @@ import React, { useState } from "react";
 import "./EditUserModal.css";
 import axios from "axios";
 
-function EditUserModal({
-  userInfo,
-  setUserInfo,
-  handleClose
-}) {
+function EditUserModal({ userInfo, setUserInfo, handleClose }) {
   const [password, setPassword] = useState("");
   const [imageFile, setImageFile] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -29,7 +25,8 @@ function EditUserModal({
         }
       );
       const updatedUser = response.data;
-      setUserInfo(updatedUser);
+      setUserInfo({...updatedUser, token: userInfo.token});
+      alert(`The user ${userInfo.username} update succesfully.`)
     } catch (error) {
       console.error("Error editing user:", error);
       alert("An error occurred while editing the user details.");
@@ -39,10 +36,13 @@ function EditUserModal({
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setUserInfo((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+    if (name === "password") setPassword(value);
+    else {
+      setUserInfo((prevState) => ({
+        ...prevState,
+        [name]: value,
+      }));
+    }
   };
 
   const handleFileChange = (e) => {

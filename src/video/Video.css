@@ -5,6 +5,7 @@
     border-radius: 8px;
     transition: filter 0.3s ease;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .video-image:hover {
     transform: scale(1.01);
