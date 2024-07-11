@@ -8,7 +8,7 @@ project status part1: finish
 The second part of this web is served through the server in: https://github.com/barkatash/project2024-server 
 so for part2 use this link and there will be more information about running the second part of the project.
 changes we did to work with server are on the the main-server branch.
-project status part2-server: in progress.
+project status part2-server: finish.
 part2-server link: https://github.com/barkatash/project2024-server
 
 about first part - client:
