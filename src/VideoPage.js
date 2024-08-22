@@ -11,7 +11,6 @@ function VideoPage({ isDarkMode, videos, setAllVideos, userInfo, setUserInfo, se
     const [key, setKey] = useState(0);
     const [videoComments, setVideoComments] = useState([]);
     const [isLoadingComments, setIsLoadingComments] = useState(true); 
-
     useEffect(() => {
       const fetchVideoComments = async () => {
         try {

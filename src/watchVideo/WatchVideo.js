@@ -37,22 +37,54 @@ function WatchVideo(
   useEffect(() => {
     const fetchVideoAndUploader = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/videos/" + id);
+        const response = await fetch(`http://localhost:8080/api/videos/${id}`);
         const video = await response.json();
         setVideo(video);
-        const responseUploader = await fetch(
-          `http://localhost:8080/api/users/${video.uploader}`
-        );
+        const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
-        if (userInfo.username) addVisit();
+        if (userInfo.username) {
+          // Call addVisit here
+          addVisit();
+        }
         setLoading(false);
       } catch (error) {
         setLoading(false);
       }
     };
+  
+    const addVisit = async () => {
+      try {
+        const token = userInfo.token;
+        const response = await axios.patch(
+          `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+  
+        const data = response.data;
+        const recommendations = data.recommendations;
+  
+        const videosResponse = await fetch("http://localhost:8080/api/videos/all");
+        const allVideos = await videosResponse.json();
+  
+        const newVideosList = allVideos.filter((video) =>
+          recommendations.includes(video._id)
+        );
+        setRecommendedVideos(newVideosList);
+      } catch (error) {
+        console.error("Error watching the video:", error);
+        alert("An error occurred while watching the video");
+      }
+    };
+  
     fetchVideoAndUploader();
-  }, [id]);
+  }, [id, userInfo, setRecommendedVideos]);
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShare, setShowShare] = useState(false);
@@ -95,35 +127,7 @@ function WatchVideo(
       alert("An error occurred while you liked the video");
     }
   };
-  const addVisit = async () => {
-    try {
-      const token = userInfo.token;
-      const response = await axios.patch(
-        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
-        {},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-
-      const data = response.data;
-      const recommendations = data.recommendations;
-
-      const videosResponse = await fetch("http://localhost:8080/api/videos/all");
-      const allVideos = await videosResponse.json();
-
-      const newVideosList = allVideos.filter((video) =>
-        recommendations.includes(video._id)
-      );
-      setRecommendedVideos(newVideosList);
-    } catch (error) {
-      console.error("Error watch the video:", error);
-      alert("An error occurred while you watch the video");
-    }
-  };
+  
   const isLoggedIn = !!userInfo?.username;
   const handleLike = () => {
     if (isLikedByUser) {
