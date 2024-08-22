@@ -14,6 +14,7 @@ import Sidebar from "./sidebar/Sidebar.js";
 function App() {
   const [allVideos, setAllVideos] = useState([]);
   const [matchedVideos, setMatchedVideos] = useState([]);
+  const [recommendedVideos, setRecommendedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
   useEffect(() => {
     const fetchVideos = async () => {
@@ -22,6 +23,7 @@ function App() {
         const data = await response.json();
         setAllVideos(data);
         setMatchedVideos(data);
+        setRecommendedVideos(data);
       } catch (error) {
         console.error("Error fetching videos:", error);
       }
@@ -92,6 +94,7 @@ function App() {
                 setUserInfo={setUserInfo}
               />
               <Homepage
+                recommendedVideos={recommendedVideos}
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
