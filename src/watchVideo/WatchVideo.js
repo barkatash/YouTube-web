@@ -6,7 +6,7 @@ import { daysAgo } from "../video/utils.js";
 import { useNavigate, useParams } from "react-router-dom";
 
 function WatchVideo (
-  { isDarkMode, videos, setAllVideos, userInfo, setUserInfo },
+  { isDarkMode, videos, setAllVideos, userInfo, setUserInfo, setRecommendedVideos },
   { key }
 ) {
   const { id } = useParams();
@@ -98,6 +98,15 @@ function WatchVideo (
           },
         }
       );
+
+    const data = response.data;
+    const recommendations = data.recommendations;
+
+    const newVideosList = videos.filter(video => 
+      recommendations.includes(video._id)
+    );
+    setRecommendedVideos(newVideosList);
+      
     } catch (error) {
       console.error("Error watch the video:", error);
       alert("An error occurred while you watch the video");

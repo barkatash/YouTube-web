@@ -126,6 +126,7 @@ function App() {
                 handleDeleteVideo={handleDeleteVideo}
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
+                setRecommendedVideos={setRecommendedVideos}
               />
             </div>
           }
