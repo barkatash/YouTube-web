@@ -5,8 +5,15 @@ import axios from "axios";
 import { daysAgo } from "../video/utils.js";
 import { useNavigate, useParams } from "react-router-dom";
 
-function WatchVideo (
-  { isDarkMode, videos, setAllVideos, userInfo, setUserInfo, setRecommendedVideos },
+function WatchVideo(
+  {
+    isDarkMode,
+    videos,
+    setAllVideos,
+    userInfo,
+    setUserInfo,
+    setRecommendedVideos,
+  },
   { key }
 ) {
   const { id } = useParams();
@@ -25,7 +32,7 @@ function WatchVideo (
     uploadDate: "",
     description: "",
     likes: 0,
-    categoryId: []
+    categoryId: [],
   });
   useEffect(() => {
     const fetchVideoAndUploader = async () => {
@@ -33,7 +40,9 @@ function WatchVideo (
         const response = await fetch("http://localhost:8080/api/videos/" + id);
         const video = await response.json();
         setVideo(video);
-        const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
+        const responseUploader = await fetch(
+          `http://localhost:8080/api/users/${video.uploader}`
+        );
         const data = await responseUploader.json();
         setUploader(data);
         if (userInfo.username) addVisit();
@@ -85,12 +94,13 @@ function WatchVideo (
       console.error("Error like the video:", error);
       alert("An error occurred while you liked the video");
     }
-  }
+  };
   const addVisit = async () => {
     try {
       const token = userInfo.token;
       const response = await axios.patch(
-        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,{},
+        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
+        {},
         {
           headers: {
             "Content-Type": "application/json",
@@ -99,19 +109,21 @@ function WatchVideo (
         }
       );
 
-    const data = response.data;
-    const recommendations = data.recommendations;
+      const data = response.data;
+      const recommendations = data.recommendations;
 
-    const newVideosList = videos.filter(video => 
-      recommendations.includes(video._id)
-    );
-    setRecommendedVideos(newVideosList);
-      
+      const videosResponse = await fetch("http://localhost:8080/api/videos/all");
+      const allVideos = await videosResponse.json();
+
+      const newVideosList = allVideos.filter((video) =>
+        recommendations.includes(video._id)
+      );
+      setRecommendedVideos(newVideosList);
     } catch (error) {
       console.error("Error watch the video:", error);
       alert("An error occurred while you watch the video");
     }
-  }
+  };
   const isLoggedIn = !!userInfo?.username;
   const handleLike = () => {
     if (isLikedByUser) {
@@ -174,9 +186,14 @@ function WatchVideo (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        {!loading && <video key={key} controls className="video">
-        <source src={`http://localhost:8080/${video.video}`} type="video/mp4" />
-        </video>}
+        {!loading && (
+          <video key={key} controls className="video">
+            <source
+              src={`http://localhost:8080/${video.video}`}
+              type="video/mp4"
+            />
+          </video>
+        )}
         <div className={`card-body ${isDarkMode ? "dark-mode" : "light-mode"}`}>
           <h5 className="card-title title-video-watch watch-video-title">
             {video?.title}
@@ -192,7 +209,10 @@ function WatchVideo (
             ) : (
               <div onClick={onMoveToUserPage} className="username-image"></div>
             )}
-            <h5 className="card-title uploader title-video-watch" onClick={onMoveToUserPage}>
+            <h5
+              className="card-title uploader title-video-watch"
+              onClick={onMoveToUserPage}
+            >
               {video?.uploader}
             </h5>
           </div>
