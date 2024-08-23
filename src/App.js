@@ -10,37 +10,13 @@ import UploadForm from "./uploadVideo/UploadForm.js";
 import MainComponent from "./logAndSignInWindow/MainComponent.js";
 import UserPage from "./userPage/UserPage.js";
 import Sidebar from "./sidebar/Sidebar.js";
+import axios from "axios";
 
 function App() {
   const [allVideos, setAllVideos] = useState([]);
   const [matchedVideos, setMatchedVideos] = useState([]);
   const [recommendedVideos, setRecommendedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  useEffect(() => {
-    const fetchVideos = async () => {
-      try {
-        const response = await fetch("http://localhost:8080/api/videos");
-        const data = await response.json();
-        setAllVideos(data);
-        setMatchedVideos(data);
-        setRecommendedVideos(data);
-      } catch (error) {
-        console.error("Error fetching videos:", error);
-      }
-    };
-    fetchVideos();
-  }, []);
-  const rerenderVideos = async () => {
-    try {
-      const response = await fetch("http://localhost:8080/api/videos");
-      const data = await response.json();
-      setAllVideos(data);
-      setMatchedVideos(data);
-    } catch (error) {
-      console.error("Error fetching videos:", error);
-    }
-  };
-
   const [userInfo, setUserInfo] = useLocalStorage("userInfo", {
     username: "",
     displayName: "",
@@ -51,6 +27,47 @@ function App() {
     commentIdListUnliked: [],
     token: "",
   });
+  useEffect(() => {
+    const fetchVideos = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/videos");
+        const data = await response.json();
+        setAllVideos(data);
+        setMatchedVideos(data);
+      } catch (error) {
+        console.error("Error fetching videos:", error);
+      }
+    };
+    const getRecommendations = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/users/${userInfo.username}/recommendations`);
+        const data = await response.json();
+        const recommendations = data.recommendations;
+        const videosResponse = await fetch("http://localhost:8080/api/videos/all");
+        const allVideos = await videosResponse.json();
+        const newVideosList = allVideos.filter((video) =>
+          recommendations.includes(video._id)
+        );
+        setRecommendedVideos(newVideosList);
+      } catch (error) {
+        console.error("Error:", error);
+        alert("An error occurred while using YouTube");
+      }
+    };
+    fetchVideos();
+    if (userInfo.username) getRecommendations();
+  }, []);
+  
+  const rerenderVideos = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/videos");
+      const data = await response.json();
+      setAllVideos(data);
+      setMatchedVideos(data);
+    } catch (error) {
+      console.error("Error fetching videos:", error);
+    }
+  };
 
   const handleDeleteVideo = async (id) => {
     try {
