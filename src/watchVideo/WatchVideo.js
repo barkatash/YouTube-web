@@ -1,6 +1,6 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { daysAgo } from "../video/utils.js";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,25 +34,31 @@ function WatchVideo(
     likes: 0,
     categoryId: [],
   });
+  const visitAdded = useRef(false);
+
   useEffect(() => {
     const fetchVideoAndUploader = async () => {
       try {
         const response = await fetch(`http://localhost:8080/api/videos/${id}`);
         const video = await response.json();
         setVideo(video);
+
         const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
-        if (userInfo.username) {
-          // Call addVisit here
+
+        if (userInfo.username && !visitAdded.current) {
+          visitAdded.current = true;
           addVisit();
         }
+
         setLoading(false);
       } catch (error) {
+        console.error("Error fetching video or uploader data:", error);
         setLoading(false);
       }
     };
-  
+
     const addVisit = async () => {
       try {
         const token = userInfo.token;
@@ -66,13 +72,13 @@ function WatchVideo(
             },
           }
         );
-  
+
         const data = response.data;
         const recommendations = data.recommendations;
-  
+
         const videosResponse = await fetch("http://localhost:8080/api/videos/all");
         const allVideos = await videosResponse.json();
-  
+
         const newVideosList = allVideos.filter((video) =>
           recommendations.includes(video._id)
         );
@@ -82,7 +88,7 @@ function WatchVideo(
         alert("An error occurred while watching the video");
       }
     };
-  
+
     fetchVideoAndUploader();
   }, [id, userInfo, setRecommendedVideos]);
 
