@@ -46,7 +46,7 @@ function WatchVideo(
         const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
-        if (userInfo.username && !visitAdded.current) {
+        if (userInfo.username && userInfo.username != "" && !visitAdded.current) {
           visitAdded.current = true;
           addVisit();
         }
@@ -59,6 +59,7 @@ function WatchVideo(
 
     const addVisit = async () => {
       try {
+        console.log(userInfo.username)
         const token = userInfo.token;
         const response = await axios.patch(
           `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,

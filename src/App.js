@@ -42,10 +42,12 @@ function App() {
 
       const getRecommendations = async () => {
         try {
-            const response = await fetch(`http://localhost:8080/api/users/${userInfo.username}/recommendations`);
-            const data = await response.json();
-            const recommendations = data.recommendations;
-            setRecommendedVideos(recommendations);
+          const response = await fetch(
+            `http://localhost:8080/api/users/${userInfo.username}/recommendations`
+          );
+          const data = await response.json();
+          const recommendations = data.recommendations;
+          setRecommendedVideos(recommendations);
         } catch (error) {
           console.error("Error:", error);
           alert("An error occurred while using YouTube");
@@ -53,12 +55,12 @@ function App() {
       };
 
       fetchVideos();
-      if (userInfo.username) getRecommendations();
+      if (userInfo.username != "") getRecommendations();
     } else {
       isMounted.current = true;
     }
   }, [userInfo.username]);
-  
+
   const rerenderVideos = async () => {
     try {
       const response = await fetch("http://localhost:8080/api/videos");
@@ -137,15 +139,27 @@ function App() {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
               />
-              <VideoPage
-                isDarkMode={isDarkMode}
-                videos={allVideos}
-                setAllVideos={setAllVideos}
-                handleDeleteVideo={handleDeleteVideo}
-                userInfo={userInfo}
-                setUserInfo={setUserInfo}
-                setRecommendedVideos={setRecommendedVideos}
-              />
+              {userInfo.username != "" ? (
+                <VideoPage
+                  isDarkMode={isDarkMode}
+                  videos={recommendedVideos}
+                  setAllVideos={setAllVideos}
+                  handleDeleteVideo={handleDeleteVideo}
+                  userInfo={userInfo}
+                  setUserInfo={setUserInfo}
+                  setRecommendedVideos={setRecommendedVideos}
+                />
+              ) : (
+                <VideoPage
+                  isDarkMode={isDarkMode}
+                  videos={allVideos}
+                  setAllVideos={setAllVideos}
+                  handleDeleteVideo={handleDeleteVideo}
+                  userInfo={userInfo}
+                  setUserInfo={setUserInfo}
+                  setRecommendedVideos={setRecommendedVideos}
+                />
+              )}
             </div>
           }
         />
