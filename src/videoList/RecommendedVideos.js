@@ -1,11 +1,17 @@
-import "./VideoList.css";
+import "./RecommendedVideos.css";
 import Video from "../video/Video";
 
-function VideoList({ matchedVideos, handleDeleteVideo, userInfo, setAllVideos, allVideos, rerenderVideos }) {
+function RecommendedVideos({
+  recommendedVideos,
+  handleDeleteVideo,
+  userInfo,
+  setAllVideos,
+  allVideos,
+  rerenderVideos,
+}) {
   return (
     <div>
-      {userInfo.username && 
-      <div className="videos-title">
+      <div className="recommended-videos-title">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="30"
@@ -23,23 +29,23 @@ function VideoList({ matchedVideos, handleDeleteVideo, userInfo, setAllVideos, a
           />
         </svg>
         &nbsp;
-        <h3>More Videos</h3>
-        </div>}
-      <div className="videos">
-      {matchedVideos.map((video, id) => (
-        <Video
-          key={id}
-          {...video}
-          handleDeleteVideo={handleDeleteVideo}
-          userInfo={userInfo}
-          setAllVideos={setAllVideos}
-          allVideos={allVideos}
-          rerenderVideos={rerenderVideos}
-        />
-      ))}
+        <h3>Recommended Videos For You</h3>
       </div>
+      <div className="videos">
+        {recommendedVideos.map((video, id) => (
+          <Video
+            key={id}
+            {...video}
+            handleDeleteVideo={handleDeleteVideo}
+            userInfo={userInfo}
+            setAllVideos={setAllVideos}
+            allVideos={allVideos}
+            rerenderVideos={rerenderVideos}
+          />
+        ))}
+      </div>
+      <br></br>
     </div>
   );
 }
-
-export default VideoList;
+export default RecommendedVideos;

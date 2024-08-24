@@ -1,9 +1,11 @@
 import Sidebar from "./sidebar/Sidebar.js";
 import VideoList from "./videoList/VideoList.js";
+import RecommendedVideos from "./videoList/RecommendedVideos.js";
 import CategoryNavbar from "./category/CategoryNavbar.js";
 import "./Homepage.css";
 
 function Homepage({
+  recommendedVideos,
   matchedVideos,
   setMatchedVideos,
   isDarkMode,
@@ -28,6 +30,15 @@ function Homepage({
               isDarkMode={isDarkMode}
             />
           </div>
+          {userInfo.username &&
+          <RecommendedVideos 
+            recommendedVideos={recommendedVideos}
+            handleDeleteVideo={handleDeleteVideo}
+            userInfo={userInfo}
+            setAllVideos={setAllVideos}
+            allVideos={allVideos}
+            rerenderVideos={rerenderVideos}
+          />}
           <VideoList
             matchedVideos={matchedVideos}
             handleDeleteVideo={handleDeleteVideo}

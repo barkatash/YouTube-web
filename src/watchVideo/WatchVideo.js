@@ -1,12 +1,19 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { daysAgo } from "../video/utils.js";
 import { useNavigate, useParams } from "react-router-dom";
 
-function WatchVideo (
-  { isDarkMode, videos, setAllVideos, userInfo, setUserInfo },
+function WatchVideo(
+  {
+    isDarkMode,
+    videos,
+    setAllVideos,
+    userInfo,
+    setUserInfo,
+    setRecommendedVideos,
+  },
   { key }
 ) {
   const { id } = useParams();
@@ -25,25 +32,56 @@ function WatchVideo (
     uploadDate: "",
     description: "",
     likes: 0,
-    categoryId: []
+    categoryId: [],
   });
+  const visitAdded = useRef(false);
+
   useEffect(() => {
     const fetchVideoAndUploader = async () => {
       try {
-        const response = await fetch("http://localhost:8080/api/videos/" + id);
+        const response = await fetch(`http://localhost:8080/api/videos/${id}`);
         const video = await response.json();
         setVideo(video);
+
         const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
-        if (userInfo.username) addVisit();
+        if (userInfo.username && userInfo.username != "" && !visitAdded.current) {
+          visitAdded.current = true;
+          addVisit();
+        }
         setLoading(false);
       } catch (error) {
+        console.error("Error fetching video or uploader data:", error);
         setLoading(false);
       }
     };
+
+    const addVisit = async () => {
+      try {
+        console.log(userInfo.username)
+        const token = userInfo.token;
+        const response = await axios.patch(
+          `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        const data = response.data;
+        const recommendations = data.recommendations;
+        setRecommendedVideos(recommendations);
+      } catch (error) {
+        console.error("Error watching the video:", error);
+        alert("An error occurred while watching the video");
+      }
+    };
+
     fetchVideoAndUploader();
-  }, [id]);
+  }, [id, userInfo, setRecommendedVideos]);
 
   const [showTooltip, setShowTooltip] = useState(false);
   const [showShare, setShowShare] = useState(false);
@@ -85,24 +123,8 @@ function WatchVideo (
       console.error("Error like the video:", error);
       alert("An error occurred while you liked the video");
     }
-  }
-  const addVisit = async () => {
-    try {
-      const token = userInfo.token;
-      const response = await axios.patch(
-        `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,{},
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + token,
-          },
-        }
-      );
-    } catch (error) {
-      console.error("Error watch the video:", error);
-      alert("An error occurred while you watch the video");
-    }
-  }
+  };
+  
   const isLoggedIn = !!userInfo?.username;
   const handleLike = () => {
     if (isLikedByUser) {
@@ -165,9 +187,14 @@ function WatchVideo (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        {!loading && <video key={key} controls className="video">
-        <source src={`http://localhost:8080/${video.video}`} type="video/mp4" />
-        </video>}
+        {!loading && (
+          <video key={key} controls className="video">
+            <source
+              src={`http://localhost:8080/${video.video}`}
+              type="video/mp4"
+            />
+          </video>
+        )}
         <div className={`card-body ${isDarkMode ? "dark-mode" : "light-mode"}`}>
           <h5 className="card-title title-video-watch watch-video-title">
             {video?.title}
@@ -183,7 +210,10 @@ function WatchVideo (
             ) : (
               <div onClick={onMoveToUserPage} className="username-image"></div>
             )}
-            <h5 className="card-title uploader title-video-watch" onClick={onMoveToUserPage}>
+            <h5
+              className="card-title uploader title-video-watch"
+              onClick={onMoveToUserPage}
+            >
               {video?.uploader}
             </h5>
           </div>
