@@ -47,10 +47,10 @@ function WatchVideo(
         const data = await responseUploader.json();
         setUploader(data);
 
-        if (userInfo.username && !visitAdded.current) {
-          visitAdded.current = true;
-          addVisit();
-        }
+        // if (userInfo.username && !visitAdded.current) {
+        //   visitAdded.current = true;
+        //   addVisit();
+        // }
 
         setLoading(false);
       } catch (error) {
