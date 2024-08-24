@@ -46,12 +46,10 @@ function WatchVideo(
         const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
         const data = await responseUploader.json();
         setUploader(data);
-
-        // if (userInfo.username && !visitAdded.current) {
-        //   visitAdded.current = true;
-        //   addVisit();
-        // }
-
+        if (userInfo.username && !visitAdded.current) {
+          visitAdded.current = true;
+          addVisit();
+        }
         setLoading(false);
       } catch (error) {
         console.error("Error fetching video or uploader data:", error);
@@ -72,17 +70,9 @@ function WatchVideo(
             },
           }
         );
-
         const data = response.data;
         const recommendations = data.recommendations;
-
-        const videosResponse = await fetch("http://localhost:8080/api/videos/all");
-        const allVideos = await videosResponse.json();
-
-        const newVideosList = allVideos.filter((video) =>
-          recommendations.includes(video._id)
-        );
-        setRecommendedVideos(newVideosList);
+        setRecommendedVideos(recommendations);
       } catch (error) {
         console.error("Error watching the video:", error);
         alert("An error occurred while watching the video");

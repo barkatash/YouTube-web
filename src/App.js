@@ -45,12 +45,7 @@ function App() {
             const response = await fetch(`http://localhost:8080/api/users/${userInfo.username}/recommendations`);
             const data = await response.json();
             const recommendations = data.recommendations;
-            const videosResponse = await fetch("http://localhost:8080/api/videos/all");
-            const allVideos = await videosResponse.json();
-            const newVideosList = allVideos.filter((video) =>
-              recommendations.includes(video._id)
-            );
-            setRecommendedVideos(newVideosList);
+            setRecommendedVideos(recommendations);
         } catch (error) {
           console.error("Error:", error);
           alert("An error occurred while using YouTube");
