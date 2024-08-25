@@ -4,7 +4,6 @@ import Video from "../video/Video";
 function VideoList({ matchedVideos, handleDeleteVideo, userInfo, setAllVideos, allVideos, rerenderVideos }) {
   return (
     <div>
-      {userInfo.username && 
       <div className="videos-title">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +23,7 @@ function VideoList({ matchedVideos, handleDeleteVideo, userInfo, setAllVideos, a
         </svg>
         &nbsp;
         <h3>More Videos</h3>
-        </div>}
+        </div>
       <div className="videos">
       {matchedVideos.map((video, id) => (
         <Video
