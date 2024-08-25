@@ -16,7 +16,6 @@ function App() {
   const [matchedVideos, setMatchedVideos] = useState([]);
   const [recommendedVideos, setRecommendedVideos] = useState([]);
   const [isDarkMode, setIsDarkMode] = useState(false);
-  const isMounted = useRef(false);
   const [userInfo, setUserInfo] = useLocalStorage("userInfo", {
     username: "",
     displayName: "",
@@ -28,7 +27,6 @@ function App() {
     token: "",
   });
   useEffect(() => {
-    if (isMounted.current) {
       const fetchVideos = async () => {
         try {
           const response = await fetch("http://localhost:8080/api/videos/all");
@@ -53,12 +51,8 @@ function App() {
           alert("An error occurred while using YouTube");
         }
       };
-
       fetchVideos();
       if (userInfo.username != "") getRecommendations();
-    } else {
-      isMounted.current = true;
-    }
   }, [userInfo.username]);
 
   const rerenderVideos = async () => {
