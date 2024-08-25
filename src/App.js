@@ -1,7 +1,7 @@
 import "./App.css";
 import "./navbar/Navbar.js";
 import Navbar from "./navbar/Navbar.js";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import useLocalStorage from "./hooks/useLocalStorage.js";
 import Homepage from "./Homepage.js";
 import { Route, Routes } from "react-router-dom";
@@ -40,9 +40,15 @@ function App() {
 
       const getRecommendations = async () => {
         try {
-          const response = await fetch(
-            `http://localhost:8080/api/users/${userInfo.username}/recommendations`
-          );
+          const response = await fetch('http://localhost:8080/api/videos/recommendations', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              username: userInfo.username,
+            }),
+          });
           const data = await response.json();
           const recommendations = data.recommendations;
           setRecommendedVideos(recommendations);
@@ -52,7 +58,7 @@ function App() {
         }
       };
       fetchVideos();
-      if (userInfo.username != "") getRecommendations();
+      getRecommendations();
   }, [userInfo.username]);
 
   const rerenderVideos = async () => {
@@ -133,7 +139,7 @@ function App() {
                 userInfo={userInfo}
                 setUserInfo={setUserInfo}
               />
-              {userInfo.username != "" ? (
+
                 <VideoPage
                   isDarkMode={isDarkMode}
                   videos={recommendedVideos}
@@ -143,17 +149,6 @@ function App() {
                   setUserInfo={setUserInfo}
                   setRecommendedVideos={setRecommendedVideos}
                 />
-              ) : (
-                <VideoPage
-                  isDarkMode={isDarkMode}
-                  videos={allVideos}
-                  setAllVideos={setAllVideos}
-                  handleDeleteVideo={handleDeleteVideo}
-                  userInfo={userInfo}
-                  setUserInfo={setUserInfo}
-                  setRecommendedVideos={setRecommendedVideos}
-                />
-              )}
             </div>
           }
         />

@@ -30,7 +30,6 @@ function Homepage({
               isDarkMode={isDarkMode}
             />
           </div>
-          {userInfo.username &&
           <RecommendedVideos 
             recommendedVideos={recommendedVideos}
             handleDeleteVideo={handleDeleteVideo}
@@ -38,7 +37,7 @@ function Homepage({
             setAllVideos={setAllVideos}
             allVideos={allVideos}
             rerenderVideos={rerenderVideos}
-          />}
+          />
           <VideoList
             matchedVideos={matchedVideos}
             handleDeleteVideo={handleDeleteVideo}

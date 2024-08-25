@@ -3,7 +3,6 @@ import VideoSidebar from "./VideoSidebar";
 function VideoListSidebar({ setKey, videos }) {
   return (
     <div>
-      {videos.length <= 10 && (
         <div className="recommended-videos-title">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -24,7 +23,6 @@ function VideoListSidebar({ setKey, videos }) {
           &nbsp;
           <h4>Recommended Videos For You</h4>
         </div>
-      )}
       {videos.map((video, id) => (
         <VideoSidebar key={id} {...video} setKey={setKey} />
       ))}
