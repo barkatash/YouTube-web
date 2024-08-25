@@ -31,7 +31,7 @@ function App() {
     if (isMounted.current) {
       const fetchVideos = async () => {
         try {
-          const response = await fetch("http://localhost:8080/api/videos");
+          const response = await fetch("http://localhost:8080/api/videos/all");
           const data = await response.json();
           setAllVideos(data);
           setMatchedVideos(data);
@@ -63,7 +63,7 @@ function App() {
 
   const rerenderVideos = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/videos");
+      const response = await fetch("http://localhost:8080/api/videos/all");
       const data = await response.json();
       setAllVideos(data);
       setMatchedVideos(data);
