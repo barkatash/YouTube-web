@@ -114,7 +114,6 @@ function App() {
                 setUserInfo={setUserInfo}
               />
               <Homepage
-                recommendedVideos={recommendedVideos}
                 matchedVideos={matchedVideos}
                 setMatchedVideos={setMatchedVideos}
                 isDarkMode={isDarkMode}
