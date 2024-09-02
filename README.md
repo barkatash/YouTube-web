@@ -6,8 +6,8 @@ part1 will be on the main branch.
 part2 with server will be on the main-server branch.
 project status part1: done.
 project status part2-server: done.
-project status part4: in process.
-part2-server link: https://github.com/barkatash/project2024-server
+project status part4: done.
+server link: https://github.com/barkatash/project2024-server
 part4 with cpp server is on this branch.
 
 about first part - client:
