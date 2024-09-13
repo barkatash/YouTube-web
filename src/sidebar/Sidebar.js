@@ -1,13 +1,4 @@
 import "./Sidebar.css";
-import home from "../images/1946488.png";
-import tranding from "../images/hot_fire_flame_trend_creative_trending_icon_212616.png";
-import music from "../images/music.png";
-import sports from "../images/sport.png";
-import news from "../images/news.png";
-import like from "../images/like.png";
-import history from "../images/history.png";
-import channel from "../images/channel.png";
-import videos from "../images/video.png";
 import "../App.css";
 
 function Sidebar({ isDarkMode }) {
@@ -61,7 +52,7 @@ function Sidebar({ isDarkMode }) {
           viewBox="0 0 16 16"
         >
           <path d="M6 13c0 1.105-1.12 2-2.5 2S1 14.105 1 13s1.12-2 2.5-2 2.5.896 2.5 2m9-2c0 1.105-1.12 2-2.5 2s-2.5-.895-2.5-2 1.12-2 2.5-2 2.5.895 2.5 2" />
-          <path fillrulle="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z" />
+          <path fillRule="evenodd" d="M14 11V2h1v9zM6 3v10H5V3z" />
           <path d="M5 2.905a1 1 0 0 1 .9-.995l8-.8a1 1 0 0 1 1.1.995V3L5 4z" />
         </svg>
         <a className="navbar-brand navbar-brand-side-bar" href="#">Music</a>

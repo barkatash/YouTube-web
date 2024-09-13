@@ -3,8 +3,9 @@ import "./UploadForm.css";
 import { useNavigate } from "react-router-dom";
 import watch from "../images/youtubelogo.svg";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
-function UploadForm({ allVideos, setAllVideos, userInfo }) {
+function UploadForm({ allVideos, setAllVideos, userInfo, rerenderVideos }) {
   const navigate = useNavigate();
   const onMoveToHomepage = () => {
     navigate("/");
@@ -21,6 +22,9 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
 
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [selectedImage, setSelectedImage] = useState(null);
+  const [selectedVideoSend, setSelectedVideoSend] = useState(null);
+  const [selectedImageSend, setSelectedImageSend] = useState(null);
+
   const maxId = Math.max(...allVideos.map(video => video.id), 0) + 1;
 
   const [formData, setFormData] = useState({
@@ -28,17 +32,18 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
     title: "",
     description: "",
     id: maxId,
-    image: "",
-    uploader: userInfo?.displayName ? userInfo?.displayName : "username",
+    image: null,
+    uploader: userInfo.username,
     duration: "",
-    visits: "0",
-    uploadDate: "now",
+    visits: 0,
+    uploadDate: "",
     likes: 0,
     categoryId: [0],
   });
 
   const handleVideoChange = (event) => {
     const videoFile = event.target.files[0];
+    setSelectedVideoSend(event.target.files[0]);
     if (videoFile) {
       const videoUrl = URL.createObjectURL(videoFile);
       setFormData((prevState) => ({
@@ -47,10 +52,12 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
       }));
       setSelectedVideo(videoFile);
     }
+
   };
 
   const handleImageChange = (event) => {
     const imageFile = event.target.files[0];
+    setSelectedImageSend(event.target.files[0]);
     if (imageFile) {
       const imageUrl = URL.createObjectURL(imageFile);
       setFormData((prevState) => ({
@@ -69,10 +76,44 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
     }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    setAllVideos([...allVideos, formData]);
-    onMoveToHomepage();
+    try {
+      const formDataToSend = new FormData();
+      formDataToSend.append("video", selectedVideoSend);
+      formDataToSend.append("image", selectedImageSend);
+      formDataToSend.append("title", formData.title);
+      formDataToSend.append("description", formData.description);
+      formDataToSend.append("id", formData.id);
+      formDataToSend.append("uploader", formData.uploader);
+      formDataToSend.append("duration", formData.duration);
+      formDataToSend.append("visits", formData.visits);
+      formDataToSend.append("uploadDate", formData.uploadDate);
+      formDataToSend.append("likes", formData.likes);
+      formDataToSend.append("categoryId", formData.categoryId);
+
+      const token = userInfo.token;
+      const response = await axios.post(
+        `http://localhost:8080/api/users/${userInfo.username}/videos`,
+        formDataToSend,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      if (response.data.errors) {
+        alert("You need to login to upload a video");
+        return;
+      }
+      setAllVideos([...allVideos, formData]);
+      rerenderVideos();
+      onMoveToHomepage();
+    } catch (error) {
+      console.error("Error upload video:", error);
+      alert("An error occurred while uploading the video.");
+    }
   };
 
   return (
@@ -87,6 +128,7 @@ function UploadForm({ allVideos, setAllVideos, userInfo }) {
       </div>
 
       <form
+        encType="multipart/form-data"
         onSubmit={handleSubmit}
         className="card card-upload mt-4 text-start add-video-form upload-form-page"
       >

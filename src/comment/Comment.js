@@ -1,54 +1,109 @@
 import "./Comment.css";
-import { useState } from "react";
-import signInUsers from "../db/signInUsers.json"
+import { useState, useEffect, useCallback } from "react";
+import { daysAgo } from "../video/utils";
 
 function Comment({
   setVideoComments,
   videoComments,
-  commentId,
-  userName,
-  description,
-  uploadDate,
-  likes,
+  comment,
   userInfo,
   setUserInfo
 }) {
 
   const [isEditing, setIsEditing] = useState(false);
-  const [newDescription, setNewDescription] = useState(description);
+  const [newDescription, setNewDescription] = useState(comment.description);
   const [showTooltip, setShowTooltip] = useState(false);
-  const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
+  const[uploader, setUploader] = useState();
   const isLoggedIn = !!userInfo?.username;
+
+  const fetchUploader = useCallback(async() => {
+    try {
+      const response = await fetch(`http://localhost:8080/api/users/${comment.userName}`);
+      const data = await response.json();
+      setUploader(data);
+    } catch (error) {
+      console.error('Error fetching user videos:', error);
+    }
+  }, [comment._id])
+  useEffect(() => {
+    fetchUploader();
+  }, [fetchUploader]);
 
   const updateLike = (newLikes) =>
     setVideoComments(
-      videoComments.map((comment) => {
-        if (comment.commentId === commentId) {
-          return { ...comment, likes: newLikes };
+      videoComments.map((videoComment) => {
+        if (videoComment._id === comment._id) {
+          return { ...videoComment, likes: newLikes };
         }
-        return comment;
+        return videoComment;
       })
     );
 
-  const onDeleteComment = () => {
-    setVideoComments(
-      videoComments.filter((comment) => comment.commentId !== commentId)
-    );
+  const onDeleteComment = async () => {
+    try {
+      console.log(comment._id);
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${comment._id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to delete this comment.");
+        return;
+      }
+      setVideoComments(
+        videoComments.filter((videoComment) => videoComment._id !== comment._id)
+      );
+    } catch (error) {
+      console.error("Error deleting comment:", error);
+      alert("An error occurred while deleting the comment.");
+    }
   };
   const onEditComment = () => {
     setIsEditing(true);
   };
 
-  const onSaveComment = () => {
-    setVideoComments(
-      videoComments.map((comment) => {
-        if (comment.commentId === commentId) {
-          return { ...comment, description: newDescription };
+  const onSaveComment = async () => {
+    try {
+      const token = userInfo.token;
+      const response = await fetch(
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${comment._id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify({ description: newDescription })
         }
-        return comment;
-      })
-    );
-    setIsEditing(false);
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You are not authorized to edit this comment.");
+        setIsEditing(false);
+        return;
+      }
+      setVideoComments(
+        videoComments.map((videoComment) => {
+          if (videoComment._id === comment._id) {
+            return { ...videoComment, description: newDescription };
+          }
+          return videoComment;
+        })
+      );
+      setIsEditing(false);
+    } catch (error) {
+      console.error("Error editing comment:", error);
+      alert("An error occurred while editing the comment.");
+      setIsEditing(false);
+    }
   };
   const handleAlert = () => {
     setShowTooltip(true);
@@ -57,43 +112,43 @@ function Comment({
   const handleCommentLike = () => {
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
-      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(commentId), 1);
+      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(comment._id), 1);
       setUserInfo({ ...userInfo, commentIdListLiked: newCommentIdListLiked });
-      let newLikes = likes - 1;
+      let newLikes = comment.likes - 1;
       updateLike(newLikes);
       return;
     } else if (isUnLikedByUser) {
       const newCommentIdListUnLiked = userInfo.commentIdListUnliked;
-      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(commentId), 1);
+      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(comment._id), 1);
       setUserInfo({
         ...userInfo,
-        commentIdListLiked: [...userInfo.commentIdListLiked, commentId],
+        commentIdListLiked: [...userInfo.commentIdListLiked, comment._id],
         commentIdListUnliked: newCommentIdListUnLiked
       });
     } else
       setUserInfo({
         ...userInfo,
-        commentIdListLiked: [...userInfo.commentIdListLiked, commentId],
+        commentIdListLiked: [...userInfo.commentIdListLiked, comment._id],
       });
-    let newLikes = likes + 1;
+    let newLikes = comment.likes + 1;
     updateLike(newLikes);
             
   }
   const handleCommentUnLike = () => {
     if (isUnLikedByUser) {
       const newCommentIdListUnLiked = userInfo.commentIdListUnliked;
-      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(commentId), 1);
+      newCommentIdListUnLiked.splice(userInfo.commentIdListUnliked.indexOf(comment._id), 1);
       setUserInfo({ ...userInfo, commentIdListUnliked: newCommentIdListUnLiked });
       return;
     } 
     if (isLikedByUser) {
       const newCommentIdListLiked = userInfo.commentIdListLiked;
-      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(commentId), 1);
-      let newLikes = likes - 1;
+      newCommentIdListLiked.splice(userInfo.commentIdListLiked.indexOf(comment._id), 1);
+      let newLikes = comment.likes - 1;
       updateLike(newLikes);
       setUserInfo({
         ...userInfo,
-        commentIdListUnliked: [...userInfo.commentIdListUnliked, commentId],
+        commentIdListUnliked: [...userInfo.commentIdListUnliked, comment._id],
         commentIdListLiked: newCommentIdListLiked
       });
       return;
@@ -101,29 +156,25 @@ function Comment({
     if (!isUnLikedByUser) {
       setUserInfo({
         ...userInfo,
-        commentIdListUnliked: [...userInfo.commentIdListUnliked, commentId],
+        commentIdListUnliked: [...userInfo.commentIdListUnliked, comment._id],
       });
     }
   };
-  const isLikedByUser = userInfo?.commentIdListLiked.includes(commentId);
-  const isUnLikedByUser = userInfo?.commentIdListUnliked.includes(commentId);
+  const isLikedByUser = userInfo?.commentIdListLiked.includes(comment._id);
+  const isUnLikedByUser = userInfo?.commentIdListUnliked.includes(comment._id);
 
   return (
     <div className="list-group-item flex-column ">
       <div>
         <div className="row">
           <div className="col-1 align-self-start">
-              {userInfo?.image && userInfo.username === userName ? (
-              <img className="username-image" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
-            ) : (
-              <img className="username-image-default username-image"></img>
-            )}
+              {uploader?.image && <img src={`http://localhost:8080/${uploader.image}`} className='username-image'></img>}
           </div>
           <div className="col-11">
             <div className="d-flex">
-              <h6>{userName}</h6>
+              <h6>{comment.userName}</h6>
               &nbsp;
-              <small>{uploadDate}</small>
+              <small>{daysAgo(comment.uploadDate)}</small>
               {userInfo?.username && (
                 <div className="ms-auto d-flex">
                   <button
@@ -177,7 +228,7 @@ function Comment({
                 </button>
               </div>
             ) : (
-              <p className="mb-1">{description}</p>
+              <p className="mb-1">{comment.description}</p>
             )}
           </div>
         </div>
@@ -205,7 +256,7 @@ function Comment({
                 }`}
               />{" "}
             </svg>
-            &nbsp;&nbsp;<p>{likes}</p>
+            &nbsp;&nbsp;<p>{comment.likes}</p>
           </div>
         </button>
         <button

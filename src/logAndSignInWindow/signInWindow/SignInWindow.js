@@ -1,10 +1,14 @@
+import { useState } from "react";
 import img1 from "../logInWindow/youtubeLogo.png";
 import "./SignInWindow.css";
+import axios from "axios";
 
-function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
+function SignInWindow({ navigateToLogIn, setUserInfo, userInfo }) {
+  const[profileImage, setProfileImage] = useState(null);
   const handleChange = (event) => {
     const { name, value, files } = event.target;
     if (name === "image" && files && files[0]) {
+      setProfileImage(event.target.files[0]);
       const file = files[0];
       const reader = new FileReader();
       reader.onloadend = () => {
@@ -22,23 +26,37 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
     }
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const { password, verifyPassword } = userInfo;
-
     if (password.length < 8 || password.length > 20) {
-      alert("Your password must be 8-20 characters long.");
+      alert('Your password must be 8-20 characters long.');
       return;
     }
 
     if (password !== verifyPassword) {
-      alert("Passwords do not match. Please try again.");
+      alert('Passwords do not match. Please try again.');
       return;
     }
-
-    setAllUsers((prevUsers) => [...prevUsers, userInfo]);
-    alert("Signed up successfully!");
-    navigateToLogIn();
+    try {
+          const formDataToSend = new FormData();
+          formDataToSend.append("username", userInfo.username);
+          formDataToSend.append("image", profileImage);
+          formDataToSend.append("displayName", userInfo.displayName);
+          formDataToSend.append("password", userInfo.password);
+        const response = await axios.post("http://localhost:8080/api/users/", formDataToSend);
+        if (response.data)
+        { 
+          alert('Signed up successfully!');
+          navigateToLogIn();
+        }
+        else {
+          alert('This username already taken, please choose other one.');
+        }
+    } catch (error) {
+      console.error('Error signing up:', error);
+      alert('Error signing up. Please try again later.');
+    }
   };
 
   const { username, displayName, password, verifyPassword, image } = userInfo;
@@ -58,7 +76,7 @@ function SignInWindow({ setAllUsers, navigateToLogIn, setUserInfo, userInfo }) {
             <div id="signInWindow_toContinue">to continue to YouTube</div>
           </div>
           <div id="signInWindow_part2">
-            <form className="row g-3" onSubmit={handleSubmit}>
+            <form className="row g-3" encType="multipart/form-data" onSubmit={handleSubmit}>
               <div id="signInWindow_textInputRow">
                 <div className="col-md-4 signInWindow_textInputs">
                   <input

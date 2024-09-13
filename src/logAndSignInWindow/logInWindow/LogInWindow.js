@@ -3,28 +3,41 @@ import "./LogInWindow.css";
 import img1 from "./youtubeLogo.png";
 import { useNavigate } from "react-router-dom";
 
-function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
+function LogInWindow({ navigateToSignIn, setUserInfo, userInfo }) {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogIn = (user) => {
-    setUserInfo(user);
-  };
   const onMoveToHomepage = () => {
     navigate("/");
   };
 
-  const handleLogInClick = (event) => {
+  const handleLogInClick = async (event) => {
     event.preventDefault();
-    const user = allUsers.find((user) => user.username === username && user.password === password);
-
-    if (user) {
-      alert(`Logged in successfully! Welcome, ${user.displayName}`);
-      handleLogIn(user);
+    const data = { username: username, password: password };
+    const res = await fetch("http://localhost:8080/api/tokens/", {
+      method: "post",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    const json = await res.json();
+    if (json.result === "success") {
+      setUserInfo({
+        username: json.username,
+        displayName: json.displayName,
+        image: json.image,
+        videoIdListLiked: json.videoIdListLiked,
+        videoIdListUnliked: json.videoIdListUnliked,
+        commentIdListLiked: json.commentIdListLiked,
+        commentIdListUnliked: json.commentIdListUnliked,
+        token: json.token,
+      });
+      alert(`Logged in successfully! Welcome, ${json.displayName}`);
       onMoveToHomepage();
     } else {
-      alert("Login failed. Invalid username or password.");
+      alert(json.message);
     }
   };
 
@@ -55,7 +68,7 @@ function LogInWindow({ allUsers, navigateToSignIn, setUserInfo }) {
                 required
               />
               <input
-                id="logInWindow_textInput"
+                id="logInWindow_textInput2"
                 type="password"
                 className="form-control"
                 name="password"

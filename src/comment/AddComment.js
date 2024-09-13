@@ -1,7 +1,5 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./AddComment.css";
-import signInUsers from "../db/signInUsers.json"
-
 
 function AddComment({
   comments,
@@ -12,8 +10,20 @@ function AddComment({
 }) {
   const [comment, setComment] = useState("");
   const [isFocused, setIsFocused] = useState(false);
-  const isFromDb = (userInfo) => signInUsers.find(user => user.username === userInfo?.username) !== undefined
+  const [newCommentsCounter, setNewCommentsCounter] = useState(0);
 
+  useEffect(() => {
+    const fetchVideoComments = async () => {
+      try {
+        const response = await fetch("http://localhost:8080/api/comments/video/" + videoId);
+        const data = await response.json();
+        setVideoComments(data);
+      } catch (error) {
+        console.error("Error fetching comments:", error);
+      }
+    };
+    fetchVideoComments();
+  }, [newCommentsCounter]);
   const onFocus = () => {
     setIsFocused(true);
   };
@@ -22,22 +32,47 @@ function AddComment({
     setComment(event.target.value);
   };
 
-  const onSubmitComment = (e) => {
+  const onSubmitComment = async (e) => {
     e.preventDefault();
-    setVideoComments([
-      {
-        commentId: comments.length + 1,
-        videoId: videoId,
-        userName: userInfo?.displayName ? userInfo?.displayName : "username",
+    try {
+      const token = userInfo.token;
+      const commentData = {
         description: comment,
-        uploadDate: "now",
-        likes: 0,
-        dislikes: 0,
-      },
-      ...comments,
-    ]);
-    setComment("");
-    setIsFocused(false);
+      }
+      const response = await fetch(
+        `http://localhost:8080/api/comments/user/${userInfo.username}/${videoId}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
+          body: JSON.stringify(commentData),
+        }
+      );
+      const json = await response.json();
+      if (json.errors) {
+        alert("You need to login to add a comment");
+        return;
+      }
+      setVideoComments([
+        {
+          videoId: json.videoId,
+          userName: json.userName,
+          description: json.description,
+          uploadDate: json.uploadDate,
+          likes: 0,
+          dislikes: 0,
+        },
+        ...comments,
+      ]);
+      setComment("");
+      setIsFocused(false);
+      setNewCommentsCounter(newCommentsCounter + 1);
+    } catch (error) {
+      console.error("Error edit video:", error);
+      alert("An error occurred while adding your comment.");
+    }
   };
 
   const onDeleteInput = () => {
@@ -49,7 +84,7 @@ function AddComment({
     <form role="search" onSubmit={onSubmitComment}>
       <div className="flex-container">
         {userInfo?.image ? (
-          <img className="username-image" alt="" src={isFromDb(userInfo) ? `${process.env.PUBLIC_URL}/${userInfo.image}` : userInfo.image}></img>
+          <img className="username-image" alt="" src={`http://localhost:8080/${userInfo.image}`}></img>
         ) : (
           <img className="username-image" alt=""></img>
         )}

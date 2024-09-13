@@ -5,6 +5,7 @@
     border-radius: 8px;
     transition: filter 0.3s ease;
     margin-bottom: 10px;
+    cursor: pointer;
 }
 .video-image:hover {
     transform: scale(1.01);
@@ -44,7 +45,7 @@
     right: 40px;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
-    padding: 2px 6px;
+    padding: 1px 3px;
     font-size: 12px;
     border-radius: 3px;
 }
@@ -60,4 +61,7 @@
 }
 .dropdown-menu-video-btn {
     border-color: transparent;
+}
+.uploader-link:hover {
+    cursor: pointer;
 }

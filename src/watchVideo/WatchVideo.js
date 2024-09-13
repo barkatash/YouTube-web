@@ -1,30 +1,89 @@
 import "./WatchVideo.css";
 import Share from "./Share.js";
-import { useState } from "react";
-import videosDb from "../db/videos.json"
+import { useState, useEffect, useRef } from "react";
+import axios from "axios";
+import { daysAgo } from "../video/utils.js";
+import { useNavigate, useParams } from "react-router-dom";
 
 function WatchVideo(
   {
-    id,
-    video,
-    title,
-    uploader,
-    visits,
-    description,
-    uploadDate,
-    likes,
     isDarkMode,
     videos,
     setAllVideos,
     userInfo,
     setUserInfo,
+    setRecommendedVideos,
   },
   { key }
 ) {
-  const publicUrl = process.env.PUBLIC_URL;
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [loading, setLoading] = useState(true);
+  const [uploader, setUploader] = useState();
+  const [video, setVideo] = useState({
+    _id: "",
+    id: 1,
+    image: "",
+    video: "",
+    title: "",
+    uploader: "",
+    duration: "",
+    visits: "",
+    uploadDate: "",
+    description: "",
+    likes: 0,
+    categoryId: [],
+  });
+  const visitAdded = useRef(false);
+
+  useEffect(() => {
+    const fetchVideoAndUploader = async () => {
+      try {
+        const response = await fetch(`http://localhost:8080/api/videos/${id}`);
+        const video = await response.json();
+        setVideo(video);
+
+        const responseUploader = await fetch(`http://localhost:8080/api/users/${video.uploader}`);
+        const data = await responseUploader.json();
+        setUploader(data);
+        if (userInfo.username && userInfo.username != "" && !visitAdded.current) {
+          visitAdded.current = true;
+          addVisit();
+        }
+        setLoading(false);
+      } catch (error) {
+        console.error("Error fetching video or uploader data:", error);
+        setLoading(false);
+      }
+    };
+
+    const addVisit = async () => {
+      try {
+        console.log(userInfo.username)
+        const token = userInfo.token;
+        const response = await axios.patch(
+          `http://localhost:8080/api/users/${userInfo.username}/videos/views/${id}`,
+          {},
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: "Bearer " + token,
+            },
+          }
+        );
+        const data = response.data;
+        const recommendations = data.recommendations;
+        setRecommendedVideos(recommendations);
+      } catch (error) {
+        console.error("Error watching the video:", error);
+        alert("An error occurred while watching the video");
+      }
+    };
+
+    fetchVideoAndUploader();
+  }, [id, userInfo, setRecommendedVideos]);
+
   const [showTooltip, setShowTooltip] = useState(false);
-  const isFromDb = (videoUrl) =>
-    videosDb.find((videoDb) => videoDb.video === videoUrl) !== undefined;
   const [showShare, setShowShare] = useState(false);
   const handleOpenShare = () => {
     setShowShare(true);
@@ -34,25 +93,45 @@ function WatchVideo(
   };
   const handleAlert = () => {
     setShowTooltip(true);
-    setTimeout(() => setShowTooltip(false), 3000);  
-  }
-  const updateLike = (newLikes) =>
-    setAllVideos(
-      videos.map((video) => {
-        if (video.id === id) {
-          return { ...video, likes: newLikes };
+    setTimeout(() => setShowTooltip(false), 3000);
+  };
+  const onMoveToUserPage = () => {
+    navigate(`/${video.uploader}`);
+  };
+  const updateLike = async (newLikes) => {
+    try {
+      const token = userInfo.token;
+      const response = await axios.patch(
+        `http://localhost:8080/api/users/${userInfo.username}/videos/like/${id}`,
+        { newLikes },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + token,
+          },
         }
-        return video;
-      })
-    );
-
+      );
+      setAllVideos(
+        videos.map((video) => {
+          if (video.id === id) {
+            return { ...video, likes: newLikes };
+          }
+          return video;
+        })
+      );
+    } catch (error) {
+      console.error("Error like the video:", error);
+      alert("An error occurred while you liked the video");
+    }
+  };
+  
   const isLoggedIn = !!userInfo?.username;
   const handleLike = () => {
     if (isLikedByUser) {
       const newVideoIdListLiked = userInfo.videoIdListLiked;
       newVideoIdListLiked.splice(userInfo.videoIdListLiked.indexOf(id), 1);
       setUserInfo({ ...userInfo, videoIdListLiked: newVideoIdListLiked });
-      let newLikes = likes - 1;
+      let newLikes = video?.likes - 1;
       updateLike(newLikes);
       return;
     } else if (isUnLikedByUser) {
@@ -61,17 +140,17 @@ function WatchVideo(
       setUserInfo({
         ...userInfo,
         videoIdListLiked: [...userInfo.videoIdListLiked, id],
-        videoIdListUnliked: newVideoIdListUnLiked
+        videoIdListUnliked: newVideoIdListUnLiked,
       });
     } else
       setUserInfo({
         ...userInfo,
         videoIdListLiked: [...userInfo.videoIdListLiked, id],
       });
-    let newLikes = likes + 1;
+    let newLikes = video?.likes + 1;
     updateLike(newLikes);
   };
-  
+
   const isLikedByUser = userInfo?.videoIdListLiked?.includes(id);
   const isUnLikedByUser = userInfo?.videoIdListUnliked?.includes(id);
 
@@ -81,19 +160,19 @@ function WatchVideo(
       newVideoIdListUnLiked.splice(userInfo.videoIdListUnliked.indexOf(id), 1);
       setUserInfo({ ...userInfo, videoIdListUnliked: newVideoIdListUnLiked });
       return;
-    } 
+    }
     if (isLikedByUser) {
       const newVideoIdListLiked = userInfo.videoIdListLiked;
       newVideoIdListLiked.splice(userInfo.videoIdListLiked.indexOf(id), 1);
-      let newLikes = likes - 1;
+      let newLikes = video?.likes - 1;
       updateLike(newLikes);
       setUserInfo({
         ...userInfo,
         videoIdListUnliked: [...userInfo.videoIdListUnliked, id],
-        videoIdListLiked: newVideoIdListLiked
+        videoIdListLiked: newVideoIdListLiked,
       });
       return;
-    } 
+    }
     if (!isUnLikedByUser) {
       setUserInfo({
         ...userInfo,
@@ -101,32 +180,41 @@ function WatchVideo(
       });
     }
   };
-  console.log(isFromDb(video));
+  if (loading) {
+    return <div>Loading...</div>;
+  }
   return (
     <div>
       <br></br>
       <div className={`card mb-3 ${isDarkMode ? "dark-mode" : "light-mode"}`}>
-        <video key={key} controls className="video">
-          <source
-            src={isFromDb(video) ? `${process.env.PUBLIC_URL}/${video}` : video}
-            type="video/mp4"
-          ></source>
-        </video>
+        {!loading && (
+          <video key={key} controls className="video">
+            <source
+              src={`http://localhost:8080/${video.video}`}
+              type="video/mp4"
+            />
+          </video>
+        )}
         <div className={`card-body ${isDarkMode ? "dark-mode" : "light-mode"}`}>
           <h5 className="card-title title-video-watch watch-video-title">
-            {title}
+            {video?.title}
           </h5>
           <div className="user-upload">
-            {userInfo?.image && userInfo.username === uploader ? (
+            {uploader?.image && !loading ? (
               <img
                 className="username-image"
-                src={`${publicUrl}/${userInfo.image}`}
+                alt="profile"
+                src={`http://localhost:8080/${uploader.image}`}
+                onClick={onMoveToUserPage}
               ></img>
             ) : (
-              <img className="username-image"></img>
+              <div onClick={onMoveToUserPage} className="username-image"></div>
             )}
-            <h5 className="card-title uploader title-video-watch">
-              {uploader}
+            <h5
+              className="card-title uploader title-video-watch"
+              onClick={onMoveToUserPage}
+            >
+              {video?.uploader}
             </h5>
           </div>
           <div className="flex-container d-flex justify-content-end">
@@ -155,7 +243,7 @@ function WatchVideo(
                       }`}
                     />
                   </svg>
-                  &nbsp;&nbsp;<p>{likes}</p>
+                  &nbsp;&nbsp;<p>{video?.likes}</p>
                 </div>
               </button>
               <button
@@ -205,15 +293,15 @@ function WatchVideo(
             </button>
             <Share show={showShare} handleClose={handleCloseShare} />
           </div>
-          <p className="card-text title-video-watch">{description}</p>
+          <p className="card-text title-video-watch">{video?.description}</p>
           <p className="card-text title-video-watch">
-            {visits} views &nbsp; {uploadDate}
+            {video?.visits} views &nbsp; {daysAgo(video?.uploadDate)}
           </p>
           {showTooltip && (
-              <small className="alertLogin bg-primary-subtle alertLoginVideo">
-                Please log in to like or unlike this video.
-              </small>
-            )}
+            <small className="alertLogin bg-primary-subtle alertLoginVideo">
+              Please log in to like or unlike this video.
+            </small>
+          )}
         </div>
       </div>
     </div>
